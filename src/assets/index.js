@@ -1,1 +1,1 @@
-//test
+export * from './icons'
