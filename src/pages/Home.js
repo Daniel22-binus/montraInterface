@@ -1,13 +1,16 @@
 import React from 'react';
 import {StyleSheet, Text, View, Button} from 'react-native';
+import PieChartReact from '../components/HomeComponent/PieChartReact';
 
 const Home = ({navigation}) => {
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+    <View>
+      <PieChartReact />
       <Button
-        onPress={() => navigation.navigate('Notifications')}
-        title="Go to notifications"
-      />
+          onPress={() => navigation.navigate('Notifications')}
+          title="Go to notifications"
+        />
+        <Text>Daniel</Text>
     </View>
   );
 };
