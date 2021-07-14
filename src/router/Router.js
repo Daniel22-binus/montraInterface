@@ -15,7 +15,8 @@ const MainApp = () => {
   return (
     <Drawer.Navigator
       initialRouteName="Home"
-      drawerContent={props => <DrawerContent {...props} />}>
+      drawerContent={props => <DrawerContent {...props} />}
+      drawerStyle={styles.navigatorContainer}>
       <Drawer.Screen name="Home" component={Home} />
       <Drawer.Screen name="Notifications" component={Notification} />
       <Drawer.Screen name="Budget" component={Budget} />
@@ -42,4 +43,10 @@ const Router = () => {
 
 export default Router;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  navigatorContainer: {
+    borderTopRightRadius: 40,
+    borderBottomRightRadius: 40,
+    opacity: 0.9,
+  }
+});

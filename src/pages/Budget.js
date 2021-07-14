@@ -1,9 +1,11 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Image } from 'react-native'
+import {BudgetIcon, HomeIcon} from '../assets';
 
 const Budget = () => {
     return (
         <View>
+            <Image source={BudgetIcon} />
             <Text>ini budget</Text>
         </View>
     )
