@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View, Button} from 'react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createStackNavigator} from '@react-navigation/stack';
-import Home from '../pages/Home';
+import Home from '../pages/HomePage/Home';
 import Notification from '../pages/Notification';
 import Splash from '../pages/Splash';
 import SignInScreen from "../pages/SignInScreen"

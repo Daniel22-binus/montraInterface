@@ -8,7 +8,18 @@ import SettingsIcon from './SettingsIcon.png';
 import LogoutIcon from './LogoutIcon.png';
 import WrongDefault from './WrongDefault.png';
 
-export {HomeIcon, NotificationsIcon, BudgetIcon, 
-    HistoryIcon, PlanningIcon, MonthPayIcon,
-    SettingsIcon, LogoutIcon,
-    WrongDefault};
+import AddIcon from './AddIcon.svg';
+
+export {
+  HomeIcon,
+  NotificationsIcon,
+  BudgetIcon,
+  HistoryIcon,
+  PlanningIcon,
+  MonthPayIcon,
+  SettingsIcon,
+  LogoutIcon,
+  WrongDefault,
+};
+
+export {AddIcon};

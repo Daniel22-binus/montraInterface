@@ -13,6 +13,7 @@ import {HomeIcon, NotificationsIcon, BudgetIcon,
 HistoryIcon, PlanningIcon, MonthPayIcon,
 SettingsIcon, LogoutIcon,
 WrongDefault} from '../../assets';
+import { BOLD_FONT } from '../../constant';
 
 
 const DrawerItemContent = ({title, navigation}) => {
@@ -70,7 +71,7 @@ const styles = StyleSheet.create({
   },
   item: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontFamily: BOLD_FONT,
     color: 'white',
     marginTop: 8,
     marginLeft: 7,
