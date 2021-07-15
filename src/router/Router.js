@@ -5,6 +5,9 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Home from '../pages/HomePage/Home';
 import Notification from '../pages/Notification';
 import Splash from '../pages/Splash';
+import SignInScreen from "../pages/SignInScreen"
+import ForgetPasswordScreen from "../pages/ForgetPassword"
+import SignUpScreen from "../pages/SignUpScreen"
 import Budget from '../pages/Budget';
 import DrawerContent from '../components/DrawerNavigation/DrawerContent';
 
@@ -26,10 +29,25 @@ const MainApp = () => {
 
 const Router = () => {
   return (
-    <Stack.Navigator initialRouteName="MainApp">
+    <Stack.Navigator initialRouteName="Splash">
       <Stack.Screen
         name="Splash"
         component={Splash}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="SignInScreen"
+        component={SignInScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="SignUpScreen"
+        component={SignUpScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="ForgetPasswordScreen"
+        component={ForgetPasswordScreen}
         options={{headerShown: false}}
       />
       <Stack.Screen
