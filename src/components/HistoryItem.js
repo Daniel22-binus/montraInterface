@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
+import { BOLD_FONT, PRIMARY_FONT } from '../constant';
 
 const HistoryItem = props => {
   const {title, date, rp} = props;
@@ -37,16 +38,18 @@ const styles = StyleSheet.create({
   title: {
       fontSize: 17,
       width: windowWidth * 0.45,
+      fontFamily: PRIMARY_FONT,
   },
   date: {
       marginVertical: 7,
       fontSize: 15,
-      color: '#8E8E93'
+      color: '#8E8E93',
+      fontFamily: PRIMARY_FONT,
   },
   rp: {
     color: 'red',
-    right: windowWidth * -0.24,
-    fontWeight: 'bold',
+    right: windowWidth * -0.23,
+    fontFamily: BOLD_FONT,
   },
   line: {
     borderStyle: 'solid',

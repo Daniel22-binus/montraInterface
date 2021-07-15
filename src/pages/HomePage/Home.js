@@ -3,6 +3,7 @@ import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import PieChartReact from '../../components/HomeComponent/PieChartReact';
 import HistoryItem from '../../components/HistoryItem';
 import { AddIcon } from '../../assets/icons';
+import { BOLD_FONT, PRIMARY_COLOR, PRIMARY_FONT } from '../../constant';
 
 const Home = ({navigation}) => {
   return (
@@ -50,16 +51,17 @@ export default Home;
 
 const styles = StyleSheet.create({
   textTitle: {
-    fontWeight: 'bold',
-    color: '#A067FC',
+    color: PRIMARY_COLOR,
     fontSize: 22,
     marginLeft: 12,
     marginVertical: 3,
+    fontFamily: BOLD_FONT,
   },
   textDetails: {
     color: '#A067FC',
     textDecorationLine: 'underline',
     textAlign: 'center',
     marginTop: 12,
+    fontFamily: PRIMARY_FONT
   },
 });
