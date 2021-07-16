@@ -5,7 +5,6 @@ import {GREEN_COLOR, PRIMARY_COLOR} from '../../constant';
 
 const PieChartReact = () => {
   const data = [50, 10, 40, 95, 85, 91, 35, 53, 24, 50];
-
   const randomColor = (index) => {
     if (index % 2 == 0) {
       return PRIMARY_COLOR;
