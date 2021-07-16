@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import DrawerItemContent from './DrawerItemContent';
 import {WrongDefault} from '../../assets'
+import { BOLD_FONT, PRIMARY_COLOR } from '../../constant';
 
 const DrawerContent = ({navigation}) => {
   return (
@@ -36,7 +37,7 @@ export default DrawerContent;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#A873FF",
+        backgroundColor: PRIMARY_COLOR,
         borderTopRightRadius: 40,
         borderBottomRightRadius: 40,
     },
@@ -55,13 +56,13 @@ const userStyle = StyleSheet.create({
   },
   welcome: {
     color: "white",
-    fontWeight: 'bold',
+    fontFamily: BOLD_FONT,
     marginVertical: 8,
     marginLeft: 10,
   },
   text:{
     color: "white",
-    fontWeight: 'bold',
+    fontFamily: BOLD_FONT,
   },
   image: {
     marginHorizontal: 12,
