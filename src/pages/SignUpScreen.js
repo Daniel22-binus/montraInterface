@@ -129,10 +129,10 @@ const SignUpScreen = ({navigation}) => {
       </View>
 
       <Animatable.View style={styles.footer} animation="fadeInUpBig">
-        <ScrollView>
           <View>
             <Text style={styles.text_header}>Register! </Text>
           </View>
+        <ScrollView>
           <Text style={[styles.text_footer, {marginTop: 8}]}>Username</Text>
           <View style={styles.action}>
             <FontAwesome name="user-o" color={PRIMARY_COLOR} size={20} />
@@ -153,7 +153,7 @@ const SignUpScreen = ({navigation}) => {
           <View style={styles.action}>
             <FontAwesome name="envelope-o" color={PRIMARY_COLOR} size={20} />
             <TextInput
-              placeholder="Your Email"
+              placeholder="Your E-mail"
               style={styles.textInput}
               autoCapitalize="none"
               onChangeText={val => textInputChange(val)}
@@ -171,7 +171,7 @@ const SignUpScreen = ({navigation}) => {
           <View style={styles.action}>
             <FontAwesome name="mobile" color={PRIMARY_COLOR} size={20} />
             <TextInput
-              placeholder="Your Email"
+              placeholder="Your Phone Number"
               style={styles.textInput}
               autoCapitalize="none"
               onChangeText={val => phoneInputChange(val)}
@@ -247,7 +247,6 @@ const SignUpScreen = ({navigation}) => {
                   style={{
                     color: GREEN_COLOR,
                     fontFamily: PRIMARY_FONT,
-                    textDecorationLine: 'underline',
                   }}>
                   {' '}
                   SignIn Here!
@@ -288,6 +287,7 @@ const styles = StyleSheet.create({
     color: PRIMARY_COLOR,
     fontFamily: BOLD_FONT,
     fontSize: 30,
+    paddingBottom: 5,
   },
   text_footer: {
     fontFamily: PRIMARY_FONT,
