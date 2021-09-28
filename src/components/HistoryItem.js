@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-import { BOLD_FONT, PRIMARY_FONT, TITLE_COLOR, DETAIL_COLOR } from '../constant';
+import { BOLD_FONT, PRIMARY_FONT, TITLE_COLOR, DETAIL_COLOR, SECONDARY_COLOR } from '../constant';
 
 const HistoryItem = props => {
   const {title, date, rp} = props;
@@ -56,5 +56,6 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderBottomWidth: 3,
     marginHorizontal: 8,
+    borderColor: SECONDARY_COLOR,
   },
 });
