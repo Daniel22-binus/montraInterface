@@ -1,7 +1,7 @@
 //color
-export const PRIMARY_COLOR = '#A067FC';
+export const PRIMARY_COLOR = '#697FA3';
 export const WHITE = '#fff';
-export const SECONDARY_COLOR = '#E4A4FC';
+export const SECONDARY_COLOR = '#CAD8D2';
 export const GREEN_COLOR = '#2DB521';
 
 //font

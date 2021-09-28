@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, Dimensions} from 'react-native';
 import PieChartReact from '../../components/HomeComponent/PieChartReact';
 import HistoryItem from '../../components/HistoryItem';
 import {AddIcon} from '../../assets/icons';
@@ -13,7 +13,7 @@ const HomeAll = () => {
           <Text style={textTop.budget}>your budget left:</Text>
           <Text style={textTop.rp}>Rp. 6.700.000</Text>
         </View>
-        <View style={{flexDirection: 'row', marginLeft: 125}}>
+        <View style={textTop.textcontainer}>
           <Text style={textTop.textexpense}>add expense</Text>
           <AddIcon />
         </View>
@@ -49,6 +49,8 @@ const HomeAll = () => {
 
 export default HomeAll;
 
+const windowWidth = Dimensions.get('window').width;
+
 const styles = StyleSheet.create({
   textTitle: {
     color: PRIMARY_COLOR,
@@ -74,6 +76,10 @@ const textTop = StyleSheet.create({
     fontFamily: BOLD_FONT,
     fontSize: 17,
     marginLeft: 12,
+  },
+  textcontainer: {
+    flexDirection: 'row', 
+    marginLeft: windowWidth * 0.32,
   },
   textexpense: {
     marginTop: 6,
