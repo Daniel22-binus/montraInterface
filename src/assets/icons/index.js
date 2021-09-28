@@ -9,6 +9,8 @@ import LogoutIcon from './LogoutIcon.png';
 import WrongDefault from './WrongDefault.png';
 
 import AddIcon from './AddIcon.svg';
+import MenuIcon from './MenuIcon.svg';
+import NotifActiveIcon from './NotificationIconNotActive.svg';
 
 export {
   HomeIcon,
@@ -22,4 +24,4 @@ export {
   WrongDefault,
 };
 
-export {AddIcon};
+export {AddIcon, MenuIcon, NotifActiveIcon};
