@@ -9,12 +9,18 @@ import {
   Dimensions,
 } from 'react-native';
 import {DrawerItem} from '@react-navigation/drawer';
-import {HomeIcon, NotificationsIcon, BudgetIcon,
-HistoryIcon, PlanningIcon, MonthPayIcon,
-SettingsIcon, LogoutIcon,
-WrongDefault} from '../../assets';
-import { BOLD_FONT } from '../../constant';
-
+import {
+  HomeIcon,
+  NotificationsIcon,
+  BudgetIcon,
+  HistoryIcon,
+  PlanningIcon,
+  MonthPayIcon,
+  SettingsIcon,
+  LogoutIcon,
+  WrongDefault,
+} from '../../assets';
+import {BOLD_FONT} from '../../constant';
 
 const DrawerItemContent = ({title, navigation}) => {
   const Icon = () => {
@@ -41,8 +47,8 @@ const DrawerItemContent = ({title, navigation}) => {
     //   />
 
     <TouchableHighlight
-    activeOpacity={1}
-    underlayColor="#DDDDDD"
+      activeOpacity={1}
+      underlayColor="#DDDDDD"
       onPress={() => {
         navigation.navigate(title);
       }}>

@@ -1,14 +1,17 @@
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  Dimensions,
-} from 'react-native';
-import { MenuIcon, NotifActiveIcon } from '../assets';
-import { BACKGROUND_COLOR } from '../constant';
+import {StyleSheet, View, TouchableOpacity, Dimensions} from 'react-native';
+import {MenuIcon, NotifActiveIcon, NotifNotActiveIcon} from '../assets';
+import {BACKGROUND_COLOR} from '../constant';
 
-const Header = ({navigation}) => {
+const Header = ({navigation, notif}) => {
+  const GetIconNotif = () => {
+    if (notif == 'active') {
+      return <NotifActiveIcon />;
+    }
+
+    return <NotifNotActiveIcon />;
+  };
+
   return (
     <View style={styles.header}>
       <TouchableOpacity
@@ -20,14 +23,15 @@ const Header = ({navigation}) => {
         </View>
       </TouchableOpacity>
 
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('Notifications');
-        }}>
-        <View style={styles.notifIcon}>
-          <NotifActiveIcon />
-        </View>
-      </TouchableOpacity>
+      <View style={styles.notifIcon}>
+        <TouchableOpacity
+          onPress={() => {
+            if (notif == 'active') navigation.goBack();
+            else navigation.navigate('Notifications');
+          }}>
+          <GetIconNotif />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };

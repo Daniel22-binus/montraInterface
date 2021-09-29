@@ -10,7 +10,8 @@ import WrongDefault from './WrongDefault.png';
 
 import AddIcon from './AddIcon.svg';
 import MenuIcon from './MenuIcon.svg';
-import NotifActiveIcon from './NotificationIconNotActive.svg';
+import NotifNotActiveIcon from './NotificationIconNotActive.svg';
+import NotifActiveIcon from './NotificationIconActive.svg';
 
 export {
   HomeIcon,
@@ -24,4 +25,4 @@ export {
   WrongDefault,
 };
 
-export {AddIcon, MenuIcon, NotifActiveIcon};
+export {AddIcon, MenuIcon, NotifNotActiveIcon, NotifActiveIcon};
