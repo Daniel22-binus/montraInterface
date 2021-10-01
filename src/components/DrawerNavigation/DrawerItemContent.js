@@ -11,7 +11,7 @@ import {
 import {DrawerItem} from '@react-navigation/drawer';
 import {
   HomeIcon,
-  NotificationsIcon,
+  NotifNotActiveIcon,
   BudgetIcon,
   HistoryIcon,
   PlanningIcon,
@@ -20,20 +20,20 @@ import {
   LogoutIcon,
   WrongDefault,
 } from '../../assets';
-import {BOLD_FONT} from '../../constant';
+import {BOLD_FONT, TITLE_COLOR} from '../../constant';
 
 const DrawerItemContent = ({title, navigation}) => {
   const Icon = () => {
-    if (title === 'Home') return HomeIcon;
-    if (title === 'Notifications') return NotificationsIcon;
-    if (title === 'Budget') return BudgetIcon;
+    if (title === 'Home') return <HomeIcon />;
+    if (title === 'Notifications') return <NotifNotActiveIcon />;
+    if (title === 'Budget') return <BudgetIcon />;
 
-    if (title === 'History Transaction') return HistoryIcon;
-    if (title === 'Planning') return PlanningIcon;
-    if (title === 'Monthly Payment') return MonthPayIcon;
+    if (title === 'History Transaction') return <HistoryIcon />;
+    if (title === 'Planning') return <PlanningIcon />;
+    if (title === 'Monthly Payment') return <MonthPayIcon />;
 
-    if (title === 'Settings') return SettingsIcon;
-    if (title === 'Logout') return LogoutIcon;
+    if (title === 'Settings') return <SettingsIcon />;
+    if (title === 'Logout') return <LogoutIcon />;
 
     return WrongDefault;
   };
@@ -53,7 +53,8 @@ const DrawerItemContent = ({title, navigation}) => {
         navigation.navigate(title);
       }}>
       <View style={styles.container}>
-        <Image style={styles.icon} source={Icon()} />
+        {/* <Image style={styles.icon} source={Icon()} /> */}
+        <Icon />
         <Text style={styles.item}>{title}</Text>
       </View>
     </TouchableHighlight>
@@ -68,7 +69,8 @@ export default DrawerItemContent;
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    marginVertical: 6,
+    marginVertical: 8,
+    marginLeft: windowWidth * 0.05,
   },
   icon: {
     marginLeft: 5,
@@ -78,7 +80,7 @@ const styles = StyleSheet.create({
   item: {
     fontSize: 16,
     fontFamily: BOLD_FONT,
-    color: 'white',
+    color: TITLE_COLOR,
     marginTop: 8,
     marginLeft: 7,
   },
