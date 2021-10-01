@@ -30,21 +30,10 @@ const Notification = ({navigation}) => {
         </View>
 
         <View>
-          <HistoryItem
-            title="Beli mcflurry rainbow"
-            date="15 January 2021"
-            rp="50.000"
-          />
-          <HistoryItem
-            title="isi saldo mrt card"
-            date="3 January 2021"
-            rp="100.000"
-          />
-          <HistoryItem
-            title="Bayar uang sekolah bulan january"
-            date="1 January 2021"
-            rp="1.000.000"
-          />
+          <HistoryItem title="Your ‘Food & Beverage’ Budget almost exceeds the limit " />
+          <HistoryItem title="Successfully added new Budget ‘Transportation’" />
+          <HistoryItem title="Successfully added new Budget ‘Education’" />
+          <HistoryItem title="Don’t forget to pay your PLN’s fee and check in Monthly Payment!" />
         </View>
       </View>
     </View>
@@ -87,6 +76,6 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     textDecorationLine: 'underline',
     color: BACKGROUND_COLOR,
-    marginVertical: 5
+    marginVertical: 5,
   },
 });
