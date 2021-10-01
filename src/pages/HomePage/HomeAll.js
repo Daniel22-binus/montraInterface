@@ -1,5 +1,11 @@
 import React from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, Dimensions} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
 import PieChartReact from '../../components/HomeComponent/PieChartReact';
 import HistoryItem from '../../components/HistoryItem';
 import {AddIcon} from '../../assets/icons';
@@ -8,15 +14,17 @@ import {BOLD_FONT, PRIMARY_COLOR, PRIMARY_FONT} from '../../constant';
 const HomeAll = () => {
   return (
     <View style={{backgroundColor: 'white', flex: 1}}>
-      <View style={{flexDirection: 'row', marginLeft: 10, marginVertical: 12,}}>
+      <View style={{flexDirection: 'row', marginLeft: 10, marginVertical: 12}}>
         <View>
           <Text style={textTop.budget}>your budget left:</Text>
           <Text style={textTop.rp}>Rp. 6.700.000</Text>
         </View>
-        <View style={textTop.textcontainer}>
-          <Text style={textTop.textexpense}>add expense</Text>
-          <AddIcon />
-        </View>
+        <TouchableOpacity>
+          <View style={textTop.textcontainer}>
+            <Text style={textTop.textexpense}>Add Expense</Text>
+            <AddIcon />
+          </View>
+        </TouchableOpacity>
       </View>
       <PieChartReact />
       <View>
@@ -70,7 +78,7 @@ const styles = StyleSheet.create({
 
 const textTop = StyleSheet.create({
   budget: {
-      fontStyle: 'italic',
+    fontStyle: 'italic',
   },
   rp: {
     fontFamily: BOLD_FONT,
@@ -78,11 +86,11 @@ const textTop = StyleSheet.create({
     marginLeft: 12,
   },
   textcontainer: {
-    flexDirection: 'row', 
+    flexDirection: 'row',
     marginLeft: windowWidth * 0.32,
+    marginTop: 4,
   },
   textexpense: {
-    marginTop: 6,
     fontFamily: 'Inter-Regular',
     fontStyle: 'italic',
     marginRight: 7,

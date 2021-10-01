@@ -8,7 +8,7 @@ import SettingsIcon from './Settings.svg';
 import LogoutIcon from './LogOut.svg';
 import WrongDefault from './WrongDefault.png';
 
-import AddIcon from './AddIcon.svg';
+import AddIcon from './AddIcon2.svg';
 import MenuIcon from './MenuIcon.svg';
 import NotifNotActiveIcon from './NotificationIconNotActive.svg';
 import NotifActiveIcon from './NotificationIconActive.svg';
