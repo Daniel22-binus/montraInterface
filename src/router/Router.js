@@ -9,6 +9,7 @@ import SignInScreen from "../pages/SignInScreen"
 import ForgetPasswordScreen from "../pages/ForgetPassword"
 import SignUpScreen from "../pages/SignUpScreen"
 import Budget from '../pages/Budget';
+import Planning from '../pages/Planning';
 import DrawerContent from '../components/DrawerNavigation/DrawerContent';
 
 const Drawer = createDrawerNavigator();
@@ -23,6 +24,7 @@ const MainApp = () => {
       <Drawer.Screen name="Home" component={Home} />
       <Drawer.Screen name="Notifications" component={Notification} />
       <Drawer.Screen name="Budget" component={Budget} />
+      <Drawer.Screen name="Planning" component={Planning} />
     </Drawer.Navigator>
   );
 };
