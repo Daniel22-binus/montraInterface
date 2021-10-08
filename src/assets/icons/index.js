@@ -1,14 +1,28 @@
-import BudgetIcon from './BudgetIcon.png';
-import HomeIcon from './HomeIcon.png';
-import NotificationsIcon from './NotificationsIcon.png';
-import HistoryIcon from './HistoryIcon.png';
-import PlanningIcon from './PlanningIcon.png';
-import MonthPayIcon from './MonthPayIcon.png';
-import SettingsIcon from './SettingsIcon.png';
-import LogoutIcon from './LogoutIcon.png';
+import BudgetIcon from './Budget.svg';
+import HomeIcon from './Home.svg';
+// import NotificationsIcon from './NotificationsIcon.png';
+import HistoryIcon from './HistoryTransaction.svg';
+import PlanningIcon from './Planning.svg';
+import MonthPayIcon from './MonthlyPayment.svg';
+import SettingsIcon from './Settings.svg';
+import LogoutIcon from './LogOut.svg';
 import WrongDefault from './WrongDefault.png';
 
-export {HomeIcon, NotificationsIcon, BudgetIcon, 
-    HistoryIcon, PlanningIcon, MonthPayIcon,
-    SettingsIcon, LogoutIcon,
-    WrongDefault};
+import AddIcon from './AddIcon2.svg';
+import MenuIcon from './MenuIcon.svg';
+import NotifNotActiveIcon from './NotificationIconNotActive.svg';
+import NotifActiveIcon from './NotificationIconActive.svg';
+
+export {
+  HomeIcon,
+  // NotificationsIcon,
+  BudgetIcon,
+  HistoryIcon,
+  PlanningIcon,
+  MonthPayIcon,
+  SettingsIcon,
+  LogoutIcon,
+  WrongDefault,
+};
+
+export {AddIcon, MenuIcon, NotifNotActiveIcon, NotifActiveIcon};
