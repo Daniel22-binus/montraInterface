@@ -9,6 +9,7 @@ import SignInScreen from "../pages/SignInScreen"
 import ForgetPasswordScreen from "../pages/ForgetPassword"
 import SignUpScreen from "../pages/SignUpScreen"
 import Budget from '../pages/Budget';
+import Planning from '../pages/Planning';
 import DrawerContent from '../components/DrawerNavigation/DrawerContent';
 import MonthlyPayment from '../pages/MonthlyPayment';
 
@@ -25,6 +26,7 @@ const MainApp = () => {
       <Drawer.Screen name="Notifications" component={Notification} />
       <Drawer.Screen name="Budget" component={Budget} />
       <Drawer.Screen name="Monthly Payment" component={MonthlyPayment}/>
+      <Drawer.Screen name="Planning" component={Planning} />
     </Drawer.Navigator>
   );
 };

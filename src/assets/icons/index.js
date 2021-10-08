@@ -13,10 +13,12 @@ import MenuIcon from './MenuIcon.svg';
 import NotifNotActiveIcon from './NotificationIconNotActive.svg';
 import NotifActiveIcon from './NotificationIconActive.svg';
 import Edit2Icon from './edit2.svg';
-import DeleteIcon from './delete.svg';
 import BackIcon from './BackIcon.svg';
+import DeleteIcon from './delete.svg';
 import Add1Icon from './add1.svg';
 
+
+//png
 export {
   HomeIcon,
   // NotificationsIcon,
@@ -29,8 +31,8 @@ export {
   WrongDefault,
   Edit2Icon,
   DeleteIcon,
-  BackIcon,
   Add1Icon,
 };
 
-export {AddIcon, MenuIcon, NotifNotActiveIcon, NotifActiveIcon};
+//svg
+export {AddIcon, MenuIcon, NotifNotActiveIcon, NotifActiveIcon, BackIcon};
