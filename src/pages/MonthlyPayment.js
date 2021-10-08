@@ -4,20 +4,12 @@ import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import {Add1Icon, BackIcon} from '../assets';
 import MonthlyPaymentItem from '../components/MonthlyPaymentItem';
 import {BOLD_FONT, TITLE_COLOR} from '../constant';
+import HeaderBack from '../components/HeaderBack';
 
 const MonthlyPayment = ({navigation}) => {
   return (
     <View style={{flex: 1}}>
-      <View style={styles.upperNav}>
-        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-          <BackIcon style={styles.backIcon} />
-        </TouchableOpacity>
-
-        <View style={styles.monthlyPayment}>
-          <Text style={styles.font}>Monthly Payment</Text>
-        </View>
-      </View>
-
+      <HeaderBack navigation={navigation} title="Monthly Payment" />
       <ScrollView>
         <MonthlyPaymentItem
           title="PLN’s Fee"

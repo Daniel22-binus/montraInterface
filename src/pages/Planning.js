@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, StyleSheet, Dimensions, ScrollView} from 'react-native';
 import HeaderBack from '../components/HeaderBack';
 import {BOLD_FONT, PRIMARY_FONT, TITLE_COLOR} from '../constant';
+import PlanningItem from '../components/PlanningComponent/PlanningItem';
 
 const Planning = ({navigation}) => {
   return (
@@ -13,8 +14,12 @@ const Planning = ({navigation}) => {
       </View>
       <Text style={styles.title2}>here’s your ongoing planning</Text>
 
-      <View>
-        <ScrollView horizontal={true}></ScrollView>
+      <View style={{marginTop: 25}}>
+        <ScrollView horizontal={true} >
+          <PlanningItem />
+          <PlanningItem />
+          <PlanningItem />
+        </ScrollView>
       </View>
     </View>
   );
