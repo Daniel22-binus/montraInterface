@@ -62,7 +62,8 @@ const SignInScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
+      <Animatable.View 
+      animation="fadeInDownBig"style={styles.header}>
         <View style={{flexDirection: 'row'}}>
           <View style={{flexDirection: 'column'}}>
             <Text style={styles.text_header}>Welcome to</Text>
@@ -74,9 +75,9 @@ const SignInScreen = ({navigation}) => {
             resizeMode="cover"
           />
         </View>
-      </View>
+      </Animatable.View>
 
-      <View style={styles.footer}>
+      <Animatable.View animation="fadeInUpBig"style={styles.footer}>
         <Text style={styles.text_login}>Login Here!</Text>
         <Text style={styles.text_userPassword}>Username</Text>
 
@@ -139,7 +140,7 @@ const SignInScreen = ({navigation}) => {
             <Text style={{color: GREEN_COLOR}}>Create new Account here</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </Animatable.View>
     </View>
   );
 };
