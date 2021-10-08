@@ -12,6 +12,10 @@ import AddIcon from './AddIcon2.svg';
 import MenuIcon from './MenuIcon.svg';
 import NotifNotActiveIcon from './NotificationIconNotActive.svg';
 import NotifActiveIcon from './NotificationIconActive.svg';
+import Edit2Icon from './edit2.svg';
+import DeleteIcon from './delete.svg';
+import BackIcon from './BackIcon.svg';
+import Add1Icon from './add1.svg';
 
 export {
   HomeIcon,
@@ -23,6 +27,10 @@ export {
   SettingsIcon,
   LogoutIcon,
   WrongDefault,
+  Edit2Icon,
+  DeleteIcon,
+  BackIcon,
+  Add1Icon,
 };
 
 export {AddIcon, MenuIcon, NotifNotActiveIcon, NotifActiveIcon};
