@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
-import { TITLE_COLOR } from '../../constant';
+import {PRIMARY_FONT, TITLE_COLOR} from '../../constant';
 
-const PlanningNeeds = ({needsTitle}) => {
-  const [toggleCheckBox, setToggleCheckBox] = useState(false);
+const PlanningNeeds = ({needsTitle, state}) => {
+  const [toggleCheckBox, setToggleCheckBox] = useState(state);
   return (
     <View style={styles.container}>
       <CheckBox
@@ -21,10 +21,13 @@ const PlanningNeeds = ({needsTitle}) => {
 export default PlanningNeeds;
 
 const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'row',
-    },
-    title: {
-        marginTop: 7,
-    },
+  container: {
+    flexDirection: 'row',
+  },
+  title: {
+    marginTop: 7,
+    fontFamily: PRIMARY_FONT,
+    fontSize: 18,
+    color: TITLE_COLOR,
+  },
 });

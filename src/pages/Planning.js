@@ -1,8 +1,16 @@
 import React from 'react';
-import {View, Text, StyleSheet, Dimensions, ScrollView} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import HeaderBack from '../components/HeaderBack';
 import {BOLD_FONT, PRIMARY_FONT, TITLE_COLOR} from '../constant';
 import PlanningItem from '../components/PlanningComponent/PlanningItem';
+import { Add1Icon } from '../assets/icons';
 
 const Planning = ({navigation}) => {
   return (
@@ -15,10 +23,18 @@ const Planning = ({navigation}) => {
       <Text style={styles.title2}>here’s your ongoing planning</Text>
 
       <View style={{marginTop: 25}}>
-        <ScrollView horizontal={true} >
+        <ScrollView horizontal={true}>
           <PlanningItem />
           <PlanningItem />
           <PlanningItem />
+          <TouchableOpacity>
+            <View style={addBtnStyle.addBorder}>
+              <View style={addBtnStyle.containerImg}>
+                <Add1Icon />
+                <Text style={addBtnStyle.text}>Add Planning</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
         </ScrollView>
       </View>
     </View>
@@ -28,6 +44,7 @@ const Planning = ({navigation}) => {
 export default Planning;
 
 const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
   container: {
@@ -53,5 +70,42 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: TITLE_COLOR,
     marginLeft: windowWidth * 0.03,
+  },
+});
+
+const addBtnStyle = StyleSheet.create({
+  addBorder: {
+    //size
+    width: windowWidth * 0.75,
+    height: windowHeight * 0.5,
+    marginHorizontal: windowWidth * 0.05,
+
+    //shadow
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 7,
+    },
+    shadowOpacity: 0.43,
+    shadowRadius: 9.51,
+    elevation: 15,
+
+    //border
+    borderRadius: 40,
+    borderColor: TITLE_COLOR,
+    borderStyle: 'solid',
+    borderWidth: 5,
+    backgroundColor: 'white',
+
+  },
+  containerImg: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+  },
+  text: {
+    fontFamily: BOLD_FONT,
+    color: TITLE_COLOR,
+    fontSize: 14,
   },
 });

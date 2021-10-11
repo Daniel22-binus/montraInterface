@@ -23,7 +23,7 @@ const PlanningItem = () => {
       start={{x: 0.5, y: 1.0}}
       end={{x: 1.0, y: 0.5}}
       style={styles.linearColor}
-      colors={[PRIMARY_COLOR, SECONDARY_COLOR]}>
+      colors={["#9ABCDD", "#CAD8D2"]}>
       <View style={styles.container}>
         <View style={{flexDirection: 'row'}}>
           <Text style={styles.title}>Trip to Hawaii</Text>
@@ -39,12 +39,12 @@ const PlanningItem = () => {
         <Text style={styles.price}>Rp. 15.000.000</Text>
         <View style={styles.line} />
 
-        <View>
-          <PlanningNeeds needsTitle="Plane Ticket Fee" />
-          <PlanningNeeds needsTitle="Hotel" />
-          <PlanningNeeds needsTitle="Tourist Guide" />
-          <PlanningNeeds needsTitle="Meal Cost" />
-          <PlanningNeeds needsTitle="Souvenirs" />
+        <View style={styles.needsContainer}>
+          <PlanningNeeds needsTitle="Plane Ticket Fee" state={false} />
+          <PlanningNeeds needsTitle="Hotel" state={true}/>
+          <PlanningNeeds needsTitle="Tourist Guide" state={false} />
+          <PlanningNeeds needsTitle="Meal Cost" state={true} />
+          <PlanningNeeds needsTitle="Souvenirs" state={false} />
         </View>
       </View>
     </LinearGradient>
@@ -97,11 +97,16 @@ const styles = StyleSheet.create({
     color: TITLE_COLOR,
     fontSize: 18,
     marginLeft: windowWidth * 0.03,
+    marginVertical: 2,
   },
   price: {
     fontFamily: BOLD_FONT,
     fontSize: 18,
     color: TITLE_COLOR,
     textAlign: 'right',
+    marginVertical: 5,
   },
+  needsContainer:{
+    marginTop: 10,
+  }
 });
