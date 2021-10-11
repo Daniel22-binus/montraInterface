@@ -1,9 +1,9 @@
 import React from 'react';
 import {StyleSheet, Text, View, Dimensions} from 'react-native';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
-import {Add1Icon, BackIcon} from '../assets';
-import MonthlyPaymentItem from '../components/MonthlyPaymentItem';
-import {BOLD_FONT, TITLE_COLOR} from '../constant';
+import {Add1Icon, BackIcon} from '../../assets';
+import MonthlyPaymentItem from '../../components/MonthlyPaymentItem';
+import {BOLD_FONT, TITLE_COLOR} from '../../constant';
 
 const MonthlyPayment = ({navigation}) => {
   return (
@@ -16,6 +16,7 @@ const MonthlyPayment = ({navigation}) => {
         <View style={styles.monthlyPayment}>
           <Text style={styles.font}>Monthly Payment</Text>
         </View>
+        {/* <HeaderBack navigation={navigation} title="Monthly Payment" /> */}
       </View>
 
       <ScrollView>
@@ -41,7 +42,7 @@ const MonthlyPayment = ({navigation}) => {
         />
 
         <View style={styles.addNew}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress = {() => navigation.navigate('MonthlyPaymentAdd')}>
             <Add1Icon />
           </TouchableOpacity>
           <Text style={styles.miniFont}>add new Monthly Payment</Text>
