@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   },
   linear: {
     width: WindowWidth * 0.88,
-    height: WindowHeight * 0.18,
+    height: 130,
     paddingTop: 15,
     paddingBottom: 15,
     paddingLeft: 20,

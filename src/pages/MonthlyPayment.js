@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Dimensions} from 'react-native';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import {Add1Icon, BackIcon} from '../assets';
 import MonthlyPaymentItem from '../components/MonthlyPaymentItem';
@@ -58,6 +58,8 @@ const MonthlyPayment = ({navigation}) => {
 
 export default MonthlyPayment;
 
+const WindowWidth = Dimensions.get('window').width;
+
 const styles = StyleSheet.create({
   upperNav: {
     flexDirection: 'row',
@@ -88,6 +90,7 @@ const styles = StyleSheet.create({
     fontFamily: BOLD_FONT,
     fontSize: 15,
     color: TITLE_COLOR,
+    paddingBottom: WindowWidth*0.1,
   },
   announcement: {
     margin: 8,
