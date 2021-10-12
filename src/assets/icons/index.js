@@ -16,6 +16,7 @@ import Edit2Icon from './edit2.svg';
 import DeleteIcon from './delete.svg';
 import BackIcon from './BackIcon.svg';
 import Add1Icon from './add1.svg';
+import ArrowDownIcon from './arrow-down.svg';
 
 export {
   HomeIcon,
@@ -31,6 +32,7 @@ export {
   DeleteIcon,
   BackIcon,
   Add1Icon,
+  ArrowDownIcon,
 };
 
 export {AddIcon, MenuIcon, NotifNotActiveIcon, NotifActiveIcon};

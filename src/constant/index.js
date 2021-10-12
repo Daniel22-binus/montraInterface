@@ -4,7 +4,7 @@ export const WHITE = '#fff';
 export const SECONDARY_COLOR = '#CAD8D2';
 export const GREEN_COLOR = '#2DB521';
 export const BACKGROUND_COLOR = '#9ABCDD';
-
+export const GRAY_COLOR = '#DBD5D5';
 //font
 export const PRIMARY_FONT = 'Inter-Regular';
 export const BOLD_FONT = 'Inter-Bold';
