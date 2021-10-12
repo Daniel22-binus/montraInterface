@@ -1,22 +1,8 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  Dimensions,
-  StyleSheet,
-  TextInput,
-  Button,
-} from 'react-native';
-import {Add1Icon, BackIcon} from '../../assets';
+import {View, Text, Dimensions, StyleSheet, TextInput} from 'react-native';
+import HeaderBack from '../../components/HeaderBack';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
-import {
-  BOLD_FONT,
-  TITLE_COLOR,
-  PRIMARY_COLOR,
-  PRIMARY_FONT,
-  SECONDARY_COLOR,
-  WHITE,
-} from '../../constant';
+import {BOLD_FONT, TITLE_COLOR, PRIMARY_FONT, WHITE} from '../../constant';
 
 const MonthlyPaymentEdit = ({navigation}) => {
   const [data, setData] = React.useState({
@@ -51,17 +37,8 @@ const MonthlyPaymentEdit = ({navigation}) => {
 
   return (
     <View style={{flex: 1}}>
-      <View style={styles.upperNav}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Monthly Payment')}>
-          <BackIcon style={styles.backIcon} />
-        </TouchableOpacity>
+      <HeaderBack navigation={navigation} title="Edit Monthly Payment" />
 
-        <View style={styles.monthlyPayment}>
-          <Text style={styles.font}>Edit Monthly Payment</Text>
-        </View>
-        {/* <HeaderBack navigation={navigation} title="Monthly Payment" /> */}
-      </View>
       <ScrollView>
         <View style={styles.input}>
           <Text style={[styles.text_footer, {marginTop: 8}]}>Payment Name</Text>
@@ -111,22 +88,6 @@ export default MonthlyPaymentEdit;
 const WindowWidth = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
-  upperNav: {
-    flexDirection: 'row',
-    margin: 20,
-  },
-  backIcon: {
-    marginTop: 4,
-    color: TITLE_COLOR,
-  },
-  monthlyPayment: {
-    marginLeft: 10,
-  },
-  font: {
-    fontFamily: BOLD_FONT,
-    fontSize: 18,
-    color: TITLE_COLOR,
-  },
   input: {
     flexDirection: 'row',
     marginTop: 15,

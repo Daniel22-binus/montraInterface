@@ -1,23 +1,15 @@
 import React from 'react';
 import {StyleSheet, Text, View, Dimensions} from 'react-native';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
-import {Add1Icon, BackIcon} from '../../assets';
+import {Add1Icon} from '../../assets';
 import MonthlyPaymentItem from '../../components/MonthlyPaymentItem';
 import {BOLD_FONT, TITLE_COLOR} from '../../constant';
+import HeaderBack from '../../components/HeaderBack';
 
 const MonthlyPayment = ({navigation}) => {
   return (
     <View style={{flex: 1}}>
-      <View style={styles.upperNav}>
-        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-          <BackIcon style={styles.backIcon} />
-        </TouchableOpacity>
-
-        <View style={styles.monthlyPayment}>
-          <Text style={styles.font}>Monthly Payment</Text>
-        </View>
-        {/* <HeaderBack navigation={navigation} title="Monthly Payment" /> */}
-      </View>
+      <HeaderBack navigation={navigation} title="Monthly Payment" />
 
       <ScrollView>
         <MonthlyPaymentItem
@@ -42,7 +34,8 @@ const MonthlyPayment = ({navigation}) => {
         />
 
         <View style={styles.addNew}>
-          <TouchableOpacity onPress = {() => navigation.navigate('MonthlyPaymentAdd')}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('MonthlyPaymentAdd')}>
             <Add1Icon />
           </TouchableOpacity>
           <Text style={styles.miniFont}>add new Monthly Payment</Text>
@@ -62,22 +55,6 @@ export default MonthlyPayment;
 const WindowWidth = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
-  upperNav: {
-    flexDirection: 'row',
-    margin: 20,
-  },
-  backIcon: {
-    marginTop: 4,
-    color: TITLE_COLOR,
-  },
-  monthlyPayment: {
-    marginLeft: 10,
-  },
-  font: {
-    fontFamily: BOLD_FONT,
-    fontSize: 18,
-    color: TITLE_COLOR,
-  },
   addNew: {
     alignItems: 'center',
     marginTop: 20,
@@ -91,7 +68,7 @@ const styles = StyleSheet.create({
     fontFamily: BOLD_FONT,
     fontSize: 15,
     color: TITLE_COLOR,
-    paddingBottom: WindowWidth*0.1,
+    paddingBottom: WindowWidth * 0.1,
   },
   announcement: {
     margin: 8,
