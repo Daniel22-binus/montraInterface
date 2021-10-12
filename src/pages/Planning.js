@@ -10,9 +10,12 @@ import {
 import HeaderBack from '../components/HeaderBack';
 import {BOLD_FONT, PRIMARY_FONT, TITLE_COLOR} from '../constant';
 import PlanningItem from '../components/PlanningComponent/PlanningItem';
-import { Add1Icon } from '../assets/icons';
+import {Add1Icon} from '../assets/icons';
+import planningHook from '../hooks/planningHook';
 
 const Planning = ({navigation}) => {
+  const [planningList, setState] = planningHook();
+
   return (
     <View style={styles.container}>
       <HeaderBack navigation={navigation} title="Planning" />
@@ -24,9 +27,10 @@ const Planning = ({navigation}) => {
 
       <View style={{marginTop: 25}}>
         <ScrollView horizontal={true}>
-          <PlanningItem />
-          <PlanningItem />
-          <PlanningItem />
+          {planningList.results.map(planning => (
+            <PlanningItem key={planning.id} planning={planning} />
+          ))}
+
           <TouchableOpacity>
             <View style={addBtnStyle.addBorder}>
               <View style={addBtnStyle.containerImg}>
@@ -96,7 +100,6 @@ const addBtnStyle = StyleSheet.create({
     borderStyle: 'solid',
     borderWidth: 5,
     backgroundColor: 'white',
-
   },
   containerImg: {
     justifyContent: 'center',

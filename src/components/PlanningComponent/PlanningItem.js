@@ -16,17 +16,18 @@ import {
 } from '../../constant';
 import {DeleteIcon, Edit2Icon} from '../../assets/icons';
 import PlanningNeeds from './PlanningNeeds';
+import { printPrice } from '../../logic/PrintPrice';
 
-const PlanningItem = () => {
+const PlanningItem = ({planning}) => {
   return (
     <LinearGradient
       start={{x: 0.5, y: 1.0}}
       end={{x: 1.0, y: 0.5}}
       style={styles.linearColor}
-      colors={["#9ABCDD", "#CAD8D2"]}>
+      colors={['#9ABCDD', '#CAD8D2']}>
       <View style={styles.container}>
         <View style={{flexDirection: 'row'}}>
-          <Text style={styles.title}>Trip to Hawaii</Text>
+          <Text style={styles.title}>{planning.title}</Text>
           <TouchableOpacity style={{marginRight: 8}}>
             <Edit2Icon />
           </TouchableOpacity>
@@ -35,16 +36,18 @@ const PlanningItem = () => {
           </TouchableOpacity>
         </View>
 
-        <Text style={styles.description}>for 3 days and 2 night</Text>
-        <Text style={styles.price}>Rp. 15.000.000</Text>
+        <Text style={styles.description}>{planning.description}</Text>
+        <Text style={styles.price}> {printPrice(planning.price)} </Text>
         <View style={styles.line} />
 
         <View style={styles.needsContainer}>
-          <PlanningNeeds needsTitle="Plane Ticket Fee" state={false} />
-          <PlanningNeeds needsTitle="Hotel" state={true}/>
-          <PlanningNeeds needsTitle="Tourist Guide" state={false} />
-          <PlanningNeeds needsTitle="Meal Cost" state={true} />
-          <PlanningNeeds needsTitle="Souvenirs" state={false} />
+          {planning.needs.map(need => (
+            <PlanningNeeds
+              key={need.id}
+              needsTitle={need.needName}
+              state={need.needState}
+            />
+          ))}
         </View>
       </View>
     </LinearGradient>
@@ -106,7 +109,7 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     marginVertical: 5,
   },
-  needsContainer:{
+  needsContainer: {
     marginTop: 10,
-  }
+  },
 });
