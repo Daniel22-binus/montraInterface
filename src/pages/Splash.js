@@ -17,6 +17,7 @@ import {
   PRIMARY_FONT,
   BOLD_FONT,
   TITLE_FONT,
+  TITLE_COLOR,
 } from '../constant/index';
 
 const SplashScreen = ({navigation}) => {
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
     borderRadius: 100,
   },
   title: {
-    color: PRIMARY_COLOR,
+    color: TITLE_COLOR,
     fontSize: 30,
     fontFamily: TITLE_FONT,
   },
@@ -94,15 +95,16 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   signIn: {
-    width: 140,
-    height: 40,
+    width: 170,
+    height: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 20,
+    borderRadius: 30,
     flexDirection: 'row',
   },
   textStarted: {
     color: 'white',
     fontFamily: BOLD_FONT,
+    fontSize: 18,
   },
 });

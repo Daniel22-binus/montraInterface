@@ -25,12 +25,12 @@ export default HeaderBack;
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    marginTop: 15,
-    marginBottom: 25,
+    marginTop: 18,
+    marginBottom: 18,
   },
   icon: {
     marginTop: 3,
-    marginHorizontal: 8,
+    marginHorizontal: 12,
   },
   title: {
     fontFamily: BOLD_FONT,

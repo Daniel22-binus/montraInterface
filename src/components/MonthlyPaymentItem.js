@@ -9,11 +9,16 @@ import {
   PRIMARY_FONT,
 } from '../constant';
 import LinearGradient from 'react-native-linear-gradient';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {
+  TouchableOpacity,
+  TouchableHighlight,
+} from 'react-native-gesture-handler';
 import CheckBox from '@react-native-community/checkbox';
+import { useNavigation } from '@react-navigation/native';
 
 const MonthlyPaymentItem = ({title, budget, deadline}) => {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -24,7 +29,10 @@ const MonthlyPaymentItem = ({title, budget, deadline}) => {
         <View style={styles.upperStyle}>
           <Text style={styles.font1}>{title}</Text>
           <View style={styles.icons}>
-            <TouchableOpacity style={styles.oneIcon}>
+            <TouchableOpacity
+              style={styles.oneIcon}
+              onPress={() => navigation.navigate('MonthlyPaymentEdit')}
+              >
               <Edit2Icon />
             </TouchableOpacity>
             <TouchableOpacity style={styles.oneIcon}>
@@ -63,7 +71,7 @@ const styles = StyleSheet.create({
   },
   linear: {
     width: WindowWidth * 0.88,
-    height: WindowHeight * 0.18,
+    height: 130,
     paddingTop: 15,
     paddingBottom: 15,
     paddingLeft: 20,
