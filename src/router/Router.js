@@ -9,7 +9,8 @@ import SignInScreen from '../pages/SignInScreen';
 import ForgetPasswordScreen from '../pages/ForgetPassword';
 import SignUpScreen from '../pages/SignUpScreen';
 import Budget from '../pages/Budget';
-import Planning from '../pages/Planning';
+import Planning from '../pages/PlanningPage/Planning';
+import PlanningAdd from '../pages/PlanningPage/PlanningAdd';
 import DrawerContent from '../components/DrawerNavigation/DrawerContent';
 import MonthlyPayment from '../pages/MonthlyPayment/MonthlyPayment';
 import MonthlyPaymentAdd from '../pages/MonthlyPayment/MonthlyPaymentAdd';
@@ -72,7 +73,21 @@ const Router = () => {
         component={MonthlyPaymentEdit}
         options={{headerShown: false}}
       />
+
+      {PlanningPage()}
     </Stack.Navigator>
+  );
+};
+
+const PlanningPage = () => {
+  return (
+    <>
+      <Stack.Screen
+        name="PlanningAdd"
+        component={PlanningAdd}
+        options={{headerShown: false}}
+      />
+    </>
   );
 };
 

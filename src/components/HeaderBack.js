@@ -25,8 +25,7 @@ export default HeaderBack;
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    marginTop: 18,
-    marginBottom: 18,
+    marginVertical: 18,
   },
   icon: {
     marginTop: 3,

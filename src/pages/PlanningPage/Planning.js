@@ -7,11 +7,11 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import HeaderBack from '../components/HeaderBack';
-import {BOLD_FONT, PRIMARY_FONT, TITLE_COLOR} from '../constant';
-import PlanningItem from '../components/PlanningComponent/PlanningItem';
-import {Add1Icon} from '../assets/icons';
-import planningHook from '../hooks/planningHook';
+import HeaderBack from '../../components/HeaderBack';
+import {BOLD_FONT, PRIMARY_FONT, TITLE_COLOR} from '../../constant';
+import PlanningItem from '../../components/PlanningComponent/PlanningItem';
+import {Add1Icon} from '../../assets/icons';
+import planningHook from '../../hooks/planningHook';
 
 const Planning = ({navigation}) => {
   const [planningList, setState] = planningHook();
@@ -31,7 +31,10 @@ const Planning = ({navigation}) => {
             <PlanningItem key={planning.id} planning={planning} />
           ))}
 
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('PlanningAdd');
+            }}>
             <View style={addBtnStyle.addBorder}>
               <View style={addBtnStyle.containerImg}>
                 <Add1Icon />
