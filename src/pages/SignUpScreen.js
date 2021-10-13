@@ -25,6 +25,7 @@ import {
   TITLE_COLOR,
   BOLD_FONT,
   PRIMARY_FONT,
+  BACKGROUND_COLOR,
 } from '../constant';
 
 const SignUpScreen = ({navigation}) => {
@@ -267,7 +268,7 @@ export default SignUpScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: PRIMARY_COLOR,
+    backgroundColor: BACKGROUND_COLOR,
   },
   header: {
     flex: 1,

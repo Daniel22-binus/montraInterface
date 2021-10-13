@@ -8,7 +8,7 @@ import Splash from '../pages/Splash';
 import SignInScreen from "../pages/SignInScreen"
 import ForgetPasswordScreen from "../pages/ForgetPassword"
 import SignUpScreen from "../pages/SignUpScreen"
-import Budget from '../pages/Budget';
+import Budget from '../pages/Budget/Budget';
 import DrawerContent from '../components/DrawerNavigation/DrawerContent';
 import MonthlyPayment from '../pages/MonthlyPayment/MonthlyPayment';
 import MonthlyPaymentAdd from '../pages/MonthlyPayment/MonthlyPaymentAdd';
