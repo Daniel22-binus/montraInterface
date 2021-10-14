@@ -10,8 +10,10 @@ import {
 } from '../../constant';
 import LinearGradient from 'react-native-linear-gradient';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
 
 const BudgetItem = ({title, budget, budgetUse}) => {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -24,7 +26,7 @@ const BudgetItem = ({title, budget, budgetUse}) => {
           <View style={styles.icons}>
             <TouchableOpacity
               style={styles.oneIcon}
-              // onPress={() => navigation.navigate('MonthlyPaymentEdit')}
+              onPress={() => navigation.navigate('BudgetEdit')}
             >
               <Edit2Icon />
             </TouchableOpacity>
@@ -36,7 +38,7 @@ const BudgetItem = ({title, budget, budgetUse}) => {
 
         <Text style={styles.font2}>{budget}</Text>
         {/* tempat bar */}
-        <Text style={{color: 'red', fontSize: 20, fontStyle: "bold"}}>
+        <Text style={{color: 'red', fontSize: 20, fontWeight: "bold"}}>
           ini tempat bar
         </Text>
         <Text style={styles.font3}>{budgetUse}</Text>

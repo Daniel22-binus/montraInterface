@@ -55,7 +55,7 @@ const Budget = ({navigation}) => {
         </View>
       </View>
 
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
         <LinearGradient
           style={styles.linear}
           colors={[SECONDARY_COLOR, BACKGROUND_COLOR]}
@@ -64,7 +64,7 @@ const Budget = ({navigation}) => {
           <Text style={styles.title}> Total Budget</Text>
           <Text style={styles.TotBudget}>Rp. 17.000.000</Text>
           {/* tempat bar */}
-          <Text style={{color: 'red', fontSize: 20, fontStyle: "bold"}}>
+          <Text style={{color: 'red', fontSize: 20, fontWeight: 'bold'}}>
             ini tempat bar
           </Text>
           <Text style={styles.TotBudgetUse}>Rp. 10.300.000</Text>
@@ -81,7 +81,9 @@ const Budget = ({navigation}) => {
             Category Budget
           </Text>
         </View>
+      </View>
 
+      <ScrollView style={styles.container}>
         <BudgetItem
           title="Education"
           budget="Rp. 10.000.000"
@@ -99,8 +101,7 @@ const Budget = ({navigation}) => {
         />
 
         <View style={styles.addNew}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('MonthlyPaymentAdd')}>
+          <TouchableOpacity onPress={() => navigation.navigate('BudgetAdd')}>
             <Add1Icon />
           </TouchableOpacity>
           <Text style={styles.miniFont}>add new Monthly Payment</Text>
@@ -128,70 +129,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'row',
     backgroundColor: GRAY_COLOR,
-    elevation: 6,
+    // elevation: 6,
     width: 170,
     height: 28,
     marginBottom: 8,
-
-    // shadowColor: '#470000',
-    // shadowOffset: {width: 0, height: 1},
-    // shadowOpacity: 0.2,
-    // elevation: 1,
-
-    // shadowColor: '#000',
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 2,
-    // },
-    // shadowOpacity: 0.25,
-    // shadowRadius: 3.84,
-
-    // elevation: 5,
-
-    // shadowColor: 'black',
-    // shadowOffset: {width: 0, height: 10},
-    // shadowOpacity: 0.5,
-    // elevation: 1
-
-    // shadowColor: '#000',
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 2,
-    // },
-    // shadowOpacity: 0.25,
-    // shadowRadius: 4.84,
-
-    // elevation: 5,
-
-    // borderWidth: 2,
-    // borderRadius: 0,
-    // borderColor: GRAY_COLOR,
-    // // borderTopWidth: 0,
-    // // borderLeftWidth:0,
-    // // borderRightWidth: 0,
-    // // borderBottomWidth:0,
-
-    // borderTopWidth: 1,
-    // borderLeftWidth:1,
-    // borderRightWidth: 1,
-    // shadowColor: 'black',
-    // shadowOffset: { width: 0, height: 2 },
-    // // shadowOpacity: 0.5,
-    // shadowRadius: 5,
-    // // elevation: 16,
-
     overflow: 'hidden',
-
-    // shadowColor: '#000',
-    // // shadowColor: 'black',
-    // shadowOffset: { width: 170, height: 50 },
-    // shadowOpacity:  0.4,
-    // shadowRadius: 3,
-    // elevation: 5,
-
-    // borderTopWidth: 1.5,
-    // borderLeftWidth: 1.5,
-    // borderColor: '#DBD5D8',
   },
 
   fontMonthPicker: {
@@ -209,7 +151,7 @@ const styles = StyleSheet.create({
   },
 
   container: {
-    paddingVertical: WindowHeight * 0.015,
+    // paddingVertical: WindowHeight * 0.015,
     paddingHorizontal: WindowWidth * 0.06,
     // alignItems: 'center',
   },
@@ -228,7 +170,7 @@ const styles = StyleSheet.create({
     fontFamily: PRIMARY_FONT,
     color: TITLE_COLOR,
     fontSize: 15,
-    fontStyle: "italic",
+    fontStyle: 'italic',
   },
 
   TotBudget: {
@@ -244,7 +186,7 @@ const styles = StyleSheet.create({
     color: TITLE_COLOR,
     fontSize: 15,
   },
-  
+
   addNew: {
     alignItems: 'center',
     marginTop: 20,
