@@ -7,11 +7,7 @@ import {
   Dimensions,
 } from 'react-native';
 import HeaderBack from '../../components/HeaderBack';
-import {
-  BOLD_FONT,
-  PRIMARY_FONT,
-  TITLE_COLOR,
-} from '../../constant/index';
+import {BOLD_FONT, PRIMARY_FONT, TITLE_COLOR} from '../../constant/index';
 import {Add1Icon} from '../../assets/icons';
 import BudgetItem from '../../components/BudgetComponent/BudgetItem';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -19,7 +15,6 @@ import MonthPick from '../../components/BudgetComponent/MonthPick';
 import TotalBudget from '../../components/BudgetComponent/TotalBudget';
 
 const Budget = ({navigation}) => {
-
   return (
     <View style={{flex: 1}}>
       <HeaderBack navigation={navigation} title="Budget" />
@@ -58,10 +53,10 @@ const Budget = ({navigation}) => {
 
           <View style={styles.addNew}>
             <TouchableOpacity
-              onPress={() => navigation.navigate('MonthlyPaymentAdd')}>
+              onPress={() => navigation.navigate('BudgetAdd')}>
               <Add1Icon />
             </TouchableOpacity>
-            <Text style={styles.miniFont}>add new Monthly Payment</Text>
+            <Text style={styles.miniFont}>add new Budget</Text>
           </View>
         </ScrollView>
       </View>
@@ -70,9 +65,8 @@ const Budget = ({navigation}) => {
 };
 
 export default Budget;
-
-const WindowHeight = Dimensions.get('window').height;
 const WindowWidth = Dimensions.get('window').width;
+const WindowHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
   container: {
@@ -91,6 +85,7 @@ const styles = StyleSheet.create({
   barFont: {
     marginVertical: 6,
   },
+
   addNew: {
     alignItems: 'center',
     marginTop: 20,

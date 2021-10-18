@@ -11,10 +11,10 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import ProgressBar from '../../components/BudgetComponent/ProgressBar';
-import NumberFormat from 'react-number-format';
+import { useNavigation } from '@react-navigation/native';
 
 const BudgetItem = ({title, budget, budgetUse}) => {
-  let a=152000
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -27,7 +27,7 @@ const BudgetItem = ({title, budget, budgetUse}) => {
           <View style={styles.icons}>
             <TouchableOpacity
               style={styles.oneIcon}
-              // onPress={() => navigation.navigate('MonthlyPaymentEdit')}
+              onPress={() => navigation.navigate('BudgetEdit')}
             >
               <Edit2Icon />
             </TouchableOpacity>
@@ -40,7 +40,6 @@ const BudgetItem = ({title, budget, budgetUse}) => {
         <Text style={styles.font2}>Rp. {budget.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</Text>
         <ProgressBar current={[budgetUse]} total={[budget]} />
         <Text style={styles.font3}>Rp. {budgetUse.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</Text>
-        {/* <NumberFormat value={17000000} thousandSeparator={true} prefix={'Rp.'}/> */}
       </LinearGradient>
     </View>
   );
