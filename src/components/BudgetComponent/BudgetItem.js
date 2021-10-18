@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Dimensions, StyleSheet, Text, View} from 'react-native';
 import {Edit2Icon, DeleteIcon} from '../../assets';
 import {
@@ -10,8 +10,11 @@ import {
 } from '../../constant';
 import LinearGradient from 'react-native-linear-gradient';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import ProgressBar from '../../components/BudgetComponent/ProgressBar';
+import NumberFormat from 'react-number-format';
 
 const BudgetItem = ({title, budget, budgetUse}) => {
+  let a=152000
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -34,12 +37,10 @@ const BudgetItem = ({title, budget, budgetUse}) => {
           </View>
         </View>
 
-        <Text style={styles.font2}>{budget}</Text>
-        {/* tempat bar */}
-        <Text style={{color: 'red', fontSize: 20, fontStyle: "bold"}}>
-          ini tempat bar
-        </Text>
-        <Text style={styles.font3}>{budgetUse}</Text>
+        <Text style={styles.font2}>Rp. {budget.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</Text>
+        <ProgressBar current={[budgetUse]} total={[budget]} />
+        <Text style={styles.font3}>Rp. {budgetUse.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</Text>
+        {/* <NumberFormat value={17000000} thousandSeparator={true} prefix={'Rp.'}/> */}
       </LinearGradient>
     </View>
   );
@@ -71,7 +72,7 @@ const styles = StyleSheet.create({
   font1: {
     fontFamily: PRIMARY_FONT,
     fontWeight: 'bold',
-    fontStyle: "italic",
+    fontStyle: 'italic',
     color: TITLE_COLOR,
     fontSize: 18,
   },
