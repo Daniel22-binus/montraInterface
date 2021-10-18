@@ -3,6 +3,7 @@ import {View, Text, Dimensions, StyleSheet, TextInput} from 'react-native';
 import HeaderBack from '../../components/HeaderBack';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import {BOLD_FONT, TITLE_COLOR, PRIMARY_FONT, WHITE, PRIMARY_COLOR} from '../../constant';
+import MonthPick from '../../components/BudgetComponent/MonthPick';
 
 const BudgetAdd = ({navigation}) => {
   const [data, setData] = React.useState({
@@ -27,7 +28,7 @@ const BudgetAdd = ({navigation}) => {
   return (
     <View style={{flex: 1}}>
       <HeaderBack navigation={navigation} title="Add New Budget" />
-
+      <MonthPick />
       <ScrollView>
         <View style={styles.input}>
           <Text style={[styles.text_footer, {marginTop: 8}]}>Budget Name</Text>

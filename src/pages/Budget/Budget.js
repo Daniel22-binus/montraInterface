@@ -43,7 +43,7 @@ const Budget = ({navigation}) => {
           <BudgetItem
             title="Food and Beverage"
             budget="5000000"
-            budgetUse="2500000"
+            budgetUse="4600000"
           />
           <BudgetItem
             title="Transportation"
