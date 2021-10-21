@@ -15,6 +15,8 @@ import DrawerContent from '../components/DrawerNavigation/DrawerContent';
 import MonthlyPayment from '../pages/MonthlyPayment/MonthlyPayment';
 import MonthlyPaymentAdd from '../pages/MonthlyPayment/MonthlyPaymentAdd';
 import MonthlyPaymentEdit from '../pages/MonthlyPayment/MonthlyPaymentEdit';
+import Profile from '../pages/Profile/Profile';
+import profileEdit from '../pages/Profile/profileEdit';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -29,6 +31,7 @@ const MainApp = () => {
       <Drawer.Screen name="Notifications" component={Notification} />
       <Drawer.Screen name="Budget" component={Budget} />
       <Drawer.Screen name="Monthly Payment" component={MonthlyPayment} />
+      <Drawer.Screen name="Profile" component={Profile} />
     </Drawer.Navigator>
   );
 };
@@ -81,6 +84,12 @@ const Router = () => {
       <Stack.Screen
         name="MonthlyPaymentEdit"
         component={MonthlyPaymentEdit}
+        options={{headerShown: false}}
+      />
+
+      <Stack.Screen 
+        name="profileEdit"
+        component={profileEdit}
         options={{headerShown: false}}
       />
     </Stack.Navigator>
