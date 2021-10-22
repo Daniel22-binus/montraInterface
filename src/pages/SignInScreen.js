@@ -21,6 +21,7 @@ import {
   PRIMARY_FONT,
   TITLE_FONT,
   TITLE_COLOR,
+  BACKGROUND_COLOR,
 } from '../constant/index';
 
 const SignInScreen = ({navigation}) => {
@@ -151,7 +152,7 @@ export default SignInScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: PRIMARY_COLOR,
+    backgroundColor: BACKGROUND_COLOR,
   },
   logo: {
     width: 90,

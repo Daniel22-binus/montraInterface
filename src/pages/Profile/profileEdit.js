@@ -2,77 +2,77 @@ import React from 'react';
 import {View, Text, Dimensions, StyleSheet, TextInput} from 'react-native';
 import HeaderBack from '../../components/HeaderBack';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
-import {BOLD_FONT, TITLE_COLOR, PRIMARY_FONT, WHITE} from '../../constant';
+import {
+  BOLD_FONT,
+  TITLE_COLOR,
+  PRIMARY_FONT,
+  WHITE,
+  PRIMARY_COLOR,
+} from '../../constant';
 
-const MonthlyPaymentEdit = ({navigation}) => {
+const profileEdit = ({navigation}) => {
   const [data, setData] = React.useState({
-    paymentName: '',
-    fee: '',
-    deadline: '',
+    name: '', 
+    email: '',
+    phoneNumber: '',
   });
 
-  const paymentNameInputChange = val => {
+  const nameInputChange = val => {
     setData({
       ...data,
-      paymentName: val,
-      check_usernameInputChange: true,
+      name: val,
     });
   };
-
-  const feeInputChange = val => {
+  const emailInputChange = val => {
     setData({
       ...data,
-      fee: val,
-      check_usernameInputChange: true,
+      email: val,
     });
   };
-
-  const deadlineInputChange = val => {
+  const phoneNumberInputChange = val => {
     setData({
       ...data,
-      deadline: val,
-      check_usernameInputChange: true,
+      phoneNumber: val,
     });
   };
 
   return (
     <View style={{flex: 1}}>
-      <HeaderBack navigation={navigation} title="Edit Monthly Payment" />
+      <HeaderBack navigation={navigation} title="Edit Profile" />
 
       <ScrollView>
         <View style={styles.input}>
-          <Text style={[styles.text_footer, {marginTop: 8}]}>Payment Name</Text>
+          <Text style={[styles.text_footer, {marginTop: 8}]}>Name</Text>
           <TextInput
-            placeholder="PLN’s Fee"
+            placeholder="User"
             style={styles.textInput}
             autoCapitalize="none"
-            onChangeText={val => paymentNameInputChange(val)}
+            onChangeText={val => nameInputChange(val)}
           />
         </View>
         <View style={styles.input}>
-          <Text style={[styles.text_footer, {marginTop: 8}]}>Fee</Text>
+          <Text style={[styles.text_footer, {marginTop: 8}]}>Email</Text>
           <TextInput
-            placeholder="1.000.000"
+            placeholder="user@gmail.com"
             style={styles.textInput}
             autoCapitalize="none"
-            onChangeText={val => feeInputChange(val)}
-            keyboardType="numeric"
+            onChangeText={val => emailInputChange(val)}
           />
         </View>
         <View style={styles.input}>
-          <Text style={[styles.text_footer, {marginTop: 8}]}>Deadline</Text>
+          <Text style={[styles.text_footer, {marginTop: 8}]}>Phone Number</Text>
           <TextInput
-            placeholder="15"
+            placeholder="0877 0877 0877"
             style={styles.textInput}
             autoCapitalize="none"
-            onChangeText={val => deadlineInputChange(val)}
+            onChangeText={val => phoneNumberInputChange(val)}
             keyboardType="numeric"
           />
         </View>
 
         <View style={styles.button}>
           <TouchableOpacity
-            onPress={() => navigation.navigate('Monthly Payment')}>
+            onPress={() => navigation.navigate('Profile')}>
             <View style={styles.buttonAdd}>
               <Text style={styles.buttonText}>Save</Text>
             </View>
@@ -80,10 +80,12 @@ const MonthlyPaymentEdit = ({navigation}) => {
         </View>
       </ScrollView>
     </View>
+    // <View>
+    //   <Text>chicken</Text>
+    // </View>
   );
 };
-
-export default MonthlyPaymentEdit;
+export default profileEdit;
 
 const WindowWidth = Dimensions.get('window').width;
 
@@ -117,6 +119,22 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     paddingRight: WindowWidth * 0.04,
     paddingBottom: 35,
+  },
+  budgetDetail: {
+    paddingBottom: 15,
+    alignItems: 'flex-end',
+  },
+  font1: {
+    color: PRIMARY_COLOR,
+    fontSize: 16,
+    fontStyle: 'italic',
+    paddingBottom: 5,
+  },
+  font2: {
+    color: TITLE_COLOR,
+    fontSize: 20,
+    fontFamily: BOLD_FONT,
+    paddingBottom: 5,
   },
   buttonAdd: {
     width: 120,

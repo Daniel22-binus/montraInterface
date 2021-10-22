@@ -16,6 +16,7 @@ import Edit2Icon from './edit2.svg';
 import BackIcon from './BackIcon.svg';
 import DeleteIcon from './delete.svg';
 import Add1Icon from './add1.svg';
+import ArrowDownIcon from './arrow-down.svg';
 
 
 //png
@@ -32,6 +33,7 @@ export {
   Edit2Icon,
   DeleteIcon,
   Add1Icon,
+  ArrowDownIcon,
 };
 
 //svg
