@@ -80,9 +80,6 @@ const profileEdit = ({navigation}) => {
         </View>
       </ScrollView>
     </View>
-    // <View>
-    //   <Text>chicken</Text>
-    // </View>
   );
 };
 export default profileEdit;
