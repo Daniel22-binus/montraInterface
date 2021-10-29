@@ -10,21 +10,21 @@ import {PRIMARY_COLOR, TITLE_COLOR} from '../../constant/index';
 import {AddIcon, DeleteIcon} from '../../assets/icons';
 import {TextInput} from 'react-native-gesture-handler';
 
-const PlanningAddNeeds = () => {
-  const [needsList, setNeedsList] = useState([
-    {id: '', needName: '', needPrice: 0, needState: false},
-  ]);
+const PlanningAddNeeds = ({getNeed, inputNeedsArray}) => {
+  const [needsList, setNeedsList] = useState(getNeed);
 
   const addCustomField = () => {
     const newList = [...needsList];
-    newList.push({id: '', needName: '', needPrice: 0, needState: false});
+    newList.push({id: '', needName: '', needPrice: '', needState: false});
     setNeedsList(newList);
+    inputNeedsArray(newList);
   };
 
   const deleteField = key => {
     const newList = [...needsList];
     newList.splice(key, 1);
     setNeedsList(newList);
+    inputNeedsArray(newList);
   };
 
   const inputNameField = (text, key) => {
@@ -32,14 +32,15 @@ const PlanningAddNeeds = () => {
     newList[key].needName = text;
     newList[key].id = key;
     setNeedsList(newList);
-    console.log(key + ", " + text)
+    inputNeedsArray(newList);
   };
 
   const inputPriceField = (price, key) => {
     const newList = [...needsList];
-    newList[key].needPrice = price;
+    newList[key].needPrice = parseInt(price, 10);
     newList[key].id = key;
     setNeedsList(newList);
+    inputNeedsArray(newList);
   };
 
   return (
@@ -64,7 +65,7 @@ const PlanningAddNeeds = () => {
           <TextInput
             style={styles.inputPrice}
             placeholder="Price"
-            value={need.needPrice}
+            value={need.needPrice+""}
             onChangeText={price => {
               inputPriceField(price, key);
             }}

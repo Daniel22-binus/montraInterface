@@ -16,9 +16,17 @@ import {
 } from '../../constant';
 import {DeleteIcon, Edit2Icon} from '../../assets/icons';
 import PlanningNeeds from './PlanningNeeds';
-import { printPrice } from '../../logic/PrintPrice';
+import {printPrice} from '../../logic/PrintPrice';
 
-const PlanningItem = ({planning}) => {
+const PlanningItem = props => {
+ 
+  const {planning, editPlanItem, deletePlanItem, setStateNeed, navigation} = props;
+
+  let price = 0;
+  planning.needs.map(need => {
+    price = price + need.needPrice;
+  });
+
   return (
     <LinearGradient
       start={{x: 0.5, y: 1.0}}
@@ -28,26 +36,37 @@ const PlanningItem = ({planning}) => {
       <View style={styles.container}>
         <View style={{flexDirection: 'row'}}>
           <Text style={styles.title}>{planning.title}</Text>
-          <TouchableOpacity style={{marginRight: 8}}>
+          <TouchableOpacity
+            style={{marginRight: 8}}
+            onPress={() => {
+              navigation.navigate('PlanningAdd', {
+                getPlan: planning,
+                FormAction: editPlanItem,
+                TitleBtn: "Edit"
+              });
+            }}>
             <Edit2Icon />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => deletePlanItem(planning.id)}>
             <DeleteIcon />
           </TouchableOpacity>
         </View>
 
         <Text style={styles.description}>{planning.description}</Text>
-        <Text style={styles.price}> {printPrice(planning.price)} </Text>
+        <Text style={styles.price}> {printPrice(price)} </Text>
         <View style={styles.line} />
 
         <View style={styles.needsContainer}>
-          {planning.needs.map(need => (
-            <PlanningNeeds
-              key={need.id}
-              needsTitle={need.needName}
-              state={need.needState}
-            />
-          ))}
+          {planning.needs.map(need => {
+            return (
+              <PlanningNeeds
+                key={need.id}
+                need={need}
+                indexPlan={planning.id}
+                setStateNeed={setStateNeed}
+              />
+            );
+          })}
         </View>
       </View>
     </LinearGradient>

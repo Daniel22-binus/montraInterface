@@ -15,16 +15,16 @@ const HomeAll = () => {
   return (
     <View style={{backgroundColor: 'white', flex: 1}}>
       <View style={{flexDirection: 'row', marginLeft: 10, marginVertical: 12}}>
-        <View>
+        <View style={textTop.budgetContainer}>
           <Text style={textTop.budget}>your budget left:</Text>
           <Text style={textTop.rp}>Rp. 6.700.000</Text>
         </View>
-        <TouchableOpacity>
-          <View style={textTop.textcontainer}>
+        <View style={textTop.textcontainer}>
+          <TouchableOpacity style={{flexDirection: 'row'}}>
             <Text style={textTop.textexpense}>Add Expense</Text>
             <AddIcon />
-          </View>
-        </TouchableOpacity>
+          </TouchableOpacity>
+        </View>
       </View>
       <PieChartReact />
       <View>
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     fontFamily: BOLD_FONT,
   },
   textDetails: {
-    color: '#A067FC',
+    color: PRIMARY_COLOR,
     textDecorationLine: 'underline',
     textAlign: 'center',
     marginTop: 12,
@@ -85,10 +85,14 @@ const textTop = StyleSheet.create({
     fontSize: 17,
     marginLeft: 12,
   },
+  budgetContainer: {
+    flex: 1,
+  },
   textcontainer: {
-    flexDirection: 'row',
-    marginLeft: windowWidth * 0.32,
     marginTop: 4,
+    flex: 1,
+    alignItems: 'flex-end',
+    marginRight: windowWidth * 0.032,
   },
   textexpense: {
     fontFamily: 'Inter-Regular',

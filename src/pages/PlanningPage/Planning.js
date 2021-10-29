@@ -14,7 +14,13 @@ import {Add1Icon} from '../../assets/icons';
 import planningHook from '../../hooks/planningHook';
 
 const Planning = ({navigation}) => {
-  const [planningList, setState] = planningHook();
+  const [
+    planningList,
+    addPlanItem,
+    editPlanItem,
+    deletePlanItem,
+    setStateNeed,
+  ] = planningHook();
 
   return (
     <View style={styles.container}>
@@ -28,12 +34,30 @@ const Planning = ({navigation}) => {
       <View style={{marginTop: 25}}>
         <ScrollView horizontal={true}>
           {planningList.results.map(planning => (
-            <PlanningItem key={planning.id} planning={planning} />
+            <PlanningItem
+              key={planning.id}
+              planning={planning}
+              editPlanItem={editPlanItem}
+              deletePlanItem={deletePlanItem}
+              setStateNeed={setStateNeed}
+              navigation={navigation}
+            />
           ))}
 
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('PlanningAdd');
+              navigation.navigate('PlanningAdd', {
+                getPlan: {
+                  id: 0,
+                  title: '',
+                  description: '',
+                  needs: [
+                    {id: '', needName: '', needPrice: '', needState: false},
+                  ],
+                },
+                FormAction: addPlanItem,
+                TitleBtn: 'Add',
+              });
             }}>
             <View style={addBtnStyle.addBorder}>
               <View style={addBtnStyle.containerImg}>
@@ -44,6 +68,15 @@ const Planning = ({navigation}) => {
           </TouchableOpacity>
         </ScrollView>
       </View>
+
+      <TouchableOpacity
+        onPress={() => {
+          planningList.results.map(plan => {
+            console.log(plan);
+          });
+        }}>
+        <Text>Print</Text>
+      </TouchableOpacity>
     </View>
   );
 };
