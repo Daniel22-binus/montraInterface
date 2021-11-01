@@ -2,11 +2,12 @@ import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import DrawerItemContent from './DrawerItemContent';
 import {WrongDefault} from '../../assets'
+import { BACKGROUND_COLOR, BOLD_FONT, PRIMARY_COLOR, TITLE_COLOR } from '../../constant';
 
 const DrawerContent = ({navigation}) => {
   return (
     <View style={styles.container}>
-      <View>
+      <View style={userStyle.bg}>
         <Text style={userStyle.welcome}>Welcome,</Text>
         <View style={userStyle.container}>
           <Image style={userStyle.image} source={WrongDefault}/>
@@ -16,7 +17,6 @@ const DrawerContent = ({navigation}) => {
           </View>
         </View>
       </View>
-      <View style={styles.line}/>
       <DrawerItemContent title="Home" navigation={navigation} />
       <DrawerItemContent title="Notifications" navigation={navigation} />
       <DrawerItemContent title="Budget" navigation={navigation} />
@@ -36,7 +36,7 @@ export default DrawerContent;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#A873FF",
+        backgroundColor: 'white',
         borderTopRightRadius: 40,
         borderBottomRightRadius: 40,
     },
@@ -44,7 +44,8 @@ const styles = StyleSheet.create({
       borderStyle: 'solid',
       borderBottomWidth: 3,
       marginHorizontal: 8,
-      borderColor: "#6E14FF"
+      borderColor: TITLE_COLOR
+      // borderColor: "#6E14FF"
     }
 });
 
@@ -53,15 +54,19 @@ const userStyle = StyleSheet.create({
     flexDirection: "row",
     marginVertical: 12,
   },
+  bg: {
+    backgroundColor: PRIMARY_COLOR,
+    borderTopRightRadius: 40,
+  },
   welcome: {
     color: "white",
-    fontWeight: 'bold',
+    fontFamily: BOLD_FONT,
     marginVertical: 8,
     marginLeft: 10,
   },
   text:{
     color: "white",
-    fontWeight: 'bold',
+    fontFamily: BOLD_FONT,
   },
   image: {
     marginHorizontal: 12,
