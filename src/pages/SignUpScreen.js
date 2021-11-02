@@ -136,7 +136,8 @@ const SignUpScreen = ({navigation}) => {
         <ScrollView>
           <Text style={[styles.text_footer, {marginTop: 8}]}>Username</Text>
           <View style={styles.action}>
-            <FontAwesome name="user-o" color={TITLE_COLOR} size={20} />
+
+            <FontAwesome name="user-o" color={PRIMARY_COLOR} size={20} />
             <TextInput
               placeholder="Your Username"
               style={styles.textInput}
@@ -152,7 +153,8 @@ const SignUpScreen = ({navigation}) => {
 
           <Text style={[styles.text_footer, , {marginTop: 8}]}>E-mail</Text>
           <View style={styles.action}>
-            <FontAwesome name="envelope-o" color={TITLE_COLOR} size={20} />
+
+            <FontAwesome name="envelope-o" color={PRIMARY_COLOR} size={20} />
             <TextInput
               placeholder="Your E-mail"
               style={styles.textInput}
@@ -170,13 +172,13 @@ const SignUpScreen = ({navigation}) => {
             Phone Number
           </Text>
           <View style={styles.action}>
-            <FontAwesome name="mobile" color={TITLE_COLOR} size={20} />
+
+            <FontAwesome name="mobile" color={PRIMARY_COLOR} size={20} />
             <TextInput
               placeholder="Your Phone Number"
               style={styles.textInput}
               autoCapitalize="none"
               onChangeText={val => phoneInputChange(val)}
-              keyboardType="numeric"
             />
             {data.check_phoneInputChange ? (
               <Animatable.View animation="bounceIn">
@@ -187,7 +189,7 @@ const SignUpScreen = ({navigation}) => {
 
           <Text style={[styles.text_footer, {marginTop: 8}]}>Password</Text>
           <View style={styles.action}>
-            <Feather name="lock" color={TITLE_COLOR} size={20} />
+            <Feather name="lock" color={PRIMARY_COLOR} size={20} />
             <TextInput
               placeholder="Your Password"
               style={styles.textInput}
@@ -208,7 +210,7 @@ const SignUpScreen = ({navigation}) => {
             Confirm Password
           </Text>
           <View style={styles.action}>
-            <Feather name="lock" color={TITLE_COLOR} size={20} />
+            <Feather name="lock" color={PRIMARY_COLOR} size={20} />
             <TextInput
               placeholder="Confirm Your Password"
               style={styles.textInput}
@@ -286,14 +288,15 @@ const styles = StyleSheet.create({
   },
   text_header: {
     textAlign: 'center',
-    color: TITLE_COLOR,
+    color: PRIMARY_COLOR,
     fontFamily: BOLD_FONT,
     fontSize: 30,
     paddingBottom: 5,
   },
   text_footer: {
     fontFamily: PRIMARY_FONT,
-    color: TITLE_COLOR,
+
+    color: PRIMARY_COLOR,
     fontSize: 15,
   },
   action: {
