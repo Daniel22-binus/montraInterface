@@ -8,9 +8,15 @@ import Splash from '../pages/Splash';
 import SignInScreen from '../pages/SignInScreen';
 import ForgetPasswordScreen from '../pages/ForgetPassword';
 import SignUpScreen from '../pages/SignUpScreen';
+
 import Budget from '../pages/Budget';
 import Planning from '../pages/PlanningPage/Planning';
 import PlanningAdd from '../pages/PlanningPage/PlanningAdd';
+
+import Budget from '../pages/Budget/Budget';
+import BudgetAdd from '../pages/Budget/BudgetAdd';
+import BudgetEdit from '../pages/Budget/BudgetEdit';
+
 import DrawerContent from '../components/DrawerNavigation/DrawerContent';
 import MonthlyPayment from '../pages/MonthlyPayment/MonthlyPayment';
 import MonthlyPaymentAdd from '../pages/MonthlyPayment/MonthlyPaymentAdd';
@@ -29,6 +35,7 @@ const MainApp = () => {
       <Drawer.Screen name="Notifications" component={Notification} />
       <Drawer.Screen name="Budget" component={Budget} />
       <Drawer.Screen name="Monthly Payment" component={MonthlyPayment} />
+
       <Drawer.Screen name="Planning" component={Planning} />
     </Drawer.Navigator>
   );
@@ -64,6 +71,17 @@ const Router = () => {
       />
 
       <Stack.Screen
+        name="BudgetAdd"
+        component={BudgetAdd}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="BudgetEdit"
+        component={BudgetEdit}
+        options={{headerShown: false}}
+      />
+
+      <Stack.Screen
         name="MonthlyPaymentAdd"
         component={MonthlyPaymentAdd}
         options={{headerShown: false}}
@@ -73,21 +91,7 @@ const Router = () => {
         component={MonthlyPaymentEdit}
         options={{headerShown: false}}
       />
-
-      {PlanningPage()}
     </Stack.Navigator>
-  );
-};
-
-const PlanningPage = () => {
-  return (
-    <>
-      <Stack.Screen
-        name="PlanningAdd"
-        component={PlanningAdd}
-        options={{headerShown: false}}
-      />
-    </>
   );
 };
 
