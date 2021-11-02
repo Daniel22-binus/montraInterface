@@ -2,88 +2,72 @@ import React from 'react';
 import {View, Text, Dimensions, StyleSheet, TextInput} from 'react-native';
 import HeaderBack from '../../components/HeaderBack';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
-import {BOLD_FONT, TITLE_COLOR, PRIMARY_FONT, WHITE} from '../../constant';
+import {BOLD_FONT, TITLE_COLOR, PRIMARY_FONT, WHITE, PRIMARY_COLOR} from '../../constant';
+import MonthPick from '../../components/BudgetComponent/MonthPick';
 
-const MonthlyPaymentEdit = ({navigation}) => {
+const BudgetAdd = ({navigation}) => {
   const [data, setData] = React.useState({
-    paymentName: '',
-    fee: '',
-    deadline: '',
+    budgetName: '',
+    budgetLimit: '',
   });
 
-  const paymentNameInputChange = val => {
+  const budgetNameInputChange = val => {
     setData({
       ...data,
-      paymentName: val,
-      check_usernameInputChange: true,
+      budgetName: val,
     });
   };
 
-  const feeInputChange = val => {
+  const budgetLimitInputChange = val => {
     setData({
       ...data,
-      fee: val,
-      check_usernameInputChange: true,
-    });
-  };
-
-  const deadlineInputChange = val => {
-    setData({
-      ...data,
-      deadline: val,
-      check_usernameInputChange: true,
+      budgetLimit: val,
     });
   };
 
   return (
     <View style={{flex: 1}}>
-      <HeaderBack navigation={navigation} title="Edit Monthly Payment" />
-
+      <HeaderBack navigation={navigation} title="Add New Budget" />
+      <MonthPick />
       <ScrollView>
         <View style={styles.input}>
-          <Text style={[styles.text_footer, {marginTop: 8}]}>Payment Name</Text>
+          <Text style={[styles.text_footer, {marginTop: 8}]}>Budget Name</Text>
           <TextInput
-            placeholder="PLN’s Fee"
             style={styles.textInput}
             autoCapitalize="none"
-            onChangeText={val => paymentNameInputChange(val)}
+            onChangeText={val => budgetNameInputChange(val)}
           />
         </View>
         <View style={styles.input}>
-          <Text style={[styles.text_footer, {marginTop: 8}]}>Fee</Text>
+          <Text style={[styles.text_footer, {marginTop: 8}]}>Budget Limit</Text>
           <TextInput
-            placeholder="1.000.000"
             style={styles.textInput}
             autoCapitalize="none"
-            onChangeText={val => feeInputChange(val)}
-            keyboardType="numeric"
-          />
-        </View>
-        <View style={styles.input}>
-          <Text style={[styles.text_footer, {marginTop: 8}]}>Deadline</Text>
-          <TextInput
-            placeholder="15"
-            style={styles.textInput}
-            autoCapitalize="none"
-            onChangeText={val => deadlineInputChange(val)}
+            onChangeText={val => budgetLimitInputChange(val)}
             keyboardType="numeric"
           />
         </View>
 
         <View style={styles.button}>
+          <View style={styles.budgetDetail}>
+            <Text style={styles.font1}>Total Budget in January</Text>
+            <Text style={styles.font2}>RP 17.000.000</Text>
+          </View>
           <TouchableOpacity
-            onPress={() => navigation.navigate('Monthly Payment')}>
+            onPress={() => navigation.navigate('Budget')}>
             <View style={styles.buttonAdd}>
-              <Text style={styles.buttonText}>Save</Text>
+              <Text style={styles.buttonText}>Add</Text>
             </View>
           </TouchableOpacity>
         </View>
       </ScrollView>
     </View>
+    // <View>
+    //   <Text>chicken</Text>
+    // </View>
   );
 };
-
-export default MonthlyPaymentEdit;
+export default BudgetAdd;
 
 const WindowWidth = Dimensions.get('window').width;
 
@@ -109,8 +93,6 @@ const styles = StyleSheet.create({
     color: 'black',
     borderBottomColor: TITLE_COLOR,
     borderBottomWidth: 1,
-    fontSize: 15,
-    fontStyle: 'italic',
   },
   button: {
     alignItems: 'flex-end',
@@ -118,6 +100,26 @@ const styles = StyleSheet.create({
     paddingRight: WindowWidth * 0.04,
     paddingBottom: 35,
   },
+
+  budgetDetail: {
+    paddingBottom: 15,
+    alignItems: "flex-end"
+  },
+
+  font1: {
+      color: PRIMARY_COLOR,
+      fontSize: 16,
+      fontStyle: "italic",
+      paddingBottom: 5,
+  },
+
+  font2: {
+    color: TITLE_COLOR,
+    fontSize: 20,
+    fontFamily: BOLD_FONT,
+    paddingBottom: 5,
+  },
+
   buttonAdd: {
     width: 120,
     height: 35,

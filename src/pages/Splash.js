@@ -18,6 +18,7 @@ import {
   BOLD_FONT,
   TITLE_FONT,
   TITLE_COLOR,
+  BACKGROUND_COLOR,
 } from '../constant/index';
 
 const SplashScreen = ({navigation}) => {
@@ -60,7 +61,7 @@ const height_logo = height * 0.28;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: PRIMARY_COLOR,
+    backgroundColor: BACKGROUND_COLOR,
   },
   header: {
     flex: 2,

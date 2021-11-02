@@ -19,6 +19,7 @@ import {
   SettingsIcon,
   LogoutIcon,
   WrongDefault,
+  Edit2Icon
 } from '../../assets';
 import {BOLD_FONT, TITLE_COLOR} from '../../constant';
 
