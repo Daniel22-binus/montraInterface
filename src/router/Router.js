@@ -9,7 +9,6 @@ import SignInScreen from '../pages/SignInScreen';
 import ForgetPasswordScreen from '../pages/ForgetPassword';
 import SignUpScreen from '../pages/SignUpScreen';
 
-import Budget from '../pages/Budget';
 import Planning from '../pages/PlanningPage/Planning';
 import PlanningAdd from '../pages/PlanningPage/PlanningAdd';
 
