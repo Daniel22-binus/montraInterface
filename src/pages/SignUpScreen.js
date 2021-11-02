@@ -228,7 +228,7 @@ const SignUpScreen = ({navigation}) => {
           </View>
 
           <View style={styles.button}>
-            <TouchableOpacity onPress={() => navigation.navigate('MainApp')}>
+            <TouchableOpacity onPress={() => navigation.navigate('WaitingPage')}>
               <LinearGradient
                 colors={[PRIMARY_COLOR, SECONDARY_COLOR]}
                 style={styles.signIn}>

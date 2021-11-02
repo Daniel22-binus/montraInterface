@@ -15,6 +15,7 @@ import DrawerContent from '../components/DrawerNavigation/DrawerContent';
 import MonthlyPayment from '../pages/MonthlyPayment/MonthlyPayment';
 import MonthlyPaymentAdd from '../pages/MonthlyPayment/MonthlyPaymentAdd';
 import MonthlyPaymentEdit from '../pages/MonthlyPayment/MonthlyPaymentEdit';
+import WaitingPage from '../pages/WaitingPage';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -71,6 +72,11 @@ const Router = () => {
       <Stack.Screen
         name="MonthlyPaymentEdit"
         component={MonthlyPaymentEdit}
+        options={{headerShown: false}}
+      />
+       <Stack.Screen
+        name="WaitingPage"
+        component={WaitingPage}
         options={{headerShown: false}}
       />
 
