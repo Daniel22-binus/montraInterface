@@ -20,6 +20,7 @@ import {
   BOLD_FONT,
   PRIMARY_FONT,
   TITLE_FONT,
+  TITLE_COLOR,
 } from '../constant/index';
 
 const SignInScreen = ({navigation}) => {
@@ -62,7 +63,8 @@ const SignInScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
+      <Animatable.View 
+      animation="fadeInDownBig"style={styles.header}>
         <View style={{flexDirection: 'row'}}>
           <View style={{flexDirection: 'column'}}>
             <Text style={styles.text_header}>Welcome to</Text>
@@ -74,14 +76,14 @@ const SignInScreen = ({navigation}) => {
             resizeMode="cover"
           />
         </View>
-      </View>
+      </Animatable.View>
 
-      <View style={styles.footer}>
+      <Animatable.View animation="fadeInUpBig"style={styles.footer}>
         <Text style={styles.text_login}>Login Here!</Text>
         <Text style={styles.text_userPassword}>Username</Text>
 
         <View style={styles.action}>
-          <FontAwesome name="user-o" color={PRIMARY_COLOR} size={20} />
+          <FontAwesome name="user-o" color={TITLE_COLOR } size={20} />
           <TextInput
             placeholder="input your username"
             style={styles.textInput}
@@ -97,7 +99,7 @@ const SignInScreen = ({navigation}) => {
 
         <Text style={styles.text_userPassword}>Password</Text>
         <View style={styles.action}>
-          <FontAwesome name="lock" color={PRIMARY_COLOR} size={20} />
+          <FontAwesome name="lock" color={TITLE_COLOR} size={20} />
           <TextInput
             placeholder="input your password"
             secureTextEntry={data.secureTextEntry ? true : false}
@@ -139,7 +141,7 @@ const SignInScreen = ({navigation}) => {
             <Text style={{color: GREEN_COLOR}}>Create new Account here</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </Animatable.View>
     </View>
   );
 };
@@ -179,11 +181,11 @@ const styles = StyleSheet.create({
   },
   text_login: {
     fontSize: 30,
-    color: PRIMARY_COLOR,
+    color: TITLE_COLOR,
     fontFamily: BOLD_FONT,
   },
   text_userPassword: {
-    color: PRIMARY_COLOR,
+    color: TITLE_COLOR,
     fontSize: 18,
     marginTop: 20,
     fontFamily: PRIMARY_FONT,
@@ -208,13 +210,13 @@ const styles = StyleSheet.create({
   },
   signIn: {
     width: 150,
-    height: 50,
+    height: 40,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
   },
   textSignIn: {
-    fontSize: 28,
+    fontSize: 20,
     color: WHITE,
     fontFamily: BOLD_FONT,
   },

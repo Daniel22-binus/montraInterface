@@ -6,25 +6,87 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-import { BOLD_FONT, PRIMARY_FONT } from '../constant';
+import {
+  BOLD_FONT,
+  PRIMARY_FONT,
+  TITLE_COLOR,
+  DETAIL_COLOR,
+  SECONDARY_COLOR,
+} from '../constant';
+import {printPrice} from '../logic/PrintPrice';
 
 const HistoryItem = props => {
   const {title, date, rp} = props;
+  const months = [
+    'January',
+    'Febuary',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'December',
+  ];
+
+  const DateDetail = () => {
+    if (date != null) {
+      let tempDate = new Date(date);
+
+      return (
+        <Text style={styles.date}>
+          {tempDate.getDate() +
+            ' ' +
+            months[tempDate.getMonth()] +
+            ' ' +
+            tempDate.getFullYear()}
+        </Text>
+      );
+    }
+
+    return null;
+  };
+
+  const RpDetail = () => {
+    if (rp != null) {
+      return <Text style={styles.rp}>-{printPrice(rp)}</Text>;
+    }
+
+    return null;
+  };
+
+  const TitleStyle = () => {
+    if (rp != null) {
+      return {
+        fontSize: 17,
+        width: windowWidth * 0.45,
+        fontFamily: PRIMARY_FONT,
+        color: TITLE_COLOR,
+      };
+    } else
+      return {
+        fontSize: 17,
+        // width: windowWidth * 0.45,
+        fontFamily: PRIMARY_FONT,
+        color: 'black',
+      };
+  };
 
   return (
     <View>
       <TouchableOpacity style={styles.container}>
         <View>
-          <Text style={styles.title}>{title}</Text>
-          <Text style={styles.date}>{date}</Text>
+          <Text style={TitleStyle()}>{title}</Text>
+          <DateDetail />
         </View>
-        <Text style={styles.rp}>-Rp. {rp}</Text>
+        <RpDetail />
       </TouchableOpacity>
       <View style={styles.line} />
     </View>
   );
 };
-
 export default HistoryItem;
 
 const windowWidth = Dimensions.get('window').width;
@@ -36,15 +98,16 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   title: {
-      fontSize: 17,
-      width: windowWidth * 0.45,
-      fontFamily: PRIMARY_FONT,
+    fontSize: 17,
+    width: windowWidth * 0.45,
+    fontFamily: PRIMARY_FONT,
+    color: TITLE_COLOR,
   },
   date: {
-      marginVertical: 7,
-      fontSize: 15,
-      color: '#8E8E93',
-      fontFamily: PRIMARY_FONT,
+    marginVertical: 7,
+    fontSize: 15,
+    color: DETAIL_COLOR,
+    fontFamily: PRIMARY_FONT,
   },
   rp: {
     color: 'red',
@@ -55,5 +118,6 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderBottomWidth: 3,
     marginHorizontal: 8,
+    borderColor: SECONDARY_COLOR,
   },
 });

@@ -1,67 +1,45 @@
 import React from 'react';
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import PieChartReact from '../../components/HomeComponent/PieChartReact';
-import HistoryItem from '../../components/HistoryItem';
-import { AddIcon } from '../../assets/icons';
-import { BOLD_FONT, PRIMARY_COLOR, PRIMARY_FONT } from '../../constant';
+import {StyleSheet, View, useWindowDimensions} from 'react-native';
+import {TabView} from 'react-native-tab-view';
+import HomeAll from './HomeAll';
+import Header from '../../components/Header';
 
 const Home = ({navigation}) => {
-  return (
-    <View style={{backgroundColor: 'white', flex: 1}}>
-      <View style={{flexDirection: 'row', marginLeft: 10}}>
-        <View>
-          <Text>your budget left:</Text>
-          <Text>Rp. 6.700.000</Text>
-        </View>
-        <View style={{flexDirection: 'row', marginLeft: 150}}>
-          <Text style={{marginTop: 5}}>add expense</Text>
-          <AddIcon />
-        </View>
-      </View>
-      <PieChartReact />
-      <View>
-        <Text style={styles.textTitle}>Expenses</Text>
-        <HistoryItem
-          title="Beli mcflurry rainbow"
-          date="15 January 2021"
-          rp="50.000"
-        />
-        <HistoryItem
-          title="isi saldo mrt card"
-          date="3 January 2021"
-          rp="100.000"
-        />
-        <HistoryItem
-          title="Bayar uang sekolah bulan january"
-          date="1 January 2021"
-          rp="1.000.000"
-        />
+  const SecondRoute = () => (
+    <View style={{flex: 1, backgroundColor: '#673ab7'}} />
+  );
 
-        <TouchableOpacity>
-          <View>
-            <Text style={styles.textDetails}>see details.</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-    </View>
+  const renderScene = ({route}) => {
+    switch (route.key) {
+      case 'first':
+        return <HomeAll navigation={navigation} />
+      case 'second':
+        return <SecondRoute />
+    }
+
+  }
+
+  const layout = useWindowDimensions();
+
+  const [index, setIndex] = React.useState(0);
+  const [routes] = React.useState([
+    {key: 'first', title: 'All'},
+    {key: 'second', title: 'empty'},
+  ]);
+
+  return (
+    <>
+      <Header navigation={navigation} />
+      <TabView
+        navigationState={{index, routes}}
+        renderScene={renderScene}
+        onIndexChange={setIndex}
+        initialLayout={{width: layout.width}}
+      />
+    </>
   );
 };
 
 export default Home;
 
-const styles = StyleSheet.create({
-  textTitle: {
-    color: PRIMARY_COLOR,
-    fontSize: 22,
-    marginLeft: 12,
-    marginVertical: 3,
-    fontFamily: BOLD_FONT,
-  },
-  textDetails: {
-    color: '#A067FC',
-    textDecorationLine: 'underline',
-    textAlign: 'center',
-    marginTop: 12,
-    fontFamily: PRIMARY_FONT
-  },
-});
+const styles = StyleSheet.create();
