@@ -13,13 +13,37 @@ import {
   DETAIL_COLOR,
   SECONDARY_COLOR,
 } from '../constant';
+import {printPrice} from '../logic/PrintPrice';
 
 const HistoryItem = props => {
   const {title, date, rp} = props;
+  const months = [
+    'January',
+    'Febuary',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'December',
+  ];
 
   const DateDetail = () => {
     if (date != null) {
-      return <Text style={styles.date}>{date}</Text>;
+      let tempDate = new Date(date);
+
+      return (
+        <Text style={styles.date}>
+          {tempDate.getDate() +
+            ' ' +
+            months[tempDate.getMonth()] +
+            ' ' +
+            tempDate.getFullYear()}
+        </Text>
+      );
     }
 
     return null;
@@ -27,7 +51,7 @@ const HistoryItem = props => {
 
   const RpDetail = () => {
     if (rp != null) {
-      return <Text style={styles.rp}>-Rp. {rp}</Text>;
+      return <Text style={styles.rp}>-{printPrice(rp)}</Text>;
     }
 
     return null;

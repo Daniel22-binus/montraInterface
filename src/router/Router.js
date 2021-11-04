@@ -15,6 +15,7 @@ import DrawerContent from '../components/DrawerNavigation/DrawerContent';
 import MonthlyPayment from '../pages/MonthlyPayment/MonthlyPayment';
 import MonthlyPaymentAdd from '../pages/MonthlyPayment/MonthlyPaymentAdd';
 import MonthlyPaymentEdit from '../pages/MonthlyPayment/MonthlyPaymentEdit';
+import HistoryTransactionPage from '../pages/HistoryTransactionPage';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -30,6 +31,7 @@ const MainApp = () => {
       <Drawer.Screen name="Budget" component={Budget} />
       <Drawer.Screen name="Monthly Payment" component={MonthlyPayment} />
       <Drawer.Screen name="Planning" component={Planning} />
+      <Drawer.Screen name="History Transaction" component={HistoryTransactionPage} />
     </Drawer.Navigator>
   );
 };
