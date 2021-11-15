@@ -16,11 +16,11 @@ import {
 } from '../../constant';
 import {DeleteIcon, Edit2Icon} from '../../assets/icons';
 import PlanningNeeds from './PlanningNeeds';
-import {printPrice} from '../../logic/PrintPrice';
+import {printPrice} from '../../logic/printPrice';
 
 const PlanningItem = props => {
- 
-  const {planning, editPlanItem, deletePlanItem, setStateNeed, navigation} = props;
+  const {planning, editPlanItem, deletePlanItem, setStateNeed, navigation} =
+    props;
 
   let price = 0;
   planning.needs.map(need => {
@@ -41,8 +41,9 @@ const PlanningItem = props => {
             onPress={() => {
               navigation.navigate('PlanningAdd', {
                 getPlan: planning,
+                Header:'Edit New Planning',
                 FormAction: editPlanItem,
-                TitleBtn: "Edit"
+                TitleBtn: 'Edit',
               });
             }}>
             <Edit2Icon />

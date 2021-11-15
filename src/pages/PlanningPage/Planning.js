@@ -55,6 +55,7 @@ const Planning = ({navigation}) => {
                     {id: '', needName: '', needPrice: '', needState: false},
                   ],
                 },
+                Header:"Add New Planning",
                 FormAction: addPlanItem,
                 TitleBtn: 'Add',
               });
@@ -75,7 +76,6 @@ const Planning = ({navigation}) => {
             console.log(plan);
           });
         }}>
-        <Text>Print</Text>
       </TouchableOpacity>
     </View>
   );
