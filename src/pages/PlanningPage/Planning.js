@@ -70,13 +70,14 @@ const Planning = ({navigation}) => {
         </ScrollView>
       </View>
 
-      <TouchableOpacity
+      {/* <TouchableOpacity
         onPress={() => {
           planningList.results.map(plan => {
             console.log(plan);
           });
         }}>
-      </TouchableOpacity>
+        <Text>Print</Text>
+      </TouchableOpacity> */}
     </View>
   );
 };

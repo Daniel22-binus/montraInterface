@@ -81,7 +81,7 @@ const planningHook = () => {
   };
 
   const editPlanItem = Plan => {
-    const newResults = [planningList.results];
+    const newResults = [...planningList.results];
     newResults[Plan.id] = Plan;
     setPlanningList({
       results: newResults,

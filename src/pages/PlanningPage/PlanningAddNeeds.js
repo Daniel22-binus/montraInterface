@@ -97,12 +97,14 @@ const styles = StyleSheet.create({
     width: windowWidth * 0.4,
     marginRight: 12,
     borderColor: TITLE_COLOR,
+    color: TITLE_COLOR,
   },
   inputPrice: {
     borderBottomWidth: 1,
     width: windowWidth * 0.3,
     marginHorizontal: 12,
     borderColor: TITLE_COLOR,
+    color: TITLE_COLOR,
   },
   deleteIcon: {
     marginTop: 24,

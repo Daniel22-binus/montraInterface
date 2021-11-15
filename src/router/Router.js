@@ -13,6 +13,7 @@ import Planning from '../pages/PlanningPage/Planning';
 import PlanningAdd from '../pages/PlanningPage/PlanningAdd';
 import DrawerContent from '../components/DrawerNavigation/DrawerContent';
 import MonthlyPayment from '../pages/MonthlyPayment/MonthlyPayment';
+import HistoryTransactionPage from '../pages/HistoryTransactionPage';
 import MonthlyAddEdit from '../pages/MonthlyPayment/MonthlyAddEdit';
 
 const Drawer = createDrawerNavigator();
@@ -29,6 +30,7 @@ const MainApp = () => {
       <Drawer.Screen name="Budget" component={Budget} />
       <Drawer.Screen name="Monthly Payment" component={MonthlyPayment} />
       <Drawer.Screen name="Planning" component={Planning} />
+      <Drawer.Screen name="History Transaction" component={HistoryTransactionPage} />
     </Drawer.Navigator>
   );
 };
