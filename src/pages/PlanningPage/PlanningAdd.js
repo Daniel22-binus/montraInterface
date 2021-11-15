@@ -13,7 +13,7 @@ import {BOLD_FONT, PRIMARY_COLOR, TITLE_COLOR} from '../../constant/index';
 import PlanningAddNeeds from './PlanningAddNeeds';
 
 const PlanningAdd = ({route, navigation}) => {
-  const {getPlan, FormAction, TitleBtn} = route.params;
+  const {getPlan, Header, FormAction, TitleBtn} = route.params;
 
   const [Plan, setPlan] = useState(getPlan);
 
@@ -63,7 +63,10 @@ const PlanningAdd = ({route, navigation}) => {
               onChangeText={text => inputDescriptionField(text)}
             />
           </View>
-          <PlanningAddNeeds getNeed={Plan.needs} inputNeedsArray={inputNeedsArray} />
+          <PlanningAddNeeds
+            getNeed={Plan.needs}
+            inputNeedsArray={inputNeedsArray}
+          />
 
           <View style={{alignItems: 'flex-end', marginTop: 15}}>
             <TouchableOpacity

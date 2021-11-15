@@ -55,6 +55,7 @@ const Planning = ({navigation}) => {
                     {id: '', needName: '', needPrice: '', needState: false},
                   ],
                 },
+                Header:"Add New Planning",
                 FormAction: addPlanItem,
                 TitleBtn: 'Add',
               });

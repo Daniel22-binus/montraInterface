@@ -13,9 +13,8 @@ import Planning from '../pages/PlanningPage/Planning';
 import PlanningAdd from '../pages/PlanningPage/PlanningAdd';
 import DrawerContent from '../components/DrawerNavigation/DrawerContent';
 import MonthlyPayment from '../pages/MonthlyPayment/MonthlyPayment';
-import MonthlyPaymentAdd from '../pages/MonthlyPayment/MonthlyPaymentAdd';
-import MonthlyPaymentEdit from '../pages/MonthlyPayment/MonthlyPaymentEdit';
 import HistoryTransactionPage from '../pages/HistoryTransactionPage';
+import MonthlyAddEdit from '../pages/MonthlyPayment/MonthlyAddEdit';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -66,13 +65,8 @@ const Router = () => {
       />
 
       <Stack.Screen
-        name="MonthlyPaymentAdd"
-        component={MonthlyPaymentAdd}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="MonthlyPaymentEdit"
-        component={MonthlyPaymentEdit}
+        name="MonthlyAddEdit"
+        component={MonthlyAddEdit}
         options={{headerShown: false}}
       />
 
