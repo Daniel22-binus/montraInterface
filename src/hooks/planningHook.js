@@ -103,7 +103,13 @@ const planningHook = () => {
     });
   };
 
-  return [planningList, addPlanItem, editPlanItem, deletePlanItem, setStateNeed];
+  return [
+    planningList,
+    addPlanItem,
+    editPlanItem,
+    deletePlanItem,
+    setStateNeed,
+  ];
 };
 
 export default planningHook;

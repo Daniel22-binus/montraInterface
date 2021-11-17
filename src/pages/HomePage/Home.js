@@ -3,6 +3,7 @@ import {StyleSheet, View, useWindowDimensions} from 'react-native';
 import {TabView} from 'react-native-tab-view';
 import HomeAll from './HomeAll';
 import Header from '../../components/Header';
+import HomeAnother from './HomeAnother';
 
 const Home = ({navigation}) => {
   const SecondRoute = () => (
@@ -12,12 +13,13 @@ const Home = ({navigation}) => {
   const renderScene = ({route}) => {
     switch (route.key) {
       case 'first':
-        return <HomeAll navigation={navigation} />
+        return <HomeAll navigation={navigation} />;
       case 'second':
-        return <SecondRoute />
+        return <SecondRoute />;
+      case 'third':
+        return <HomeAnother navigation={navigation} /> ;
     }
-
-  }
+  };
 
   const layout = useWindowDimensions();
 
@@ -25,6 +27,7 @@ const Home = ({navigation}) => {
   const [routes] = React.useState([
     {key: 'first', title: 'All'},
     {key: 'second', title: 'empty'},
+    {key: 'third', title: 'konsumsi'},
   ]);
 
   return (

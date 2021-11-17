@@ -12,6 +12,23 @@ import {AddIcon} from '../../assets/icons';
 import {BOLD_FONT, PRIMARY_COLOR, PRIMARY_FONT} from '../../constant';
 import historyHook from '../../hooks/historyHook';
 
+const HomeHeader = () => {
+  return (
+    <View style={{flexDirection: 'row', marginLeft: 10, marginVertical: 12}}>
+      <View style={textTop.budgetContainer}>
+        <Text style={textTop.budget}>your budget left:</Text>
+        <Text style={textTop.rp}>Rp. 6.700.000</Text>
+      </View>
+      <View style={textTop.textcontainer}>
+        <TouchableOpacity style={{flexDirection: 'row'}}>
+          <Text style={textTop.textexpense}>Add Expense</Text>
+          <AddIcon />
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
+
 const HomeAll = ({navigation}) => {
   const [historyList] = historyHook();
   let historyListShort = [];
@@ -25,18 +42,7 @@ const HomeAll = ({navigation}) => {
 
   return (
     <View style={{backgroundColor: 'white', flex: 1}}>
-      <View style={{flexDirection: 'row', marginLeft: 10, marginVertical: 12}}>
-        <View style={textTop.budgetContainer}>
-          <Text style={textTop.budget}>your budget left:</Text>
-          <Text style={textTop.rp}>Rp. 6.700.000</Text>
-        </View>
-        <View style={textTop.textcontainer}>
-          <TouchableOpacity style={{flexDirection: 'row'}}>
-            <Text style={textTop.textexpense}>Add Expense</Text>
-            <AddIcon />
-          </TouchableOpacity>
-        </View>
-      </View>
+      <HomeHeader />
       <PieChartReact />
       <View>
         <Text style={styles.textTitle}>Expenses</Text>
@@ -64,6 +70,7 @@ const HomeAll = ({navigation}) => {
 };
 
 export default HomeAll;
+export {HomeHeader};
 
 const windowWidth = Dimensions.get('window').width;
 
