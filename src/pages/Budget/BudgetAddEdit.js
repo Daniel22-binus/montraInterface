@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {View, Text, Dimensions, StyleSheet, TextInput} from 'react-native';
 import HeaderBack from '../../components/HeaderBack';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
@@ -9,72 +9,71 @@ import {
   WHITE,
   PRIMARY_COLOR,
 } from '../../constant';
+import MonthPick from '../../components/BudgetComponent/MonthPick';
 
-const BudgetEdit = ({navigation}) => {
-  const [data, setData] = React.useState({
-    budgetName: '',
-    budgetLimit: '',
-  });
+const BudgetAdd = ({navigation, route}) => {
+  const {getBudget, Header, FormAction, Button} = route.params;
+  const [Budget, setBudget] = useState(getBudget);
 
-  const budgetNameInputChange = val => {
-    setData({
-      ...data,
-      budgetName: val,
+  const budgetTitleInputChange = text => {
+    setBudget({
+      ...Budget,
+      title: text,
     });
   };
 
-  const budgetLimitInputChange = val => {
-    setData({
-      ...data,
-      budgetLimit: val,
+  const budgetTotalInputChange = text => {
+    setBudget({
+      ...Budget,
+      total: text,
     });
   };
 
   return (
     <View style={{flex: 1}}>
-      <HeaderBack navigation={navigation} title="Edit Budget" />
-
+      <HeaderBack navigation={navigation} title={Header} />
+      <MonthPick />
       <ScrollView>
         <View style={styles.input}>
           <Text style={[styles.text_footer, {marginTop: 8}]}>Budget Name</Text>
           <TextInput
-            placeholder="Education"
             style={styles.textInput}
             autoCapitalize="none"
-            onChangeText={val => budgetNameInputChange(val)}
+            onChangeText={text => budgetTitleInputChange(text)}
+            value={Budget.title}
           />
         </View>
         <View style={styles.input}>
           <Text style={[styles.text_footer, {marginTop: 8}]}>Budget Limit</Text>
           <TextInput
-            placeholder="10.000.000"
             style={styles.textInput}
             autoCapitalize="none"
-            onChangeText={val => budgetLimitInputChange(val)}
+            onChangeText={text => budgetTotalInputChange(text)}
+            value={Budget.total}
             keyboardType="numeric"
           />
         </View>
 
         <View style={styles.button}>
           <View style={styles.budgetDetail}>
-            <Text style={styles.font1}>Total Budget in January</Text>
+            <Text style={styles.font1}>Current Total Budget in November </Text>
             <Text style={styles.font2}>RP 17.000.000</Text>
           </View>
           <TouchableOpacity
-            onPress={() => navigation.navigate('Budget')}>
+            onPress={() => {
+              FormAction(Budget);
+              navigation.goBack();
+            }}>
             <View style={styles.buttonAdd}>
-              <Text style={styles.buttonText}>Save</Text>
+              <Text style={styles.buttonText}>{Button}</Text>
             </View>
           </TouchableOpacity>
         </View>
       </ScrollView>
     </View>
-    // <View>
-    //   <Text>chicken</Text>
-    // </View>
   );
 };
-export default BudgetEdit;
+export default BudgetAdd;
 
 const WindowWidth = Dimensions.get('window').width;
 
@@ -100,8 +99,6 @@ const styles = StyleSheet.create({
     color: 'black',
     borderBottomColor: TITLE_COLOR,
     borderBottomWidth: 1,
-    fontSize: 15,
-    fontStyle: 'italic',
   },
   button: {
     alignItems: 'flex-end',
@@ -109,22 +106,26 @@ const styles = StyleSheet.create({
     paddingRight: WindowWidth * 0.04,
     paddingBottom: 35,
   },
+
   budgetDetail: {
     paddingBottom: 15,
     alignItems: 'flex-end',
   },
+
   font1: {
     color: PRIMARY_COLOR,
     fontSize: 16,
     fontStyle: 'italic',
     paddingBottom: 5,
   },
+
   font2: {
     color: TITLE_COLOR,
     fontSize: 20,
     fontFamily: BOLD_FONT,
     paddingBottom: 5,
   },
+
   buttonAdd: {
     width: 120,
     height: 35,

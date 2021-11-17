@@ -13,13 +13,13 @@ import Planning from '../pages/PlanningPage/Planning';
 import PlanningAdd from '../pages/PlanningPage/PlanningAdd';
 
 import Budget from '../pages/Budget/Budget';
-import BudgetAdd from '../pages/Budget/BudgetAdd';
-import BudgetEdit from '../pages/Budget/BudgetEdit';
+import BudgetAddEdit from '../pages/Budget/BudgetAddEdit';
 
 import DrawerContent from '../components/DrawerNavigation/DrawerContent';
+import HistoryTransactionPage from '../pages/HistoryTransactionPage';
+
 import MonthlyPayment from '../pages/MonthlyPayment/MonthlyPayment';
-import MonthlyPaymentAdd from '../pages/MonthlyPayment/MonthlyPaymentAdd';
-import MonthlyPaymentEdit from '../pages/MonthlyPayment/MonthlyPaymentEdit';
+import MonthlyAddEdit from '../pages/MonthlyPayment/MonthlyAddEdit';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -36,6 +36,7 @@ const MainApp = () => {
       <Drawer.Screen name="Monthly Payment" component={MonthlyPayment} />
 
       <Drawer.Screen name="Planning" component={Planning} />
+      <Drawer.Screen name="History Transaction" component={HistoryTransactionPage} />
     </Drawer.Navigator>
   );
 };
@@ -70,24 +71,14 @@ const Router = () => {
       />
 
       <Stack.Screen
-        name="BudgetAdd"
-        component={BudgetAdd}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="BudgetEdit"
-        component={BudgetEdit}
+        name="BudgetAddEdit"
+        component={BudgetAddEdit}
         options={{headerShown: false}}
       />
 
       <Stack.Screen
-        name="MonthlyPaymentAdd"
-        component={MonthlyPaymentAdd}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="MonthlyPaymentEdit"
-        component={MonthlyPaymentEdit}
+        name="MonthlyAddEdit"
+        component={MonthlyAddEdit}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

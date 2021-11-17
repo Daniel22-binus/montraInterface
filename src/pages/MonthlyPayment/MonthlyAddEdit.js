@@ -1,73 +1,84 @@
-import React from 'react';
+import React ,{useState} from 'react';
 import {View, Text, Dimensions, StyleSheet, TextInput} from 'react-native';
 import HeaderBack from '../../components/HeaderBack';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
-import {BOLD_FONT, TITLE_COLOR, PRIMARY_FONT, WHITE, PRIMARY_COLOR} from '../../constant';
-import MonthPick from '../../components/BudgetComponent/MonthPick';
+import {BOLD_FONT, TITLE_COLOR, PRIMARY_FONT, WHITE} from '../../constant';
 
-const BudgetAdd = ({navigation}) => {
-  const [data, setData] = React.useState({
-    budgetName: '',
-    budgetLimit: '',
-  });
+const MonthlyPaymentAdd = ({route, navigation}) => {
+  const {getMonthly, Header,FormAction, TitleBtn} = route.params;
+  const [Monthly, setMonthly] = useState(getMonthly);
 
-  const budgetNameInputChange = val => {
-    setData({
-      ...data,
-      budgetName: val,
+  const paymentTitleInputChange = text => {
+    setMonthly({
+      ...Monthly,
+      title: text,
     });
   };
 
-  const budgetLimitInputChange = val => {
-    setData({
-      ...data,
-      budgetLimit: val,
+  const budgetInputChange = text => {
+    setMonthly({
+      ...Monthly,
+      budget: text,
+    });
+  };
+
+  const deadlineInputChange = text => {
+    setMonthly({
+      ...Monthly,
+      deadline: text,
     });
   };
 
   return (
     <View style={{flex: 1}}>
-      <HeaderBack navigation={navigation} title="Add New Budget" />
-      <MonthPick />
+      <HeaderBack navigation={navigation} title={Header}/>
+
       <ScrollView>
         <View style={styles.input}>
-          <Text style={[styles.text_footer, {marginTop: 8}]}>Budget Name</Text>
+          <Text style={[styles.text_footer, {marginTop: 8}]}>Payment Name</Text>
           <TextInput
             style={styles.textInput}
             autoCapitalize="none"
-            onChangeText={val => budgetNameInputChange(val)}
+            value={Monthly.title}
+            onChangeText={text => paymentTitleInputChange(text)}
           />
         </View>
         <View style={styles.input}>
-          <Text style={[styles.text_footer, {marginTop: 8}]}>Budget Limit</Text>
+          <Text style={[styles.text_footer, {marginTop: 8}]}>Fee</Text>
           <TextInput
             style={styles.textInput}
-            autoCapitalize="none"
-            onChangeText={val => budgetLimitInputChange(val)}
+            value={Monthly.budget}
+            onChangeText={text => budgetInputChange(text)}
+            keyboardType="numeric"
+          />
+        </View>
+        <View style={styles.input}>
+          <Text style={[styles.text_footer, {marginTop: 8}]}>Deadline</Text>
+          <TextInput
+            style={styles.textInput}
+            value={Monthly.deadline}
+            onChangeText={text => deadlineInputChange(text)}
             keyboardType="numeric"
           />
         </View>
 
         <View style={styles.button}>
-          <View style={styles.budgetDetail}>
-            <Text style={styles.font1}>Total Budget in January</Text>
-            <Text style={styles.font2}>RP 17.000.000</Text>
-          </View>
           <TouchableOpacity
-            onPress={() => navigation.navigate('Budget')}>
+            onPress={() => {
+              FormAction(Monthly);
+              navigation.goBack();
+            }}>
             <View style={styles.buttonAdd}>
-              <Text style={styles.buttonText}>Add</Text>
+              <Text style={styles.buttonText}>{TitleBtn}</Text>
             </View>
           </TouchableOpacity>
         </View>
       </ScrollView>
     </View>
-    // <View>
-    //   <Text>chicken</Text>
-    // </View>
   );
 };
-export default BudgetAdd;
+
+export default MonthlyPaymentAdd;
 
 const WindowWidth = Dimensions.get('window').width;
 
@@ -93,6 +104,8 @@ const styles = StyleSheet.create({
     color: 'black',
     borderBottomColor: TITLE_COLOR,
     borderBottomWidth: 1,
+    fontSize: 15,
+    fontStyle: 'italic',
   },
   button: {
     alignItems: 'flex-end',
@@ -100,26 +113,6 @@ const styles = StyleSheet.create({
     paddingRight: WindowWidth * 0.04,
     paddingBottom: 35,
   },
-
-  budgetDetail: {
-    paddingBottom: 15,
-    alignItems: "flex-end"
-  },
-
-  font1: {
-      color: PRIMARY_COLOR,
-      fontSize: 16,
-      fontStyle: "italic",
-      paddingBottom: 5,
-  },
-
-  font2: {
-    color: TITLE_COLOR,
-    fontSize: 20,
-    fontFamily: BOLD_FONT,
-    paddingBottom: 5,
-  },
-
   buttonAdd: {
     width: 120,
     height: 35,

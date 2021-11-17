@@ -13,14 +13,17 @@ import BudgetItem from '../../components/BudgetComponent/BudgetItem';
 import {ScrollView} from 'react-native-gesture-handler';
 import MonthPick from '../../components/BudgetComponent/MonthPick';
 import TotalBudget from '../../components/BudgetComponent/TotalBudget';
+import budgetHook from '../../hooks/budgetHook';
 
 const Budget = ({navigation}) => {
+  const [budgetList, addBudget, editBudget, deleteBudget, setStateNeed] =
+    budgetHook();
   return (
     <View style={{flex: 1}}>
       <HeaderBack navigation={navigation} title="Budget" />
       <MonthPick />
       <View style={styles.container}>
-        <TotalBudget totalBudget="17000000" currentUse="10300000" />
+        <TotalBudget totalBudget="16000000" currentUse="10000000" />
 
         <View
           style={{
@@ -39,21 +42,32 @@ const Budget = ({navigation}) => {
         </View>
 
         <ScrollView>
-          <BudgetItem title="Education" budget="10000000" budgetUse="5500000" />
-          <BudgetItem
-            title="Food and Beverage"
-            budget="5000000"
-            budgetUse="4600000"
-          />
-          <BudgetItem
-            title="Transportation"
-            budget="1000000"
-            budgetUse="50000"
-          />
+          {budgetList.results.map((Budget, index) => (
+            <BudgetItem
+              key={index}
+              Budget={Budget}
+              editBudget={editBudget}
+              deleteBudget={deleteBudget}
+              setStateNeed={setStateNeed}
+              navigation={navigation}
+            />
+          ))}
 
           <View style={styles.addNew}>
             <TouchableOpacity
-              onPress={() => navigation.navigate('BudgetAdd')}>
+              onPress={() => {
+                navigation.navigate('BudgetAddEdit', {
+                  getBudget: {
+                    id: 0,
+                    title: '',
+                    total: '',
+                    budgetUse: '',
+                  },
+                  Button: 'Add',
+                  Header: 'Add New Budget',
+                  FormAction: addBudget,
+                });
+              }}>
               <Add1Icon />
             </TouchableOpacity>
             <Text style={styles.miniFont}>add new Budget</Text>

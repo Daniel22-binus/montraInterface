@@ -11,10 +11,10 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import ProgressBar from '../../components/BudgetComponent/ProgressBar';
-import { useNavigation } from '@react-navigation/native';
+import {printPrice} from '../../logic/printPrice';
 
-const BudgetItem = ({title, budget, budgetUse}) => {
-  const navigation = useNavigation();
+const BudgetItem = ({navigation,Budget, deleteBudget, editBudget}) => {
+
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -23,23 +23,29 @@ const BudgetItem = ({title, budget, budgetUse}) => {
         start={{x: 1, y: 0}}
         end={{x: 0, y: 1}}>
         <View style={styles.upperStyle}>
-          <Text style={styles.font1}>{title}</Text>
+          <Text style={styles.font1}>{Budget.title}</Text>
           <View style={styles.icons}>
             <TouchableOpacity
               style={styles.oneIcon}
-              onPress={() => navigation.navigate('BudgetEdit')}
+              onPress={() => {navigation.navigate('BudgetAddEdit',
+              {
+                getBudget:Budget,
+                Header:"Edit Budget",
+                Button:"Edit",
+                FormAction:editBudget,
+              })}}
             >
               <Edit2Icon />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.oneIcon}>
+            <TouchableOpacity style={styles.oneIcon} onPress={()=>deleteBudget(Budget.id)}>
               <DeleteIcon />
             </TouchableOpacity>
           </View>
         </View>
 
-        <Text style={styles.font2}>Rp. {budget.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</Text>
-        <ProgressBar current={[budgetUse]} total={[budget]} />
-        <Text style={styles.font3}>Rp. {budgetUse.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</Text>
+        <Text style={styles.font2}>{printPrice(Budget.total)}</Text>
+        <ProgressBar current={[Budget.budgetUse]} total={[Budget.total]} />
+        <Text style={styles.font3}>{printPrice(Budget.budgetUse)}</Text>
       </LinearGradient>
     </View>
   );

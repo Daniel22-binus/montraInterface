@@ -5,36 +5,42 @@ import {Add1Icon} from '../../assets';
 import MonthlyPaymentItem from '../../components/MonthlyPaymentItem';
 import {BOLD_FONT, TITLE_COLOR} from '../../constant';
 import HeaderBack from '../../components/HeaderBack';
+import monthlyHook from '../../hooks/monthlyHook';
 
 const MonthlyPayment = ({navigation}) => {
+  const [monthlyList, addMonthly, editMonthly, deleteMonthly, setStateNeed] =
+    monthlyHook();
+
   return (
     <View style={{flex: 1}}>
       <HeaderBack navigation={navigation} title="Monthly Payment" />
       <ScrollView>
-        <MonthlyPaymentItem
-          title="PLN’s Fee"
-          budget="Rp. 1.000.000"
-          deadline="deadline : 5th of the month"
-        />
-        <MonthlyPaymentItem
-          title="Wifi’s Fee"
-          budget="Rp. 400.000"
-          deadline="deadline : 15th of the month"
-        />
-        <MonthlyPaymentItem
-          title="School's Fee"
-          budget="Rp. 600.000"
-          deadline="deadline : 3rd of the month"
-        />
-        <MonthlyPaymentItem
-          title="Tuition's Fee"
-          budget="Rp. 500.000"
-          deadline="deadline : 4th of the month"
-        />
+        {monthlyList.results.map((Monthly, index) => (
+          <MonthlyPaymentItem
+            key={index}
+            Monthly={Monthly}
+            editMonthly={editMonthly}
+            deleteMonthly={deleteMonthly}
+            setStateNeed={setStateNeed}
+            navigation={navigation}
+          />
+        ))}
 
         <View style={styles.addNew}>
           <TouchableOpacity
-            onPress={() => navigation.navigate('MonthlyPaymentAdd')}>
+            onPress={() => {
+              navigation.navigate('MonthlyAddEdit', {
+                getMonthly: {
+                  id: 0,
+                  title: '',
+                  budget: '',
+                  deadline: '',
+                },
+                Header: 'Add New Monthly Payment',
+                FormAction: addMonthly,
+                TitleBtn: 'Add',
+              });
+            }}>
             <Add1Icon />
           </TouchableOpacity>
           <Text style={styles.miniFont}>add new Monthly Payment</Text>
