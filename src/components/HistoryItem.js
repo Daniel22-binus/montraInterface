@@ -13,7 +13,7 @@ import {
   DETAIL_COLOR,
   SECONDARY_COLOR,
 } from '../constant';
-import {printPrice} from '../logic/PrintPrice';
+import {printPrice} from '../logic/printPrice';
 
 const HistoryItem = props => {
   const {title, date, rp} = props;
