@@ -18,14 +18,14 @@ const BudgetAdd = ({navigation, route}) => {
   const budgetTitleInputChange = text => {
     setBudget({
       ...Budget,
-      title: text,
+      budgetCategory: text,
     });
   };
 
   const budgetTotalInputChange = text => {
     setBudget({
       ...Budget,
-      total: text,
+      budgetLimit: text,
     });
   };
 
@@ -40,7 +40,7 @@ const BudgetAdd = ({navigation, route}) => {
             style={styles.textInput}
             autoCapitalize="none"
             onChangeText={text => budgetTitleInputChange(text)}
-            value={Budget.title}
+            value={Budget.budgetCategory}
           />
         </View>
         <View style={styles.input}>
@@ -49,7 +49,7 @@ const BudgetAdd = ({navigation, route}) => {
             style={styles.textInput}
             autoCapitalize="none"
             onChangeText={text => budgetTotalInputChange(text)}
-            value={Budget.total}
+            value={Budget.budgetLimit}
             keyboardType="numeric"
           />
         </View>

@@ -23,7 +23,7 @@ const BudgetItem = ({navigation,Budget, deleteBudget, editBudget}) => {
         start={{x: 1, y: 0}}
         end={{x: 0, y: 1}}>
         <View style={styles.upperStyle}>
-          <Text style={styles.font1}>{Budget.title}</Text>
+          <Text style={styles.font1}>{Budget.budgetCategory}</Text>
           <View style={styles.icons}>
             <TouchableOpacity
               style={styles.oneIcon}
@@ -43,8 +43,8 @@ const BudgetItem = ({navigation,Budget, deleteBudget, editBudget}) => {
           </View>
         </View>
 
-        <Text style={styles.font2}>{printPrice(Budget.total)}</Text>
-        <ProgressBar current={[Budget.budgetUse]} total={[Budget.total]} />
+        <Text style={styles.font2}>{printPrice(Budget.budgetLimit)}</Text>
+        <ProgressBar current={[Budget.budgetUse]} total={[Budget.budgetLimit]} />
         <Text style={styles.font3}>{printPrice(Budget.budgetUse)}</Text>
       </LinearGradient>
     </View>

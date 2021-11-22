@@ -6,20 +6,20 @@ const budgetHook = () => {
     results: [
       {
         id: 0,
-        title:"Education",
-        total:"10000000",
+        budgetCategory:"Education",
+        budgetLimit:"10000000",
         budgetUse:"5400000"
       },
       {
         id:1,
-        title:"Food and Beverage",
-        total:"5000000",
+        budgetCategory:"Food and Beverage",
+        budgetLimit:"5000000",
         budgetUse:"4500000"
       },
       {
         id:2,
-        title:"Transportation",
-        total:"1000000",
+        budgetCategory:"Transportation",
+        budgetLimit:"1000000",
         budgetUse:"100000"
       },
     ],
