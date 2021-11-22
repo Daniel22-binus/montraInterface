@@ -20,14 +20,14 @@ const PlanningAdd = ({route, navigation}) => {
   const inputTitleField = text => {
     setPlan({
       ...Plan,
-      title: text,
+      planningName: text,
     });
   };
 
   const inputDescriptionField = text => {
     setPlan({
       ...Plan,
-      description: text,
+      planningDescription: text,
     });
   };
 
@@ -47,7 +47,7 @@ const PlanningAdd = ({route, navigation}) => {
             <Text style={form.inputLabel}>Planning Name</Text>
             <TextInput
               style={form.inputText}
-              value={Plan.title}
+              value={Plan.planningName}
               onChangeText={text => inputTitleField(text)}
             />
           </View>
@@ -59,7 +59,7 @@ const PlanningAdd = ({route, navigation}) => {
               numberOfLines={4}
               editable
               maxLength={40}
-              value={Plan.description}
+              value={Plan.planningDescription}
               onChangeText={text => inputDescriptionField(text)}
             />
           </View>

@@ -35,7 +35,7 @@ const PlanningItem = props => {
       colors={['#9ABCDD', '#CAD8D2']}>
       <View style={styles.container}>
         <View style={{flexDirection: 'row'}}>
-          <Text style={styles.title}>{planning.title}</Text>
+          <Text style={styles.title}>{planning.planningName}</Text>
           <TouchableOpacity
             style={{marginRight: 8}}
             onPress={() => {
@@ -53,7 +53,7 @@ const PlanningItem = props => {
           </TouchableOpacity>
         </View>
 
-        <Text style={styles.description}>{planning.description}</Text>
+        <Text style={styles.description}>{planning.planningDescription}</Text>
         <Text style={styles.price}> {printPrice(price)} </Text>
         <View style={styles.line} />
 
