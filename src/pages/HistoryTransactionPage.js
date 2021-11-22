@@ -3,10 +3,10 @@ import {StyleSheet, Text, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import HeaderBack from '../components/HeaderBack';
 import HistoryItem from '../components/HistoryItem';
-import historyHook from '../hooks/historyHook';
+import expenseHook from '../hooks/expenseHook';
 
 const HistoryTransactionPage = ({navigation}) => {
-  const [historyList] = historyHook();
+  const [historyList] = expenseHook();
 
   return (
     <View style={styles.whiteBg}>
@@ -19,9 +19,9 @@ const HistoryTransactionPage = ({navigation}) => {
           return (
             <HistoryItem
               key={history.id}
-              title={history.title}
+              title={history.expensesDescription}
               date={history.date}
-              rp={history.rp}
+              rp={history.amount}
             />
           );
         })}

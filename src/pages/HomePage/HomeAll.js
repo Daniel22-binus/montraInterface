@@ -10,7 +10,7 @@ import PieChartReact from '../../components/HomeComponent/PieChartReact';
 import HistoryItem from '../../components/HistoryItem';
 import {AddIcon} from '../../assets/icons';
 import {BOLD_FONT, PRIMARY_COLOR, PRIMARY_FONT} from '../../constant';
-import historyHook from '../../hooks/historyHook';
+import expenseHook from '../../hooks/expenseHook';
 
 const HomeHeader = () => {
   return (
@@ -30,7 +30,7 @@ const HomeHeader = () => {
 };
 
 const HomeAll = ({navigation}) => {
-  const [historyList] = historyHook();
+  const [historyList] = expenseHook();
   let historyListShort = [];
 
   if (historyList.length > 3) {
@@ -50,9 +50,9 @@ const HomeAll = ({navigation}) => {
         {historyListShort.reverse().map(history => (
           <HistoryItem
             key={history.id}
-            title={history.title}
+            title={history.expensesDescription}
             date={history.date}
-            rp={history.rp}
+            rp={history.amount}
           />
         ))}
 

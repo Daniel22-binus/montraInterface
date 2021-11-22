@@ -3,11 +3,11 @@ import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {HomeHeader} from './HomeAll';
 import {ProgressCircle} from 'react-native-svg-charts';
 import {BOLD_FONT, PRIMARY_COLOR, PRIMARY_FONT} from '../../constant';
-import historyHook from '../../hooks/historyHook';
+import expenseHook from '../../hooks/expenseHook';
 import HistoryItem from '../../components/HistoryItem';
 
 const HomeAnother = ({navigation}) => {
-  const [historyList] = historyHook();
+  const [historyList] = expenseHook();
   let tempHist = historyList.filter(data => {
     return data.budgetId == 1;
   });
@@ -36,9 +36,9 @@ const HomeAnother = ({navigation}) => {
         {historyListShort.reverse().map(history => (
           <HistoryItem
             key={history.id}
-            title={history.title}
+            title={history.expensesDescription}
             date={history.date}
-            rp={history.rp}
+            rp={history.amount}
           />
         ))}
         <TouchableOpacity
