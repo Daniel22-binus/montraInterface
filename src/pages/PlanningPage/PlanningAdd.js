@@ -40,7 +40,7 @@ const PlanningAdd = ({route, navigation}) => {
 
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
-      <HeaderBack navigation={navigation} title={TitleBtn + " Planning"} />
+      <HeaderBack navigation={navigation} title={TitleBtn + ' Planning'} />
       <ScrollView>
         <View style={form.container}>
           <View style={form.containerInput}>
@@ -122,13 +122,13 @@ const form = StyleSheet.create({
     borderBottomWidth: 1,
     width: 235,
     borderColor: TITLE_COLOR,
-    color: TITLE_COLOR
+    color: TITLE_COLOR,
   },
   inputBox: {
     borderWidth: 1,
     width: 235,
     borderColor: TITLE_COLOR,
-    color: TITLE_COLOR
+    color: TITLE_COLOR,
   },
   btnAddNeeds: {
     paddingVertical: windowHeight * 0.02,

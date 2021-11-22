@@ -41,7 +41,7 @@ const PlanningItem = props => {
             onPress={() => {
               navigation.navigate('PlanningAdd', {
                 getPlan: planning,
-                Header:'Edit New Planning',
+                Header: 'Edit New Planning',
                 FormAction: editPlanItem,
                 TitleBtn: 'Edit',
               });

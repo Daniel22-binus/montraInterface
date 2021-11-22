@@ -49,13 +49,13 @@ const Planning = ({navigation}) => {
               navigation.navigate('PlanningAdd', {
                 getPlan: {
                   id: 0,
-                  title: '',
-                  description: '',
+                  planningName: '',
+                  planningDescription: '',
                   needs: [
                     {id: '', needName: '', needPrice: '', needState: false},
                   ],
                 },
-                Header:"Add New Planning",
+                Header: 'Add New Planning',
                 FormAction: addPlanItem,
                 TitleBtn: 'Add',
               });
@@ -70,14 +70,14 @@ const Planning = ({navigation}) => {
         </ScrollView>
       </View>
 
-      {/* <TouchableOpacity
+      <TouchableOpacity
         onPress={() => {
           planningList.results.map(plan => {
             console.log(plan);
           });
         }}>
         <Text>Print</Text>
-      </TouchableOpacity> */}
+      </TouchableOpacity>
     </View>
   );
 };

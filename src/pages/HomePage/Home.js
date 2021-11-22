@@ -4,7 +4,7 @@ import {TabView, TabBar} from 'react-native-tab-view';
 import HomeAll from './HomeAll';
 import Header from '../../components/Header';
 import HomeAnother from './HomeAnother';
-import {BOLD_FONT, TITLE_COLOR, REGULAR_FONT} from '../../constant'
+import {BOLD_FONT, TITLE_COLOR, REGULAR_FONT} from '../../constant';
 
 const Home = ({navigation}) => {
   const SecondRoute = () => (
@@ -37,7 +37,7 @@ const Home = ({navigation}) => {
       indicatorStyle={TabBarStyles.indicatorStyle}
       labelStyle={{fontFamily: BOLD_FONT}}
       style={TabBarStyles.tabContainer}
-      inactiveColor={"white"}
+      inactiveColor={'white'}
       activeColor={TITLE_COLOR}
       scrollEnabled={true}
       tabStyle={TabBarStyles.tabStyle}
@@ -54,7 +54,6 @@ const Home = ({navigation}) => {
         onIndexChange={setIndex}
         initialLayout={{width: layout.width}}
         renderTabBar={renderTabBar}
-
       />
     </>
   );
@@ -68,12 +67,11 @@ const TabBarStyles = StyleSheet.create({
   },
   tabContainer: {
     backgroundColor: TITLE_COLOR,
-    
   },
   indicatorStyle: {
     backgroundColor: 'white',
     height: 48,
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
-  }
+  },
 });
