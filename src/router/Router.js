@@ -8,18 +8,29 @@ import Splash from '../pages/Splash';
 import SignInScreen from '../pages/SignInScreen';
 import ForgetPasswordScreen from '../pages/ForgetPassword';
 import SignUpScreen from '../pages/SignUpScreen';
+<<<<<<< HEAD
 
+=======
+>>>>>>> profile
 import Planning from '../pages/PlanningPage/Planning';
 import PlanningAdd from '../pages/PlanningPage/PlanningAdd';
 
 import Budget from '../pages/Budget/Budget';
+<<<<<<< HEAD
 import BudgetAddEdit from '../pages/Budget/BudgetAddEdit';
 
+=======
+import BudgetAdd from '../pages/Budget/BudgetAdd';
+import BudgetEdit from '../pages/Budget/BudgetEdit';
+>>>>>>> profile
 import DrawerContent from '../components/DrawerNavigation/DrawerContent';
 import HistoryTransactionPage from '../pages/HistoryTransactionPage';
 
 import MonthlyPayment from '../pages/MonthlyPayment/MonthlyPayment';
 import MonthlyAddEdit from '../pages/MonthlyPayment/MonthlyAddEdit';
+import Profile from '../pages/Profile/Profile';
+import profileEdit from '../pages/Profile/profileEdit';
+
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -35,8 +46,11 @@ const MainApp = () => {
       <Drawer.Screen name="Budget" component={Budget} />
       <Drawer.Screen name="Monthly Payment" component={MonthlyPayment} />
 
+
       <Drawer.Screen name="Planning" component={Planning} />
       <Drawer.Screen name="History Transaction" component={HistoryTransactionPage} />
+      <Drawer.Screen name="Profile" component={Profile} />
+
     </Drawer.Navigator>
   );
 };
@@ -79,6 +93,12 @@ const Router = () => {
       <Stack.Screen
         name="MonthlyAddEdit"
         component={MonthlyAddEdit}
+        options={{headerShown: false}}
+      />
+
+      <Stack.Screen 
+        name="profileEdit"
+        component={profileEdit}
         options={{headerShown: false}}
       />
     </Stack.Navigator>
