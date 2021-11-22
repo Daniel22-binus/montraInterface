@@ -11,21 +11,21 @@ const MonthlyPaymentAdd = ({route, navigation}) => {
   const paymentTitleInputChange = text => {
     setMonthly({
       ...Monthly,
-      title: text,
+      paymentName: text,
     });
   };
 
   const budgetInputChange = text => {
     setMonthly({
       ...Monthly,
-      budget: text,
+      paymentFee: text,
     });
   };
 
   const deadlineInputChange = text => {
     setMonthly({
       ...Monthly,
-      deadline: text,
+      paymentDeadline: text,
     });
   };
 
@@ -39,7 +39,7 @@ const MonthlyPaymentAdd = ({route, navigation}) => {
           <TextInput
             style={styles.textInput}
             autoCapitalize="none"
-            value={Monthly.title}
+            value={Monthly.paymentName}
             onChangeText={text => paymentTitleInputChange(text)}
           />
         </View>
@@ -47,7 +47,7 @@ const MonthlyPaymentAdd = ({route, navigation}) => {
           <Text style={[styles.text_footer, {marginTop: 8}]}>Fee</Text>
           <TextInput
             style={styles.textInput}
-            value={Monthly.budget}
+            value={Monthly.paymentFee}
             onChangeText={text => budgetInputChange(text)}
             keyboardType="numeric"
           />
@@ -56,7 +56,7 @@ const MonthlyPaymentAdd = ({route, navigation}) => {
           <Text style={[styles.text_footer, {marginTop: 8}]}>Deadline</Text>
           <TextInput
             style={styles.textInput}
-            value={Monthly.deadline}
+            value={Monthly.paymentDeadline}
             onChangeText={text => deadlineInputChange(text)}
             keyboardType="numeric"
           />

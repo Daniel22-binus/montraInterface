@@ -25,7 +25,7 @@ const MonthlyPaymentItem = ({Monthly, editMonthly, deleteMonthly}) => {
         start={{x: 1, y: 0}}
         end={{x: 0, y: 1}}>
         <View style={styles.upperStyle}>
-          <Text style={styles.font1}>{Monthly.title}</Text>
+          <Text style={styles.font1}>{Monthly.paymentName}</Text>
           <View style={styles.icons}>
             <TouchableOpacity
               style={styles.oneIcon}
@@ -49,8 +49,8 @@ const MonthlyPaymentItem = ({Monthly, editMonthly, deleteMonthly}) => {
         </View>
 
         <View style={styles.descWrapper}>
-          <Text style={styles.font1}>{printPrice(Monthly.budget)}</Text>
-          <Text style={styles.font2}>deadline: day-{Monthly.deadline} of the month</Text>
+          <Text style={styles.font1}>{printPrice(Monthly.paymentFee)}</Text>
+          <Text style={styles.font2}>deadline: day-{Monthly.paymentDeadline} of the month</Text>
         </View>
 
         <View style={styles.checkBox}>
