@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, Text, View, Button} from 'react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -36,6 +36,23 @@ const MainApp = () => {
 };
 
 const Router = () => {
+  
+  // const {user, setUser} = useContext(AuthContext);
+  // const [initializing, setInitializing] = useState(true);
+
+  // const onAuthStateChanged = (user) => {
+  //   setUser(user);
+  //   if (initializing) setInitializing(false);
+  // };
+
+
+  // useEffect(() => {    
+  //   const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+  //   return subscriber;
+  // }, [])
+
+  // if (initializing) return null;
+
   return (
     <Stack.Navigator initialRouteName="Splash">
       <Stack.Screen

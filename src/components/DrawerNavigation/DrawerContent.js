@@ -1,10 +1,13 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import DrawerItemContent from './DrawerItemContent';
+import DrawerLogOutContent from './DrawerLogOutContent';
 import {WrongDefault} from '../../assets'
 import { BACKGROUND_COLOR, BOLD_FONT, PRIMARY_COLOR, TITLE_COLOR } from '../../constant';
+import { auth } from '../../../firebase';
 
 const DrawerContent = ({navigation}) => {
+
   return (
     <View style={styles.container}>
       <View style={userStyle.bg}>
@@ -13,7 +16,8 @@ const DrawerContent = ({navigation}) => {
           <Image style={userStyle.image} source={WrongDefault}/>
           <View style={userStyle.userData}>
             <Text style={userStyle.text}>User</Text>
-            <Text style={userStyle.text}>user@gmail.com</Text>
+            {/* <Text style={userStyle.text}>user@gmail.com</Text> */}
+            <Text style={userStyle.text}>{auth.currentUser?.email}</Text>
           </View>
         </View>
       </View>
@@ -26,7 +30,7 @@ const DrawerContent = ({navigation}) => {
       <DrawerItemContent title="Monthly Payment" navigation={navigation} />
       <View style={styles.line}/>
       <DrawerItemContent title="Settings" navigation={navigation} />
-      <DrawerItemContent title="Logout" navigation={navigation} />
+      <DrawerLogOutContent title="Logout" />
     </View>
   );
 };
