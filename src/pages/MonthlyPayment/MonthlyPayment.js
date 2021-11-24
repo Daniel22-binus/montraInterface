@@ -15,7 +15,7 @@ const MonthlyPayment = ({navigation}) => {
     <View style={{flex: 1}}>
       <HeaderBack navigation={navigation} title="Monthly Payment" />
       <ScrollView>
-        {monthlyList.results.map((Monthly,index) => (
+        {monthlyList.results.map((Monthly, index) => (
           <MonthlyPaymentItem
             key={index}
             Monthly={Monthly}
@@ -28,17 +28,19 @@ const MonthlyPayment = ({navigation}) => {
 
         <View style={styles.addNew}>
           <TouchableOpacity
-            onPress={() => { navigation.navigate('MonthlyAddEdit',{
-              getMonthly:{
-                id:0,
-                title:'',
-                budget:'',
-                deadline:''
-              },
-              Header:'Add New Monthly Payment',
-              FormAction:addMonthly,
-              TitleBtn:'Add'
-            })}}>
+            onPress={() => {
+              navigation.navigate('MonthlyAddEdit', {
+                getMonthly: {
+                  id: 0,
+                  title: '',
+                  budget: '',
+                  deadline: '',
+                },
+                Header: 'Add New Monthly Payment',
+                FormAction: addMonthly,
+                TitleBtn: 'Add',
+              });
+            }}>
             <Add1Icon />
           </TouchableOpacity>
           <Text style={styles.miniFont}>add new Monthly Payment</Text>

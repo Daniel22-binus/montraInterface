@@ -6,21 +6,21 @@ const monthlyHook = () => {
     results: [
       {
         id: 0,
-        title:"PLN’s Fee",
-        budget:"1400000",
-        deadline:"5",
+        paymentName:"PLN’s Fee",
+        paymentFee:"1400000",
+        paymentDeadline:"5",
       },
       {
         id:1,
-        title:"Wifi’s Fee",
-        budget:"500000",
-        deadline:"5",
+        paymentName:"Wifi’s Fee",
+        paymentFee:"500000",
+        paymentDeadline:"5",
       },
       {
         id:2,
-        title:"School's Fee",
-        budget:"1900000",
-        deadline:"15",
+        paymentName:"School's Fee",
+        paymentFee:"1900000",
+        paymentDeadline:"15",
       },
     ],
   });
@@ -28,7 +28,7 @@ const monthlyHook = () => {
   const setStateNeed = (indexMonthly, newState) => {
     const newResults = [...monthlyList.results];
     newResults[indexMonthly] = newState;
-    setPlanningList({
+    setMonthlyList({
       results: newResults,
     });
     console.log(newResults)
