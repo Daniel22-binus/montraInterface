@@ -12,7 +12,7 @@ import {AddIcon} from '../../assets/icons';
 import {BOLD_FONT, PRIMARY_COLOR, PRIMARY_FONT} from '../../constant';
 import expenseHook from '../../hooks/expenseHook';
 
-const HomeHeader = () => {
+const HomeHeader = ({navigation}) => {
   return (
     <View style={{flexDirection: 'row', marginLeft: 10, marginVertical: 12}}>
       <View style={textTop.budgetContainer}>
@@ -20,7 +20,8 @@ const HomeHeader = () => {
         <Text style={textTop.rp}>Rp. 6.700.000</Text>
       </View>
       <View style={textTop.textcontainer}>
-        <TouchableOpacity style={{flexDirection: 'row'}}>
+        <TouchableOpacity style={{flexDirection: 'row'}}
+        onPress={() => {navigation.navigate("AddExpense")}}>
           <Text style={textTop.textexpense}>Add Expense</Text>
           <AddIcon />
         </TouchableOpacity>
@@ -42,7 +43,7 @@ const HomeAll = ({navigation}) => {
 
   return (
     <View style={{backgroundColor: 'white', flex: 1}}>
-      <HomeHeader />
+      <HomeHeader navigation={navigation} />
       <PieChartReact />
       <View>
         <Text style={styles.textTitle}>Expenses</Text>

@@ -15,6 +15,7 @@ import DrawerContent from '../components/DrawerNavigation/DrawerContent';
 import MonthlyPayment from '../pages/MonthlyPayment/MonthlyPayment';
 import HistoryTransactionPage from '../pages/HistoryTransactionPage';
 import MonthlyAddEdit from '../pages/MonthlyPayment/MonthlyAddEdit';
+import AddExpense from '../pages/AddExpense';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -71,6 +72,12 @@ const Router = () => {
       />
 
       {PlanningPage()}
+      <Stack.Screen
+        name="AddExpense"
+        component={AddExpense}
+        options={{headerShown: false}}
+      />
+
     </Stack.Navigator>
   );
 };
