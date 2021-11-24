@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,10 +7,20 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
+import {Picker} from '@react-native-picker/picker';
 import HeaderBack from '../components/HeaderBack';
 import {BOLD_FONT, PRIMARY_COLOR, TITLE_COLOR} from '../constant';
 
 const AddExpense = ({navigation}) => {
+  const [selectedCategory, setSelectedCategory] = useState();
+  const [newExpense, setNewExpense] = useState({
+    id: 0,
+    budgetId: 0,
+    expensesDescription: '',
+    date: new Date(),
+    amount: 0,
+  });
+
   return (
     <View style={{backgroundColor: 'white', flex: 1}}>
       <HeaderBack navigation={navigation} title={'Add Expense'} />
@@ -22,7 +32,18 @@ const AddExpense = ({navigation}) => {
         </View>
         <View style={form.containerInput}>
           <Text style={form.inputLabel}>Category</Text>
-          <TextInput style={form.inputText} />
+          <Picker
+            selectedValue={selectedCategory}
+            onValueChange={(itemValue, itemIndex) => {
+              setSelectedCategory(itemValue);
+            }}
+            dropdownIconColor={TITLE_COLOR}
+            style={selectionBox.pickerContainer}
+            itemStyle={selectionBox.pickerItem}>
+            <Picker.Item label="Konsumsi" value={1} />
+            <Picker.Item label="Edukasi" value={2} />
+            <Picker.Item label="Lain - lain" value={3} />
+          </Picker>
         </View>
         <View style={form.containerInput}>
           <Text style={form.inputLabel}>Amount</Text>
@@ -71,6 +92,15 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 20,
     fontFamily: BOLD_FONT,
+  },
+});
+
+const selectionBox = StyleSheet.create({
+  pickerContainer: {
+    width: 235,
+  },
+  pickerItem: {
+    backgroundColor: 'red',
   },
 });
 
