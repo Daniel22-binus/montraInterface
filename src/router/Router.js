@@ -24,6 +24,9 @@ import MonthlyAddEdit from '../pages/MonthlyPayment/MonthlyAddEdit';
 import Profile from '../pages/Profile/Profile';
 import profileEdit from '../pages/Profile/profileEdit';
 
+import Settings from '../pages/Settings/settingsMain'
+import ChangePassword from '../pages/Settings/changePassword'
+
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
@@ -44,6 +47,8 @@ const MainApp = () => {
         component={HistoryTransactionPage}
       />
       <Drawer.Screen name="Profile" component={Profile} />
+      <Drawer.Screen name="Settings" component={Settings} />
+      
     </Drawer.Navigator>
   );
 };
@@ -92,6 +97,12 @@ const Router = () => {
       <Stack.Screen
         name="profileEdit"
         component={profileEdit}
+        options={{headerShown: false}}
+      />
+
+      <Stack.Screen
+        name="Change Password"
+        component={ChangePassword}
         options={{headerShown: false}}
       />
 
