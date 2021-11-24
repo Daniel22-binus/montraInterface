@@ -1,8 +1,10 @@
 import React from 'react';
 import {StyleSheet, View, useWindowDimensions} from 'react-native';
-import {TabView} from 'react-native-tab-view';
+import {TabView, TabBar} from 'react-native-tab-view';
 import HomeAll from './HomeAll';
 import Header from '../../components/Header';
+import HomeAnother from './HomeAnother';
+import {BOLD_FONT, TITLE_COLOR, REGULAR_FONT} from '../../constant';
 
 const Home = ({navigation}) => {
   const SecondRoute = () => (
@@ -12,12 +14,13 @@ const Home = ({navigation}) => {
   const renderScene = ({route}) => {
     switch (route.key) {
       case 'first':
-        return <HomeAll navigation={navigation} />
+        return <HomeAll navigation={navigation} />;
       case 'second':
-        return <SecondRoute />
+        return <SecondRoute />;
+      case 'third':
+        return <HomeAnother navigation={navigation} />;
     }
-
-  }
+  };
 
   const layout = useWindowDimensions();
 
@@ -25,7 +28,22 @@ const Home = ({navigation}) => {
   const [routes] = React.useState([
     {key: 'first', title: 'All'},
     {key: 'second', title: 'empty'},
+    {key: 'third', title: 'konsumsi'},
   ]);
+
+  const renderTabBar = props => (
+    <TabBar
+      {...props}
+      indicatorStyle={TabBarStyles.indicatorStyle}
+      labelStyle={{fontFamily: BOLD_FONT}}
+      style={TabBarStyles.tabContainer}
+      inactiveColor={'white'}
+      activeColor={TITLE_COLOR}
+      scrollEnabled={true}
+      tabStyle={TabBarStyles.tabStyle}
+      bounces={true}
+    />
+  );
 
   return (
     <>
@@ -35,6 +53,7 @@ const Home = ({navigation}) => {
         renderScene={renderScene}
         onIndexChange={setIndex}
         initialLayout={{width: layout.width}}
+        renderTabBar={renderTabBar}
       />
     </>
   );
@@ -42,4 +61,17 @@ const Home = ({navigation}) => {
 
 export default Home;
 
-const styles = StyleSheet.create();
+const TabBarStyles = StyleSheet.create({
+  tabStyle: {
+    width: 120,
+  },
+  tabContainer: {
+    backgroundColor: TITLE_COLOR,
+  },
+  indicatorStyle: {
+    backgroundColor: 'white',
+    height: 48,
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+  },
+});

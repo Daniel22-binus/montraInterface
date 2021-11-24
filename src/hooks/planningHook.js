@@ -6,8 +6,8 @@ const planningHook = () => {
     results: [
       {
         id: 0,
-        title: 'Trip to Hawai',
-        description: 'for 3 days 2 nights',
+        planningName: 'Trip to Hawai',
+        planningDescription: 'for 3 days 2 nights',
         needs: [
           {
             id: 0,
@@ -43,8 +43,8 @@ const planningHook = () => {
       },
       {
         id: 1,
-        title: 'Dummy',
-        description: 'test data',
+        planningName: 'Dummy',
+        planningDescription: 'test data',
         needs: [
           {
             id: 0,
@@ -103,7 +103,13 @@ const planningHook = () => {
     });
   };
 
-  return [planningList, addPlanItem, editPlanItem, deletePlanItem, setStateNeed];
+  return [
+    planningList,
+    addPlanItem,
+    editPlanItem,
+    deletePlanItem,
+    setStateNeed,
+  ];
 };
 
 export default planningHook;

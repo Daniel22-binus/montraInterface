@@ -20,14 +20,14 @@ const PlanningAdd = ({route, navigation}) => {
   const inputTitleField = text => {
     setPlan({
       ...Plan,
-      title: text,
+      planningName: text,
     });
   };
 
   const inputDescriptionField = text => {
     setPlan({
       ...Plan,
-      description: text,
+      planningDescription: text,
     });
   };
 
@@ -40,14 +40,14 @@ const PlanningAdd = ({route, navigation}) => {
 
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
-      <HeaderBack navigation={navigation} title={TitleBtn + " Planning"} />
+      <HeaderBack navigation={navigation} title={TitleBtn + ' Planning'} />
       <ScrollView>
         <View style={form.container}>
           <View style={form.containerInput}>
             <Text style={form.inputLabel}>Planning Name</Text>
             <TextInput
               style={form.inputText}
-              value={Plan.title}
+              value={Plan.planningName}
               onChangeText={text => inputTitleField(text)}
             />
           </View>
@@ -59,7 +59,7 @@ const PlanningAdd = ({route, navigation}) => {
               numberOfLines={4}
               editable
               maxLength={40}
-              value={Plan.description}
+              value={Plan.planningDescription}
               onChangeText={text => inputDescriptionField(text)}
             />
           </View>
@@ -122,13 +122,13 @@ const form = StyleSheet.create({
     borderBottomWidth: 1,
     width: 235,
     borderColor: TITLE_COLOR,
-    color: TITLE_COLOR
+    color: TITLE_COLOR,
   },
   inputBox: {
     borderWidth: 1,
     width: 235,
     borderColor: TITLE_COLOR,
-    color: TITLE_COLOR
+    color: TITLE_COLOR,
   },
   btnAddNeeds: {
     paddingVertical: windowHeight * 0.02,
