@@ -27,29 +27,64 @@ import {
   BOLD_FONT,
   PRIMARY_FONT,
 } from '../constant';
-// import { AuthContext } from '../Navigation/AuthProvider';
 import {auth} from '../../firebase';
+// import { firestore } from '../../firebase';
+import firebase from 'firebase';
+
 
 const SignUpScreen = ({navigation}) => {
 
+  const [username, setUsername] = useState('');
+  const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
+
   const handleRegister = () => {
+    // const {username, phone, email, password, confirmPassword} = this.state;
     if (password != confirmPassword) {
       alert("Passwords don't match");
     } else {
-      auth
-        .createUserWithEmailAndPassword(email.toString().trim(), password)
-        .then(userCredentials => {
-          const user = userCredentials.user;
-          console.log('Registered with:', user.email);
-          navigation.navigate('SignInScreen');  
-        })
-        .catch(error => alert(error.message));
+      // auth
+      //   .createUserWithEmailAndPassword(email.toString().trim(), password)
+      //   // .then((result) => {
+      //   //   console.log(result)
+      //   // })
+      //   .then(userCredentials => {
+      //     const user = userCredentials.user;
+      //     console.log('Registered with:', user.email);
+      //     navigation.navigate('SignInScreen');  
+      //   })
+        // .catch(error => alert(error.message));
 
-      alert('REGISTRATION SUCCESSFUL');
+      // firebase.auth().createUserWithEmailAndPassword(email, password)
+      // .then((result) => {
+      //   firebase.firestore().collection('users')
+      //   .doc(firebase.auth().currentUser.uid)
+      //   .set({
+      //     username,
+      //     phone,
+      //     email,
+      //   })
+      //   console.log(result)
+      //   navigation.navigate('SignInScreen');  
+      // })
+      // .catch(error => alert(error.message));
+      auth.createUserWithEmailAndPassword(email.toString().trim(), password)
+      .then((result) => {
+       firebase.firestore().collection('users')
+        .doc(firebase.auth().currentUser.uid)
+        .set({
+          username,
+          phone,
+          email,
+        })
+        console.log(result)
+        navigation.navigate('SignInScreen');  
+      })
+      .catch(error => alert(error.message));
+
     }
   };
 
@@ -66,9 +101,7 @@ const SignUpScreen = ({navigation}) => {
     confirm_secureTextEntry: true,
   });
 
-  //tambahan Auth
-  // const {register} = useContext(AuthContext);
-
+ 
   const usernameInputChange = val => {
     if (val.length === '') {
       setData({
@@ -84,36 +117,7 @@ const SignUpScreen = ({navigation}) => {
         check_usernameInputChange: true,
       });
     }
-    // if (val.length != 0) {
-    //   setData({
-    //     ...data,
-    //     username: val,
-    //     check_usernameInputChange: true,
-    //   });
-    // } else {
-    //   setData({
-    //     ...data,
-    //     username: val,
-    //     check_usernameInputChange: false,
-    //   });
-    // }
   };
-
-  // const textInputChange = val => {
-  //   if (val.length != 0) {
-  //     setData({
-  //       ...data,
-  //       email: val,
-  //       check_textInputChange: true,
-  //     });
-  //   } else {
-  //     setData({
-  //       ...data,
-  //       email: val,
-  //       check_textInputChange: false,
-  //     });
-  //   }
-  // };
 
   const phoneInputChange = val => {
     if (val.length != 0) {
@@ -130,20 +134,6 @@ const SignUpScreen = ({navigation}) => {
       });
     }
   };
-
-  // const handlePasswordChange = val => {
-  //   setData({
-  //     ...data,
-  //     password: val,
-  //   });
-  // };
-
-  // const handleConfirmPasswordChange = val => {
-  //   setData({
-  //     ...data,
-  //     confirm_password: val,
-  //   });
-  // };
 
   const updateSecureTextEntry = () => {
     setData({
@@ -183,8 +173,8 @@ const SignUpScreen = ({navigation}) => {
               placeholder="Your Username"
               style={styles.textInput}
               autoCapitalize="none"
-              onChangeText={val => usernameInputChange(val)}
-              required
+              onChangeText={text => setUsername(text)}
+              // onChangeText={(username) => this.setState({username})}
             />
             {data.check_usernameInputChange ? (
               <Animatable.View animation="bounceIn">
@@ -202,8 +192,7 @@ const SignUpScreen = ({navigation}) => {
               autoCapitalize="none"
               value={email}
               onChangeText={text => setEmail(text)}
-              
-              // onChangeText={val => textInputChange(val)}
+              // onChangeText={(email) => this.setState({email})}
             />
             {data.check_textInputChange ? (
               <Animatable.View animation="bounceIn">
@@ -221,7 +210,8 @@ const SignUpScreen = ({navigation}) => {
               placeholder="Your Phone Number"
               style={styles.textInput}
               autoCapitalize="none"
-              onChangeText={val => phoneInputChange(val)}
+              onChangeText={text => setPhone(text)}
+              // onChangeText={(phone) => this.setState({phone})}
             />
             {data.check_phoneInputChange ? (
               <Animatable.View animation="bounceIn">
@@ -240,7 +230,7 @@ const SignUpScreen = ({navigation}) => {
               secureTextEntry={data.secureTextEntry ? true : false}
               value={password}
               onChangeText={text => setPassword(text)}
-              // onChangeText={val => handlePasswordChange(val)}
+              // onChangeText={(password) => this.setState({password})}
             />
             <TouchableOpacity onPress={updateSecureTextEntry}>
               {data.secureTextEntry ? (
@@ -261,13 +251,8 @@ const SignUpScreen = ({navigation}) => {
               style={styles.textInput}
               autoCapitalize="none"
               secureTextEntry={data.confirm_secureTextEntry ? true : false}
-              // ref={register({
-              //   validate: value =>
-              //     value === password.current || "The passwords do not match"
-              // })}
-
               onChangeText={text => setConfirmPassword(text)}
-              // onChangeText={val => handleConfirmPasswordChange(val)}
+              // onChangeText={(confirmPassword) => this.setState({confirmPassword})}
             />
             <TouchableOpacity onPress={updateConfirmSecureTextEntry}>
               {data.confirm_secureTextEntry ? (

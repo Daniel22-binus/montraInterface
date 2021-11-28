@@ -22,12 +22,13 @@ import {
   TITLE_FONT,
   TITLE_COLOR,
 } from '../constant/index';
-import { auth } from '../../firebase';
+import {auth} from '../../firebase';
+import {firestore} from '../../firebase';
+// import firebase from 'firebase';
 
 const SignInScreen = ({navigation}) => {
-
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('') 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   // useEffect(() => {
   //   const a = auth.onAuthStateChanged(user => {
@@ -40,15 +41,31 @@ const SignInScreen = ({navigation}) => {
   // }, [])
 
   const handleLogIn = () => {
+    // auth
+    // .signInWithEmailAndPassword(email, password)
+    // .then(userCredentials => {
+    //   const user = userCredentials.user;
+    //   console.log('Logged in with:', user.email);
+    //   navigation.navigate("MainApp");
+    // })
+    // .catch(error => alert(error.message))
+    // firebase.auth().signInWithEmailAndPassword(email, password)
+    // .then((result) => {
+    //     console.log(result)
+    //       navigation.navigate("MainApp");
+    // })
+    // .catch((error) => {
+    //     console.log(error)
+    // })
     auth
-    .signInWithEmailAndPassword(email, password)
-    .then(userCredentials => {
-      const user = userCredentials.user;
-      console.log('Logged in with:', user.email);
-      navigation.navigate("MainApp");
-    })
-    .catch(error => alert(error.message))
-  }
+      .signInWithEmailAndPassword(email, password)
+      .then(result => {
+        console.log(result);
+        navigation.navigate('MainApp');
+      })
+
+      .catch(error => alert(error.message));
+  };
 
   const [data, setData] = useState({
     email: '',
@@ -155,7 +172,6 @@ const SignInScreen = ({navigation}) => {
         </View>
 
         <View style={styles.button}>
-        
           {/* <TouchableOpacity onPress={() => navigation.navigate('MainApp')}> */}
           <TouchableOpacity onPress={handleLogIn}>
             <LinearGradient

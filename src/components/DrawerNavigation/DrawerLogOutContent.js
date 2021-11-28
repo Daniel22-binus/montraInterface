@@ -22,14 +22,14 @@ import {
   WrongDefault,
 } from '../../assets';
 import {BOLD_FONT, TITLE_COLOR} from '../../constant';
-import {auth} from '../../../firebase';
+import firebase from 'firebase';
 
 const DrawerLogOutContent = () => {
     
   const navigation = useNavigation();
   
   const handleLogOut = () => {
-    auth
+    firebase.auth()
       .signOut()
       .then(() => {
         navigation.replace('Splash');
@@ -40,18 +40,6 @@ const DrawerLogOutContent = () => {
   };
 
   return (
-    // <TouchableOpacity
-    //   activeOpacity={1}
-    //   underlayColor="#DDDDDD" onPress=
-    //   {() => {
-    //     navigation.navigate('Splash');
-    //   }}
-    //   >
-    //   <View style={styles.container}>
-    //     <LogoutIcon />
-    //     <Text style={styles.item}>{title}</Text>
-    //   </View>
-    // </TouchableOpacity>
     <TouchableHighlight
       activeOpacity={1}
       underlayColor="#DDDDDD"
