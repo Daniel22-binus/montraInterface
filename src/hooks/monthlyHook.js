@@ -7,20 +7,20 @@ const monthlyHook = () => {
       {
         id: 0,
         title:"PLN’s Fee",
-        budget:400000,
-        deadline:5,
+        budget:"1400000",
+        deadline:"5",
       },
       {
         id:1,
         title:"Wifi’s Fee",
-        budget:400000,
-        deadline:5,
+        budget:"500000",
+        deadline:"5",
       },
       {
         id:2,
         title:"School's Fee",
-        budget:400000,
-        deadline:15,
+        budget:"1900000",
+        deadline:"15",
       },
     ],
   });
@@ -45,7 +45,7 @@ const monthlyHook = () => {
   };
 
   const editMonthly = Monthly => {
-    const newResults = [monthlyList.results];
+    const newResults = [...monthlyList.results];
     newResults[Monthly.id] = Monthly;
     setMonthlyList({
       results: newResults,
