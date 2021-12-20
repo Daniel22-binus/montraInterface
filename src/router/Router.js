@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, Text, View, Button} from 'react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -14,6 +14,7 @@ import PlanningAdd from '../pages/PlanningPage/PlanningAdd';
 import DrawerContent from '../components/DrawerNavigation/DrawerContent';
 import MonthlyPayment from '../pages/MonthlyPayment/MonthlyPayment';
 import MonthlyAddEdit from '../pages/MonthlyPayment/MonthlyAddEdit';
+import WaitingPage from '../pages/WaitingPage';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -34,6 +35,21 @@ const MainApp = () => {
 };
 
 const Router = () => {
+  // const {user, setUser} = useContext(AuthContext);
+  // const [initializing, setInitializing] = useState(true);
+
+  // const onAuthStateChanged = (user) => {
+  //   setUser(user);
+  //   if (initializing) setInitializing(false);
+  // };
+
+  // useEffect(() => {
+  //   const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+  //   return subscriber;
+  // }, [])
+
+  // if (initializing) return null;
+
   return (
     <Stack.Navigator initialRouteName="Splash">
       <Stack.Screen
@@ -67,6 +83,16 @@ const Router = () => {
         component={MonthlyAddEdit}
         options={{headerShown: false}}
       />
+      <Stack.Screen
+        name="WaitingPage"
+        component={WaitingPage}
+        options={{headerShown: false}}
+      />
+      {/* <Stack.Screen
+        name="SignUp2"
+        component={SignUp2}
+        options={{headerShown: false}}
+      /> */}
 
       {PlanningPage()}
     </Stack.Navigator>

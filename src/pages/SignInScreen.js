@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   TextInput,
   StyleSheet,
@@ -22,8 +22,51 @@ import {
   TITLE_FONT,
   TITLE_COLOR,
 } from '../constant/index';
+import {auth} from '../../firebase';
+import {firestore} from '../../firebase';
+// import firebase from 'firebase';
 
 const SignInScreen = ({navigation}) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  // useEffect(() => {
+  //   const a = auth.onAuthStateChanged(user => {
+  //     if (user) {
+  //       navigation.replace("MainApp")
+  //     }
+  //   })
+
+  //   return a
+  // }, [])
+
+  const handleLogIn = () => {
+    // auth
+    // .signInWithEmailAndPassword(email, password)
+    // .then(userCredentials => {
+    //   const user = userCredentials.user;
+    //   console.log('Logged in with:', user.email);
+    //   navigation.navigate("MainApp");
+    // })
+    // .catch(error => alert(error.message))
+    // firebase.auth().signInWithEmailAndPassword(email, password)
+    // .then((result) => {
+    //     console.log(result)
+    //       navigation.navigate("MainApp");
+    // })
+    // .catch((error) => {
+    //     console.log(error)
+    // })
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then(result => {
+        console.log(result);
+        navigation.navigate('MainApp');
+      })
+
+      .catch(error => alert(error.message));
+  };
+
   const [data, setData] = useState({
     email: '',
     password: '',
@@ -63,8 +106,7 @@ const SignInScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <Animatable.View 
-      animation="fadeInDownBig"style={styles.header}>
+      <Animatable.View animation="fadeInDownBig" style={styles.header}>
         <View style={{flexDirection: 'row'}}>
           <View style={{flexDirection: 'column'}}>
             <Text style={styles.text_header}>Welcome to</Text>
@@ -78,17 +120,19 @@ const SignInScreen = ({navigation}) => {
         </View>
       </Animatable.View>
 
-      <Animatable.View animation="fadeInUpBig"style={styles.footer}>
+      <Animatable.View animation="fadeInUpBig" style={styles.footer}>
         <Text style={styles.text_login}>Login Here!</Text>
-        <Text style={styles.text_userPassword}>Username</Text>
+        <Text style={styles.text_userPassword}>E-mail</Text>
 
         <View style={styles.action}>
-          <FontAwesome name="user-o" color={TITLE_COLOR } size={20} />
+          <FontAwesome name="envelope-o" color={PRIMARY_COLOR} size={20} />
           <TextInput
-            placeholder="input your username"
+            placeholder="input your E-mail"
             style={styles.textInput}
             autoCapitalize="none"
-            onChangeText={a => textInputChange(a)}
+            value={email}
+            onChangeText={text => setEmail(text)}
+            // onChangeText={a => textInputChange(a)}
           />
           {data.check_textInputChange ? (
             <Animatable.View animation="bounceIn">
@@ -105,7 +149,9 @@ const SignInScreen = ({navigation}) => {
             secureTextEntry={data.secureTextEntry ? true : false}
             style={styles.textInput}
             autoCapitalize="none"
-            onChangeText={a => passwordToggle(a)}
+            value={password}
+            onChangeText={text => setPassword(text)}
+            // onChangeText={a => passwordToggle(a)}
           />
           <TouchableOpacity onPress={updateSecurePasswordEntry}>
             {data.secureTextEntry ? (
@@ -126,7 +172,8 @@ const SignInScreen = ({navigation}) => {
         </View>
 
         <View style={styles.button}>
-          <TouchableOpacity onPress={() => navigation.navigate('MainApp')}>
+          {/* <TouchableOpacity onPress={() => navigation.navigate('MainApp')}> */}
+          <TouchableOpacity onPress={handleLogIn}>
             <LinearGradient
               colors={[PRIMARY_COLOR, SECONDARY_COLOR]}
               style={styles.signIn}>
