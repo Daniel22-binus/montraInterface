@@ -14,34 +14,17 @@ import {
   SECONDARY_COLOR,
 } from '../constant';
 import {printPrice} from '../logic/printPrice';
+import printDate from '../logic/printDate';
 
 const HistoryItem = props => {
   const {title, date, rp} = props;
-  const months = [
-    'January',
-    'Febuary',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'December',
-  ];
 
   const DateDetail = () => {
     if (date != null) {
-      let tempDate = new Date(date);
 
       return (
         <Text style={styles.date}>
-          {tempDate.getDate() +
-            ' ' +
-            months[tempDate.getMonth()] +
-            ' ' +
-            tempDate.getFullYear()}
+          {printDate(date)}
         </Text>
       );
     }

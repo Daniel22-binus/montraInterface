@@ -10,9 +10,12 @@ import {
 import {Picker} from '@react-native-picker/picker';
 import HeaderBack from '../components/HeaderBack';
 import {BOLD_FONT, PRIMARY_COLOR, TITLE_COLOR} from '../constant';
+import DatePickerModal from '../components/DatePickerModal';
+import printDate from '../logic/printDate';
 
 const AddExpense = ({navigation}) => {
   const [selectedCategory, setSelectedCategory] = useState();
+  const [date, setDate] = useState(new Date());
   const [newExpense, setNewExpense] = useState({
     id: 0,
     budgetId: 0,
@@ -28,7 +31,18 @@ const AddExpense = ({navigation}) => {
         <Text style={styles.title}>Add Expense</Text>
         <View style={form.containerInput}>
           <Text style={form.inputLabel}>Date</Text>
-          <TextInput style={form.inputText} />
+          <View style={form.containerInputBorderBottom}>
+            <TextInput
+              style={form.inputDate}
+              value={printDate(date)}
+              editable={false}
+            />
+            <DatePickerModal
+              style={form.modalDate}
+              getDate={date}
+              getSetDate={setDate}
+            />
+          </View>
         </View>
         <View style={form.containerInput}>
           <Text style={form.inputLabel}>Category</Text>
@@ -112,6 +126,12 @@ const form = StyleSheet.create({
     flexDirection: 'row',
     marginVertical: windowHeight * 0.01,
   },
+  containerInputBorderBottom: {
+    flexDirection: 'row',
+    marginVertical: windowHeight * 0.01,
+    borderBottomWidth: 1,
+    borderColor: TITLE_COLOR,
+  },
   inputLabel: {
     fontSize: 17,
     fontFamily: PRIMARY_COLOR,
@@ -125,6 +145,16 @@ const form = StyleSheet.create({
     borderColor: TITLE_COLOR,
     color: TITLE_COLOR,
     height: 40,
+  },
+  inputDate: {
+    width: 210,
+    color: TITLE_COLOR,
+    height: 40,
+  },
+  modalDate: {
+    marginTop: 10,
+    marginLeft: 0,
+    marginRight: 10,
   },
   inputBox: {
     borderWidth: 1,
