@@ -2,20 +2,25 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import DrawerItemContent from './DrawerItemContent';
 import DrawerLogOutContent from './DrawerLogOutContent';
-import {WrongDefault} from '../../assets'
-import { BACKGROUND_COLOR, BOLD_FONT, PRIMARY_COLOR, TITLE_COLOR } from '../../constant';
+import {WrongDefault} from '../../assets';
+import {
+  BACKGROUND_COLOR,
+  BOLD_FONT,
+  PRIMARY_COLOR,
+  TITLE_COLOR,
+} from '../../constant';
 import firebase from 'firebase';
-import { auth } from '../../../firebase';
+import {auth} from '../../../firebase';
 
 const DrawerContent = ({navigation}) => {
   // const [users, setUsers] = useState([])
 
-//   const username = (username) => {
-//     firebase.firestore()
-//         .collection("users")
-//         .doc(firebase.auth().currentUser.uid)
-//         .set({username})
-// }
+  //   const username = (username) => {
+  //     firebase.firestore()
+  //         .collection("users")
+  //         .doc(firebase.auth().currentUser.uid)
+  //         .set({username})
+  // }
   // const username = firebase.firestore().collection('users').doc(id).get()
   // const username = firebase.firestore().collection('users').get().then((snapshot) => {
   //   getInfo(snapshot.docs('username'))
@@ -35,29 +40,65 @@ const DrawerContent = ({navigation}) => {
   //     this.setState({users : users})
   //   })
   //   .catch(error => console.log(error))
+  // }
+  const UserUID = firebase
+    .firestore()
+    .collection('users')
+    .doc(firebase.auth().currentUser.uid)
+    .get()
+    .then(doc => {
+      if (doc.exists) {
+        console.log('Document data:', doc.data());
+      } else {
+        // doc.data() will be undefined in this case
+        console.log('No such document!');
+      }
+    })
+    .catch(error => {
+      console.log('Error getting document:', error);
+    });
 
+  const monthly = firebase
+    .firestore()
+    .collection('UserMonthlyPayment')
+    .doc(firebase.auth().currentUser.uid)
+    .collection('MonthlyPayment')
+    .get()
+    .then(doc => {
+      if (doc.exists) {
+        console.log('Document data:', doc.data());
+      } else {
+        // doc.data() will be undefined in this case
+        console.log('No such document! - monthly');
+      }
+    })
+    .catch(error => {
+      console.log('Error getting document:', error);
+    });
   return (
     <View style={styles.container}>
       <View style={userStyle.bg}>
         <Text style={userStyle.welcome}>Welcome,</Text>
         <View style={userStyle.container}>
-          <Image style={userStyle.image} source={WrongDefault}/>
+          <Image style={userStyle.image} source={WrongDefault} />
           <View style={userStyle.userData}>
             <Text style={userStyle.text}>User</Text>
             {/* <Text style={userStyle.text}>{username}</Text> */}
             {/* <Text style={userStyle.text}>{firebase.firestore().collection("users").doc(firebase.auth().currentUser.uid).get().then()}</Text> */}
-            <Text style={userStyle.text}>{firebase.auth().currentUser?.email}</Text>
+            <Text style={userStyle.text}>
+              {firebase.auth().currentUser?.email}
+            </Text>
           </View>
         </View>
       </View>
       <DrawerItemContent title="Home" navigation={navigation} />
       <DrawerItemContent title="Notifications" navigation={navigation} />
       <DrawerItemContent title="Budget" navigation={navigation} />
-      <View style={styles.line}/>
+      <View style={styles.line} />
       <DrawerItemContent title="History Transaction" navigation={navigation} />
       <DrawerItemContent title="Planning" navigation={navigation} />
       <DrawerItemContent title="Monthly Payment" navigation={navigation} />
-      <View style={styles.line}/>
+      <View style={styles.line} />
       <DrawerItemContent title="Settings" navigation={navigation} />
       <DrawerLogOutContent title="Logout" />
     </View>
@@ -67,24 +108,24 @@ const DrawerContent = ({navigation}) => {
 export default DrawerContent;
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: 'white',
-        borderTopRightRadius: 40,
-        borderBottomRightRadius: 40,
-    },
-    line: {
-      borderStyle: 'solid',
-      borderBottomWidth: 3,
-      marginHorizontal: 8,
-      borderColor: TITLE_COLOR
-      // borderColor: "#6E14FF"
-    }
+  container: {
+    flex: 1,
+    backgroundColor: 'white',
+    borderTopRightRadius: 40,
+    borderBottomRightRadius: 40,
+  },
+  line: {
+    borderStyle: 'solid',
+    borderBottomWidth: 3,
+    marginHorizontal: 8,
+    borderColor: TITLE_COLOR,
+    // borderColor: "#6E14FF"
+  },
 });
 
 const userStyle = StyleSheet.create({
-  container:{
-    flexDirection: "row",
+  container: {
+    flexDirection: 'row',
     marginVertical: 12,
   },
   bg: {
@@ -92,13 +133,13 @@ const userStyle = StyleSheet.create({
     borderTopRightRadius: 40,
   },
   welcome: {
-    color: "white",
+    color: 'white',
     fontFamily: BOLD_FONT,
     marginVertical: 8,
     marginLeft: 10,
   },
-  text:{
-    color: "white",
+  text: {
+    color: 'white',
     fontFamily: BOLD_FONT,
   },
   image: {
@@ -106,6 +147,6 @@ const userStyle = StyleSheet.create({
   },
   userData: {
     marginLeft: 14,
-    alignItems: 'center'
+    alignItems: 'center',
   },
-})
+});

@@ -13,10 +13,30 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import CheckBox from '@react-native-community/checkbox';
 import {useNavigation} from '@react-navigation/native';
 import { PrintPrice } from '../logic/printPrice';
+import firebase from 'firebase';
 
 const MonthlyPaymentItem = ({Monthly, editMonthly, deleteMonthly}) => {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const navigation = useNavigation();
+  
+  const monthly = firebase
+  .firestore()
+  .collection('UserMonthlyPayment')
+  .doc(firebase.auth().currentUser.uid)
+  .collection('MonthlyPayment')
+  .orderBy('creation', 'asc')
+  .get()
+  .then(doc => {
+    if (doc.exists) {
+      console.log('Document data:', doc.data());
+    } else {
+      // doc.data() will be undefined in this case
+      console.log('No such document! - monthly');
+    }
+  })
+  .catch(error => {
+    console.log('Error getting document:', error);
+  });
   return (
     <View style={styles.container}>
       <LinearGradient

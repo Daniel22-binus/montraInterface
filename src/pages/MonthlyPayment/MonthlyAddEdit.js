@@ -3,8 +3,6 @@ import {View, Text, Dimensions, StyleSheet, TextInput} from 'react-native';
 import HeaderBack from '../../components/HeaderBack';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import {BOLD_FONT, TITLE_COLOR, PRIMARY_FONT, WHITE} from '../../constant';
-import {auth} from '../../../firebase';
-// import {db} from '../../../firebase';
 import firebase from 'firebase';
 
 const MonthlyPaymentAdd = ({route, navigation}) => {
@@ -15,42 +13,36 @@ const MonthlyPaymentAdd = ({route, navigation}) => {
   const [fee, setFee] = useState('');
   const [deadline, setDeadline] = useState('');
 
-  // let userID = firebase.auth().currentUser?.uid;
-  // let dbMonthlyPayment = firebase.firestore().collection('MonthlyPayment');
-
   const handleAddMonthlyPayment = async () => {
-      if (paymentName === '') {
-        alert('Please fill your payment name');
-      } else if (fee === '') {
-        alert('Please fill your fee');
-      } else if (deadline === '') {
-        alert('please fill your deadline');
-      } 
-      else {
-        let myUID = firebase.auth().currentUser.uid
-        console.log(`my UID ${myUID}`)
-        firebase
-          .firestore()
-          .collection('users')
-          .doc(firebase.auth().currentUser?.uid)
-          .collection('MonthlyPayment').doc()
-          .set(
-            {
-              paymentName,
-              fee,
-              deadline,
-            },
-          )
-          .then(() => {
-            console.log(`.set() completed successfully!`);
-          })
-          .catch(ex => {
-            console.error(`EXCEPTION!!  ${ex.message}`);
-            throw ex;
-          });
-        navigation.navigate('Monthly Payment');
-      }
-    
+    if (paymentName === '') {
+      alert('Please fill your payment name');
+    } else if (fee === '') {
+      alert('Please fill your fee');
+    } else if (deadline === '') {
+      alert('please fill your deadline');
+    } else {
+      let myUID = firebase.auth().currentUser.uid;
+      console.log(`my UID ${myUID}`);
+      firebase
+        .firestore()
+        .collection('UserMonthlyPayment')
+        .doc(firebase.auth().currentUser?.uid)
+        .collection('MonthlyPayment')
+        .doc()
+        .set({
+          paymentName,
+          fee,
+          deadline,
+        })
+        .then(() => {
+          console.log(`.set() completed successfully!`);
+        })
+        .catch(ex => {
+          console.error(`EXCEPTION!!  ${ex.message}`);
+          throw ex;
+        });
+      navigation.navigate('Monthly Payment');
+    }
   };
 
   // const handleAddMonthlyPayment = () => {
