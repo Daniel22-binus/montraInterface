@@ -16,7 +16,6 @@ import MonthlyPayment from '../pages/MonthlyPayment/MonthlyPayment';
 import MonthlyPaymentAdd from '../pages/MonthlyPayment/MonthlyPaymentAdd';
 import MonthlyPaymentEdit from '../pages/MonthlyPayment/MonthlyPaymentEdit';
 import WaitingPage from '../pages/WaitingPage';
-import SignUp2 from '../pages/SignUp2';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -37,21 +36,6 @@ const MainApp = () => {
 };
 
 const Router = () => {
-  // const {user, setUser} = useContext(AuthContext);
-  // const [initializing, setInitializing] = useState(true);
-
-  // const onAuthStateChanged = (user) => {
-  //   setUser(user);
-  //   if (initializing) setInitializing(false);
-  // };
-
-  // useEffect(() => {
-  //   const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-  //   return subscriber;
-  // }, [])
-
-  // if (initializing) return null;
-
   return (
     <Stack.Navigator initialRouteName="Splash">
       <Stack.Screen
@@ -95,11 +79,6 @@ const Router = () => {
         component={WaitingPage}
         options={{headerShown: false}}
       />
-      {/* <Stack.Screen
-        name="SignUp2"
-        component={SignUp2}
-        options={{headerShown: false}}
-      /> */}
 
       {PlanningPage()}
     </Stack.Navigator>

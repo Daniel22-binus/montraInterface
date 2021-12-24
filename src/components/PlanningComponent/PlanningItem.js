@@ -16,7 +16,7 @@ import {
 } from '../../constant';
 import {DeleteIcon, Edit2Icon} from '../../assets/icons';
 import PlanningNeeds from './PlanningNeeds';
-import {printPrice} from '../../logic/PrintPrice';
+import { printPrice } from '../../logic/PrintPrice';
 
 const PlanningItem = props => {
  

@@ -42,35 +42,9 @@ const SignUpScreen = ({navigation}) => {
 
 
   const handleRegister = () => {
-    // const {username, phone, email, password, confirmPassword} = this.state;
     if (password != confirmPassword) {
       alert("Passwords don't match");
     } else {
-      // auth
-      //   .createUserWithEmailAndPassword(email.toString().trim(), password)
-      //   // .then((result) => {
-      //   //   console.log(result)
-      //   // })
-      //   .then(userCredentials => {
-      //     const user = userCredentials.user;
-      //     console.log('Registered with:', user.email);
-      //     navigation.navigate('SignInScreen');  
-      //   })
-        // .catch(error => alert(error.message));
-
-      // firebase.auth().createUserWithEmailAndPassword(email, password)
-      // .then((result) => {
-      //   firebase.firestore().collection('users')
-      //   .doc(firebase.auth().currentUser.uid)
-      //   .set({
-      //     username,
-      //     phone,
-      //     email,
-      //   })
-      //   console.log(result)
-      //   navigation.navigate('SignInScreen');  
-      // })
-      // .catch(error => alert(error.message));
       auth.createUserWithEmailAndPassword(email.toString().trim(), password)
       .then((result) => {
        firebase.firestore().collection('users')

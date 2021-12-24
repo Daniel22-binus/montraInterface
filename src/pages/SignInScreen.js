@@ -23,40 +23,12 @@ import {
   TITLE_COLOR,
 } from '../constant/index';
 import {auth} from '../../firebase';
-import {firestore} from '../../firebase';
-// import firebase from 'firebase';
 
 const SignInScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  // useEffect(() => {
-  //   const a = auth.onAuthStateChanged(user => {
-  //     if (user) {
-  //       navigation.replace("MainApp")
-  //     }
-  //   })
-
-  //   return a
-  // }, [])
-
   const handleLogIn = () => {
-    // auth
-    // .signInWithEmailAndPassword(email, password)
-    // .then(userCredentials => {
-    //   const user = userCredentials.user;
-    //   console.log('Logged in with:', user.email);
-    //   navigation.navigate("MainApp");
-    // })
-    // .catch(error => alert(error.message))
-    // firebase.auth().signInWithEmailAndPassword(email, password)
-    // .then((result) => {
-    //     console.log(result)
-    //       navigation.navigate("MainApp");
-    // })
-    // .catch((error) => {
-    //     console.log(error)
-    // })
     auth
       .signInWithEmailAndPassword(email, password)
       .then(result => {
