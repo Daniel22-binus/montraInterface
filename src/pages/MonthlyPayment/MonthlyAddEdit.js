@@ -41,7 +41,6 @@ const MonthlyPaymentAdd = ({route, navigation}) => {
               fee,
               deadline,
             },
-            {merge: false},
           )
           .then(() => {
             console.log(`.set() completed successfully!`);

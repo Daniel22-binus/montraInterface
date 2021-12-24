@@ -72,6 +72,7 @@ const SignUpScreen = ({navigation}) => {
       //   navigation.navigate('SignInScreen');  
       // })
       // .catch(error => alert(error.message));
+
       auth.createUserWithEmailAndPassword(email.toString().trim(), password)
       .then((result) => {
        firebase.firestore().collection('users')
