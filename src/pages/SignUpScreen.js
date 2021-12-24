@@ -32,61 +32,33 @@ import {auth} from '../../firebase';
 // import { firestore } from '../../firebase';
 import firebase from 'firebase';
 
-
 const SignUpScreen = ({navigation}) => {
-
   const [username, setUsername] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-
   const handleRegister = () => {
-    // const {username, phone, email, password, confirmPassword} = this.state;
     if (password != confirmPassword) {
       alert("Passwords don't match");
     } else {
-      // auth
-      //   .createUserWithEmailAndPassword(email.toString().trim(), password)
-      //   // .then((result) => {
-      //   //   console.log(result)
-      //   // })
-      //   .then(userCredentials => {
-      //     const user = userCredentials.user;
-      //     console.log('Registered with:', user.email);
-      //     navigation.navigate('SignInScreen');  
-      //   })
-        // .catch(error => alert(error.message));
-
-      // firebase.auth().createUserWithEmailAndPassword(email, password)
-      // .then((result) => {
-      //   firebase.firestore().collection('users')
-      //   .doc(firebase.auth().currentUser.uid)
-      //   .set({
-      //     username,
-      //     phone,
-      //     email,
-      //   }) 
-      //   console.log(result)
-      //   navigation.navigate('SignInScreen');  
-      // })
-      // .catch(error => alert(error.message));
-
-      auth.createUserWithEmailAndPassword(email.toString().trim(), password)
-      .then((result) => {
-       firebase.firestore().collection('users')
-        .doc(firebase.auth().currentUser.uid)
-        .set({
-          username,
-          phone,
-          email,
+      auth
+        .createUserWithEmailAndPassword(email.toString().trim(), password)
+        .then(result => {
+          firebase
+            .firestore()
+            .collection('users')
+            .doc(firebase.auth().currentUser.uid)
+            .set({
+              username,
+              phone,
+              email,
+            });
+          console.log(result);
+          navigation.navigate('SignInScreen');
         })
-        console.log(result)
-        navigation.navigate('SignInScreen');  
-      })
-      .catch(error => alert(error.message));
-
+        .catch(error => alert(error.message));
     }
   };
 
@@ -103,7 +75,6 @@ const SignUpScreen = ({navigation}) => {
     confirm_secureTextEntry: true,
   });
 
- 
   const usernameInputChange = val => {
     if (val.length === '') {
       setData({
@@ -170,7 +141,7 @@ const SignUpScreen = ({navigation}) => {
         <ScrollView>
           <Text style={[styles.text_footer, {marginTop: 8}]}>Username</Text>
           <View style={styles.action}>
-            <FontAwesome name="user-o" color={PRIMARY_COLOR} size={20} />
+            <FontAwesome name="user-o" color={TITLE_COLOR} size={20} />
             <TextInput
               placeholder="Your Username"
               style={styles.textInput}
@@ -187,7 +158,7 @@ const SignUpScreen = ({navigation}) => {
 
           <Text style={[styles.text_footer, , {marginTop: 8}]}>E-mail</Text>
           <View style={styles.action}>
-            <FontAwesome name="envelope-o" color={PRIMARY_COLOR} size={20} />
+            <FontAwesome name="envelope" color={TITLE_COLOR} size={20} />
             <TextInput
               placeholder="Your E-mail"
               style={styles.textInput}
@@ -207,7 +178,7 @@ const SignUpScreen = ({navigation}) => {
             Phone Number
           </Text>
           <View style={styles.action}>
-            <FontAwesome name="mobile" color={PRIMARY_COLOR} size={20} />
+            <FontAwesome name="mobile" color={TITLE_COLOR} size={20} />
             <TextInput
               placeholder="Your Phone Number"
               style={styles.textInput}
@@ -224,7 +195,8 @@ const SignUpScreen = ({navigation}) => {
 
           <Text style={[styles.text_footer, {marginTop: 8}]}>Password</Text>
           <View style={styles.action}>
-            <Feather name="lock" color={PRIMARY_COLOR} size={20} />
+            {/* <Feather name="lock" color={TITLE_COLOR} size={20} /> */}
+            <FontAwesome name="lock" color={TITLE_COLOR} size={20} />
             <TextInput
               placeholder="Your Password"
               style={styles.textInput}
@@ -247,7 +219,8 @@ const SignUpScreen = ({navigation}) => {
             Confirm Password
           </Text>
           <View style={styles.action}>
-            <Feather name="lock" color={PRIMARY_COLOR} size={20} />
+            {/* <Feather name="lock" color={TITLE_COLOR} size={20} /> */}
+            <FontAwesome name="lock" color={TITLE_COLOR} size={20} />
             <TextInput
               placeholder="Confirm Your Password"
               style={styles.textInput}
@@ -329,15 +302,14 @@ const styles = StyleSheet.create({
   },
   text_header: {
     textAlign: 'center',
-    color: PRIMARY_COLOR,
+    color: TITLE_COLOR,
     fontFamily: BOLD_FONT,
     fontSize: 30,
     paddingBottom: 5,
   },
   text_footer: {
     fontFamily: PRIMARY_FONT,
-
-    color: PRIMARY_COLOR,
+    color: TITLE_COLOR,
     fontSize: 15,
   },
   action: {
@@ -371,7 +343,7 @@ const styles = StyleSheet.create({
   logoMontra: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: 130,
-    height: 130,
+    width: 170,
+    height: 170,
   },
 });

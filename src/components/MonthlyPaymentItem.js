@@ -12,7 +12,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import CheckBox from '@react-native-community/checkbox';
 import {useNavigation} from '@react-navigation/native';
-import {printPrice} from '../logic/printPrice'
+import { PrintPrice } from '../logic/printPrice';
 
 const MonthlyPaymentItem = ({Monthly, editMonthly, deleteMonthly}) => {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
@@ -49,7 +49,7 @@ const MonthlyPaymentItem = ({Monthly, editMonthly, deleteMonthly}) => {
         </View>
 
         <View style={styles.descWrapper}>
-          <Text style={styles.font1}>{printPrice(Monthly.budget)}</Text>
+          <Text style={styles.font1}>{PrintPrice(Monthly.budget)}</Text>
           <Text style={styles.font2}>deadline: day-{Monthly.deadline} of the month</Text>
         </View>
 

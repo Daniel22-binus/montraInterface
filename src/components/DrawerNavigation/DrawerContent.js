@@ -35,8 +35,6 @@ const DrawerContent = ({navigation}) => {
   //     this.setState({users : users})
   //   })
   //   .catch(error => console.log(error))
-  // }
-
 
   return (
     <View style={styles.container}>

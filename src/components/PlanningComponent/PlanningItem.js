@@ -16,7 +16,8 @@ import {
 } from '../../constant';
 import {DeleteIcon, Edit2Icon} from '../../assets/icons';
 import PlanningNeeds from './PlanningNeeds';
-import {printPrice} from '../../logic/printPrice';
+import { PrintPrice } from '../../logic/printPrice';
+
 
 const PlanningItem = props => {
  
@@ -53,7 +54,7 @@ const PlanningItem = props => {
         </View>
 
         <Text style={styles.description}>{planning.description}</Text>
-        <Text style={styles.price}> {printPrice(price)} </Text>
+        <Text style={styles.price}> {PrintPrice(price)} </Text>
         <View style={styles.line} />
 
         <View style={styles.needsContainer}>

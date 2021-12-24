@@ -29,7 +29,6 @@ const MonthlyPaymentAdd = ({route, navigation}) => {
       else {
         let myUID = firebase.auth().currentUser.uid
         console.log(`my UID ${myUID}`)
-        // firebase.firestore().settings({experimentalForceLongPolling: true});
         firebase
           .firestore()
           .collection('users')
