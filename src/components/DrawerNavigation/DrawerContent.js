@@ -10,71 +10,42 @@ import {
   TITLE_COLOR,
 } from '../../constant';
 import firebase from 'firebase';
-import {auth} from '../../../firebase';
 
 const DrawerContent = ({navigation}) => {
-  // const [users, setUsers] = useState([])
+  //array
+  const [username, setUsername] = useState('');
 
-  //   const username = (username) => {
-  //     firebase.firestore()
-  //         .collection("users")
-  //         .doc(firebase.auth().currentUser.uid)
-  //         .set({username})
-  // }
-  // const username = firebase.firestore().collection('users').doc(id).get()
-  // const username = firebase.firestore().collection('users').get().then((snapshot) => {
-  //   getInfo(snapshot.docs('username'))
-  // })
-  // const username = firebase.auth().currentUser?.email
-
-  // componentDidMount(){
-  //   console.log('mounted')
-  //   firebase.firestore().collection('users')
-  //   .get()
-  //   .then(snapshot => {
-  //     const users = []
-  //     snapshot.forEach(doc => {
-  //       const data  = doc.data()
-  //       users.push(data)
-  //     })
-  //     this.setState({users : users})
-  //   })
-  //   .catch(error => console.log(error))
-  // }
-  const UserUID = firebase
+  //get username
+  const Usernamee = firebase
     .firestore()
     .collection('users')
     .doc(firebase.auth().currentUser.uid)
     .get()
     .then(doc => {
-      if (doc.exists) {
-        console.log('Document data:', doc.data());
-      } else {
-        // doc.data() will be undefined in this case
-        console.log('No such document!');
-      }
+      setUsername(doc.data().username);
+      // if (doc && doc.exists) {
+      //   console.log(doc.id, '=>', doc.data().username);
+      // }else{
+      //   console.log('no data');
+      // }
     })
     .catch(error => {
       console.log('Error getting document:', error);
     });
+  
+  // const monthly = ref
+  // .doc(firebase.auth().currentUser.uid)
+  // .collection('MonthlyPayment')
+  // .doc('DIAcT8ZCU0Qh0c0333M5')
+  // .get()
+  // .then(doc => {
+  //   if (doc.exists) {
+  //     console.log('Doc Data: ', doc.data());
+  //   } else {
+  //     console.log('doc g ada');
+  //   }
+  // });
 
-  const monthly = firebase
-    .firestore()
-    .collection('UserMonthlyPayment')
-    .doc(firebase.auth().currentUser.uid)
-    .collection('MonthlyPayment')
-    .get()
-    .then(doc => {
-      if (doc.exists) {
-        console.log('Document data:', doc.data());
-      } else {
-        // doc.data() will be undefined in this case
-        console.log('No such document! - monthly');
-      }
-    })
-    .catch(error => {
-      console.log('Error getting document:', error);
-    });
   return (
     <View style={styles.container}>
       <View style={userStyle.bg}>
@@ -82,9 +53,7 @@ const DrawerContent = ({navigation}) => {
         <View style={userStyle.container}>
           <Image style={userStyle.image} source={WrongDefault} />
           <View style={userStyle.userData}>
-            <Text style={userStyle.text}>User</Text>
-            {/* <Text style={userStyle.text}>{username}</Text> */}
-            {/* <Text style={userStyle.text}>{firebase.firestore().collection("users").doc(firebase.auth().currentUser.uid).get().then()}</Text> */}
+            <Text style={userStyle.text}>{username}</Text>
             <Text style={userStyle.text}>
               {firebase.auth().currentUser?.email}
             </Text>
