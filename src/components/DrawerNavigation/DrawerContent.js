@@ -1,27 +1,95 @@
-import React from 'react';
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import DrawerItemContent from './DrawerItemContent';
-import {WrongDefault} from '../../assets';
+import React, { useState } from 'react';
+import DrawerLogOutContent from './DrawerLogOutContent';
+
+import { WrongDefault } from '../../assets';
 import {
   BACKGROUND_COLOR,
   BOLD_FONT,
   PRIMARY_COLOR,
   TITLE_COLOR,
 } from '../../constant';
+import firebase from 'firebase';
 
-const DrawerContent = ({navigation}) => {
+const DrawerContent = ({ navigation }) => {
+  //array
+  const [username, setUsername] = useState('');
+
+  //get username
+  const Usernamee = firebase
+    .firestore()
+    .collection('users')
+    .doc(firebase.auth().currentUser.uid)
+    .get()
+    .then(doc => {
+      setUsername(doc.data().username);
+      
+      // if (doc.exists) {
+      //       console.log('Document data:', doc.data());
+      //     } else {
+      //       // doc.data() //will be undefined in this case
+      //       console.log('No such document!');
+      //     }
+      // if (doc && doc.exists) {
+      //   console.log(doc.id, '=>', doc.data().username);
+      // }else{
+      //   console.log('no data');
+      // }
+    })
+    .catch(error => {
+      console.log('Error getting document:', error);
+    });
+
+  //get all user data
+  // const UserUID = firebase
+  // .firestore()
+  // .collection('users')
+  // .doc(firebase.auth().currentUser.uid)
+  // .get()
+  // .then(doc => {
+  //   if (doc.exists) {
+  //     console.log('Document data:', doc.data());
+  //   } else {
+  //     // doc.data() will be undefined in this case
+  //     console.log('No such document!');
+  //   }
+  // })
+  // .catch(error => {
+  //   console.log('Error getting document:', error);
+  // });
+
+  // const monthly = ref
+  // .doc(firebase.auth().currentUser.uid)
+  // .collection('MonthlyPayment')
+  // .doc('DIAcT8ZCU0Qh0c0333M5')
+  // .get()
+  // .then(doc => {
+  //   if (doc.exists) {
+  //     console.log('Doc Data: ', doc.data());
+  //   } else {
+  //     console.log('doc g ada');
+  //   }
+  // });
+
   return (
     <View style={styles.container}>
       <View style={userStyle.bg}>
         <Text style={userStyle.welcome}>Welcome,</Text>
+
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
           <View style={userStyle.container}>
             <Image style={userStyle.image} source={WrongDefault} />
             <View style={userStyle.userData}>
-              <Text style={userStyle.text}>User</Text>
-              <Text style={userStyle.text}>user@gmail.com</Text>
+              <Text style={userStyle.text}>{username}</Text>
+              <Text style={userStyle.text}>
+                {firebase.auth().currentUser?.email}
+              </Text>
             </View>
           </View>
+
+
         </TouchableOpacity>
       </View>
       <DrawerItemContent title="Home" navigation={navigation} />
@@ -33,7 +101,7 @@ const DrawerContent = ({navigation}) => {
       <DrawerItemContent title="Monthly Payment" navigation={navigation} />
       <View style={styles.line} />
       <DrawerItemContent title="Settings" navigation={navigation} />
-      <DrawerItemContent title="Logout" navigation={navigation} />
+      <DrawerLogOutContent title="Logout" />
     </View>
   );
 };

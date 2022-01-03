@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Dimensions, StyleSheet, Text, View} from 'react-native';
 import {Edit2Icon, DeleteIcon} from '../assets';
 import {
@@ -12,11 +12,13 @@ import LinearGradient from 'react-native-linear-gradient';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import CheckBox from '@react-native-community/checkbox';
 import {useNavigation} from '@react-navigation/native';
-import {printPrice} from '../logic/printPrice'
+import {printPrice} from '../logic/printPrice';
+import firebase from 'firebase';
 
 const MonthlyPaymentItem = ({Monthly, editMonthly, deleteMonthly}) => {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -30,13 +32,12 @@ const MonthlyPaymentItem = ({Monthly, editMonthly, deleteMonthly}) => {
             <TouchableOpacity
               style={styles.oneIcon}
               onPress={() => {
-                navigation.navigate('MonthlyAddEdit',
-                  {
-                    getMonthly: Monthly,
-                    Header:'Edit Monthly Payment',
-                    FormAction: editMonthly,
-                    TitleBtn: 'Edit',
-                  });
+                navigation.navigate('MonthlyAddEdit', {
+                  getMonthly: Monthly,
+                  Header: 'Edit Monthly Payment',
+                  FormAction: editMonthly,
+                  TitleBtn: 'Edit',
+                });
               }}>
               <Edit2Icon />
             </TouchableOpacity>
@@ -49,8 +50,10 @@ const MonthlyPaymentItem = ({Monthly, editMonthly, deleteMonthly}) => {
         </View>
 
         <View style={styles.descWrapper}>
+
           <Text style={styles.font1}>{printPrice(Monthly.paymentFee)}</Text>
           <Text style={styles.font2}>deadline: day-{Monthly.paymentDeadline} of the month</Text>
+
         </View>
 
         <View style={styles.checkBox}>

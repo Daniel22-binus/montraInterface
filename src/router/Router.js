@@ -20,6 +20,7 @@ import HistoryTransactionPage from '../pages/HistoryTransactionPage';
 
 import MonthlyPayment from '../pages/MonthlyPayment/MonthlyPayment';
 import MonthlyAddEdit from '../pages/MonthlyPayment/MonthlyAddEdit';
+import WaitingPage from '../pages/WaitingPage';
 
 import Profile from '../pages/Profile/Profile';
 import profileEdit from '../pages/Profile/profileEdit';
@@ -86,6 +87,11 @@ const Router = () => {
       <Stack.Screen
         name="MonthlyAddEdit"
         component={MonthlyAddEdit}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="WaitingPage"
+        component={WaitingPage}
         options={{headerShown: false}}
       />
 

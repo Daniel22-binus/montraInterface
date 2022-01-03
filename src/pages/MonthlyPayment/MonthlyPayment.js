@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {StyleSheet, Text, View, Dimensions} from 'react-native';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import {Add1Icon} from '../../assets';
@@ -6,15 +6,56 @@ import MonthlyPaymentItem from '../../components/MonthlyPaymentItem';
 import {BOLD_FONT, TITLE_COLOR} from '../../constant';
 import HeaderBack from '../../components/HeaderBack';
 import monthlyHook from '../../hooks/monthlyHook';
+import firebase from 'firebase';
+import { useFocusEffect } from '@react-navigation/native';
 
 const MonthlyPayment = ({navigation}) => {
   const [monthlyList, addMonthly, editMonthly, deleteMonthly, setStateNeed] =
     monthlyHook();
 
+    const [monthlyID, setMonthlyID] = useState('');
+    const [monthlyName, setMonthlyName] = useState('');
+    const [monthlyFee, setMonthlyFee] = useState('');
+    const [monthlyDeadline, setMonthlyDeadline] = useState('');
+
+    useFocusEffect(
+      useCallback(()=>{
+        firebase
+    .firestore()
+    .collection('users')
+    .doc(firebase.auth().currentUser.uid)
+    .collection('MonthlyPayment')
+    .get()
+    .then(collection => {
+      const name = []
+      const fee=[]
+      const deadline=[]
+      collection.forEach(doc => {
+        name.push(doc.data().paymentName)
+        fee.push(doc.data().fee)
+        deadline.push(doc.data().deadline)
+      })
+      setMonthlyName(name)
+      setMonthlyFee(fee)
+      setMonthlyDeadline(deadline)
+      console.log(monthlyFee)  
+    })
+    
+    .catch(error => {
+      console.log('Error getting document:', error);
+    });
+      },[])
+    )
+  
   return (
     <View style={{flex: 1}}>
       <HeaderBack navigation={navigation} title="Monthly Payment" />
       <ScrollView>
+        
+        <Text>{monthlyName}</Text>
+        <Text>{monthlyFee}</Text>
+        <Text>{monthlyDeadline}</Text>
+
         {monthlyList.results.map((Monthly, index) => (
           <MonthlyPaymentItem
             key={index}

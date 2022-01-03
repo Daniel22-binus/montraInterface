@@ -4,24 +4,24 @@ import {StyleSheet} from 'react-native';
 const monthlyHook = () => {
   const [monthlyList, setMonthlyList] = useState({
     results: [
-      {
-        id: 0,
-        paymentName:"PLN’s Fee",
-        paymentFee:"1400000",
-        paymentDeadline:"5",
-      },
-      {
-        id:1,
-        paymentName:"Wifi’s Fee",
-        paymentFee:"500000",
-        paymentDeadline:"5",
-      },
-      {
-        id:2,
-        paymentName:"School's Fee",
-        paymentFee:"1900000",
-        paymentDeadline:"15",
-      },
+      // {
+      //   id: 0,
+      //   paymentName:"PLN’s Fee",
+      //   paymentFee:"1400000",
+      //   paymentDeadline:"5",
+      // },
+      // {
+      //   id:1,
+      //   paymentName:"Wifi’s Fee",
+      //   paymentFee:"500000",
+      //   paymentDeadline:"5",
+      // },
+      // {
+      //   id:2,
+      //   paymentName:"School's Fee",
+      //   paymentFee:"1900000",
+      //   paymentDeadline:"15",
+      // },
     ],
   });
 
