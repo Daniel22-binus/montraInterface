@@ -23,6 +23,12 @@ const DrawerContent = ({navigation}) => {
     .get()
     .then(doc => {
       setUsername(doc.data().username);
+      // if (doc.exists) {
+      //       console.log('Document data:', doc.data());
+      //     } else {
+      //       // doc.data() //will be undefined in this case
+      //       console.log('No such document!');
+      //     }
       // if (doc && doc.exists) {
       //   console.log(doc.id, '=>', doc.data().username);
       // }else{
@@ -32,6 +38,24 @@ const DrawerContent = ({navigation}) => {
     .catch(error => {
       console.log('Error getting document:', error);
     });
+
+    //get all user data
+    // const UserUID = firebase
+    // .firestore()
+    // .collection('users')
+    // .doc(firebase.auth().currentUser.uid)
+    // .get()
+    // .then(doc => {
+    //   if (doc.exists) {
+    //     console.log('Document data:', doc.data());
+    //   } else {
+    //     // doc.data() will be undefined in this case
+    //     console.log('No such document!');
+    //   }
+    // })
+    // .catch(error => {
+    //   console.log('Error getting document:', error);
+    // });
   
   // const monthly = ref
   // .doc(firebase.auth().currentUser.uid)
