@@ -6,6 +6,8 @@ const planningHook = () => {
     results: [],
   });
 
+  let path = '/PlanningList/' + firebase.auth().currentUser?.uid;
+
   const setStateNeed = (indexPlan, indexNeed, newState) => {
     const newResults = [...planningList.results];
     newResults[indexPlan].needs[indexNeed].needState = newState;
@@ -18,7 +20,7 @@ const planningHook = () => {
     let tempResults = [];
     await firebase
       .database()
-      .ref('/PlanningList')
+      .ref(path)
       .once('value')
       .then(snapshot => {
         //function ini looping forever
@@ -50,12 +52,14 @@ const planningHook = () => {
     //   results: newResults,
     // });
 
-    let temp = Object.keys(planningList.results);
-    Plan.id = temp.length;
+    if (planningList.results) {
+      let temp = Object.keys(planningList.results);
+      Plan.id = temp.length;
+    }
 
     firebase
       .database()
-      .ref('/PlanningList')
+      .ref(path)
       .push(Plan)
       .then(() => {
         alert('success add new Planning');

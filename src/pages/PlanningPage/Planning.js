@@ -12,7 +12,8 @@ import {BOLD_FONT, PRIMARY_FONT, TITLE_COLOR} from '../../constant';
 import PlanningItem from '../../components/PlanningComponent/PlanningItem';
 import {Add1Icon} from '../../assets/icons';
 import planningHook from '../../hooks/planningHook';
-import { objectToList } from '../../logic/firebaseFunction';
+import {objectToList} from '../../logic/firebaseFunction';
+import firebase from '../../../firebase';
 
 const Planning = ({navigation}) => {
   const [
@@ -80,8 +81,9 @@ const Planning = ({navigation}) => {
 
       <TouchableOpacity
         onPress={() => {
-          let temp = Object.keys(planningList.results);
-          console.log(temp.length);
+          // let temp = Object.keys(planningList.results);
+          console.log(planningList.results);
+          // console.log(firebase.auth().currentUser?.uid);
         }}>
         <Text>Print</Text>
       </TouchableOpacity>
