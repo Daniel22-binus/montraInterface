@@ -9,11 +9,22 @@ const planningHook = () => {
   let path = '/PlanningList/' + firebase.auth().currentUser?.uid;
 
   const setStateNeed = (indexPlan, indexNeed, newState) => {
-    const newResults = [...planningList.results];
-    newResults[indexPlan].needs[indexNeed].needState = newState;
-    setPlanningList({
-      results: newResults,
-    });
+    // const newResults = [...planningList.results];
+    // newResults[indexPlan].needs[indexNeed].needState = newState;
+    // setPlanningList({
+    //   results: newResults,
+    // });
+
+    firebase
+      .database()
+      .ref(path + '/' + indexPlan + '/needs/' + indexNeed + '/needState')
+      .set(newState)
+      .then(() => {
+        getPlan();
+      })
+      .catch(error => {
+        alert(error);
+      });
   };
 
   const getPlan = async () => {
@@ -23,7 +34,7 @@ const planningHook = () => {
       .once('value')
       .then(snapshot => {
         if (snapshot) {
-          console.log('=====================================');
+          // console.log('=====================================');
           setPlanningList({
             results: snapshot.val(),
           });
@@ -31,13 +42,15 @@ const planningHook = () => {
       });
   };
 
-  const addPlanItem = Plan => {
+  const addPlanItem = PlanFirebase => {
     // const newResults = [...planningList.results];
     // Plan.id = newResults.length;
     // newResults.push(Plan);
     // setPlanningList({
     //   results: newResults,
     // });
+
+    let Plan = PlanFirebase.Plan;
 
     if (planningList.results) {
       let temp = Object.keys(planningList.results);
@@ -58,27 +71,38 @@ const planningHook = () => {
     getPlan();
   };
 
-  const editPlanItem = Plan => {
-    const newResults = [...planningList.results];
-    newResults[Plan.id] = Plan;
-    setPlanningList({
-      results: newResults,
-    });
+  const editPlanItem = PlanFirebase => {
+    // const newResults = [...planningList.results];
+    // newResults[Plan.id] = Plan;
+    // setPlanningList({
+    //   results: newResults,
+    // });
+
+    firebase
+      .database()
+      .ref(path + '/' + PlanFirebase.keyFirebase)
+      .set(PlanFirebase.Plan)
+      .then(() => {
+        getPlan();
+      })
+      .catch(error => {
+        alert(error);
+      });
   };
 
   const deletePlanItem = key => {
-    const newResults = [...planningList.results];
-    newResults.splice(key, 1);
+    // const newResults = [...planningList.results];
+    // newResults.splice(key, 1);
 
-    newResults.map(plan => {
-      if (plan.id > key) {
-        plan.id = plan.id - 1;
-      }
-    });
+    // newResults.map(plan => {
+    //   if (plan.id > key) {
+    //     plan.id = plan.id - 1;
+    //   }
+    // });
 
-    setPlanningList({
-      results: newResults,
-    });
+    // setPlanningList({
+    //   results: newResults,
+    // });
   };
 
   return [

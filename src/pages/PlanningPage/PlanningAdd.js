@@ -13,7 +13,7 @@ import {BOLD_FONT, PRIMARY_COLOR, TITLE_COLOR} from '../../constant/index';
 import PlanningAddNeeds from './PlanningAddNeeds';
 
 const PlanningAdd = ({route, navigation}) => {
-  const {getPlan, Header, FormAction, TitleBtn} = route.params;
+  const {getPlan, keyFirebase, FormAction, TitleBtn} = route.params;
 
   const [Plan, setPlan] = useState(getPlan);
 
@@ -72,7 +72,13 @@ const PlanningAdd = ({route, navigation}) => {
             <TouchableOpacity
               style={styles.btnContainer}
               onPress={() => {
-                FormAction(Plan);
+                
+                let PlanFirebase = {
+                  keyFirebase: keyFirebase,
+                  Plan: Plan,
+                }
+
+                FormAction(PlanFirebase);
                 navigation.goBack();
               }}>
               <Text style={styles.btnText}>{TitleBtn}</Text>

@@ -43,8 +43,8 @@ const PlanningItem = props => {
             style={{marginRight: 8}}
             onPress={() => {
               navigation.navigate('PlanningAdd', {
-                getPlan: planning,
-                Header: 'Edit New Planning',
+                getPlan: planningList[planning],
+                keyFirebase: planning,
                 FormAction: editPlanItem,
                 TitleBtn: 'Edit',
               });
@@ -67,7 +67,7 @@ const PlanningItem = props => {
             <PlanningNeeds 
               key={need.id}
               need={need}
-              indexPlan={planning.id}
+              indexPlan={planning}
               setStateNeed={setStateNeed}
             />
           ))}

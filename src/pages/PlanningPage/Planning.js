@@ -66,7 +66,7 @@ const Planning = ({navigation}) => {
                     {id: '', needName: '', needPrice: '', needState: false},
                   ],
                 },
-                Header: 'Add New Planning',
+                
                 FormAction: addPlanItem,
                 TitleBtn: 'Add',
               });
@@ -81,7 +81,10 @@ const Planning = ({navigation}) => {
         </ScrollView>
       </View>
 
-      <TouchableOpacity onPress={() => {}}>
+      <TouchableOpacity
+        onPress={() => {
+          console.log(planningList.results['-MsYVir_JOI1-nhM4YKV']);
+        }}>
         <Text>Print</Text>
       </TouchableOpacity>
     </View>
