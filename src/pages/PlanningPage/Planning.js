@@ -12,15 +12,19 @@ import {BOLD_FONT, PRIMARY_FONT, TITLE_COLOR} from '../../constant';
 import PlanningItem from '../../components/PlanningComponent/PlanningItem';
 import {Add1Icon} from '../../assets/icons';
 import planningHook from '../../hooks/planningHook';
+import { objectToList } from '../../logic/firebaseFunction';
 
 const Planning = ({navigation}) => {
   const [
     planningList,
+    getPlan,
     addPlanItem,
     editPlanItem,
     deletePlanItem,
     setStateNeed,
   ] = planningHook();
+
+  getPlan();
 
   return (
     <View style={styles.container}>
@@ -33,15 +37,19 @@ const Planning = ({navigation}) => {
 
       <View style={{marginTop: 25}}>
         <ScrollView horizontal={true}>
-          {planningList.results.map(planning => (
-            <PlanningItem
-              key={planning.id}
-              planning={planning}
-              editPlanItem={editPlanItem}
-              deletePlanItem={deletePlanItem}
-              setStateNeed={setStateNeed}
-              navigation={navigation}
-            />
+          {objectToList(planningList.results).map(planning => (
+            <>
+              <PlanningItem
+                key={planningList.results[planning].id}
+                planningList={planningList.results}
+                planning={planning}
+                editPlanItem={editPlanItem}
+                deletePlanItem={deletePlanItem}
+                setStateNeed={setStateNeed}
+                navigation={navigation}
+              />
+              {/* <Text>{planningList.results[planning].planningName}</Text> */}
+            </>
           ))}
 
           <TouchableOpacity
@@ -72,9 +80,8 @@ const Planning = ({navigation}) => {
 
       <TouchableOpacity
         onPress={() => {
-          planningList.results.map(plan => {
-            console.log(plan);
-          });
+          let temp = Object.keys(planningList.results);
+          console.log(temp.length);
         }}>
         <Text>Print</Text>
       </TouchableOpacity>

@@ -1,66 +1,9 @@
-import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {useState} from 'react';
+import firebase from '../../firebase';
 
 const planningHook = () => {
   const [planningList, setPlanningList] = useState({
-    results: [
-      {
-        id: 0,
-        planningName: 'Trip to Hawai',
-        planningDescription: 'for 3 days 2 nights',
-        needs: [
-          {
-            id: 0,
-            needName: 'Plane Ticket Fee',
-            needPrice: 3000000,
-            needState: false,
-          },
-          {
-            id: 1,
-            needName: 'Hotel',
-            needPrice: 3000000,
-            needState: true,
-          },
-          {
-            id: 2,
-            needName: 'Tourist Guide',
-            needPrice: 3000000,
-            needState: false,
-          },
-          {
-            id: 3,
-            needName: 'Meal Cost',
-            needPrice: 3000000,
-            needState: true,
-          },
-          {
-            id: 4,
-            needName: 'Souvenirs',
-            needPrice: 3000000,
-            needState: false,
-          },
-        ],
-      },
-      {
-        id: 1,
-        planningName: 'Dummy',
-        planningDescription: 'test data',
-        needs: [
-          {
-            id: 0,
-            needName: 'needs true',
-            needPrice: 50000,
-            needState: true,
-          },
-          {
-            id: 1,
-            needName: 'needs false',
-            needPrice: 50000,
-            needState: false,
-          },
-        ],
-      },
-    ],
+    results: [],
   });
 
   const setStateNeed = (indexPlan, indexNeed, newState) => {
@@ -71,13 +14,57 @@ const planningHook = () => {
     });
   };
 
-  const addPlanItem = Plan => {
-    const newResults = [...planningList.results];
-    Plan.id = newResults.length;
-    newResults.push(Plan);
+  const getPlan = async () => {
+    let tempResults = [];
+    await firebase
+      .database()
+      .ref('/PlanningList')
+      .once('value')
+      .then(snapshot => {
+        //function ini looping forever
+        if (snapshot) {
+          // console.log('=====================================');
+          // setPlanningList({
+          //   results: snapshot.val(),
+          // });
+
+          tempResults = snapshot.val();
+          // Object.keys(tempResults).map(item => {
+          //   let needList = tempResults[item].needs;
+
+          //   console.log(needList);
+          // });
+        }
+      });
+
     setPlanningList({
-      results: newResults,
+      results: tempResults,
     });
+  };
+
+  const addPlanItem = Plan => {
+    // const newResults = [...planningList.results];
+    // Plan.id = newResults.length;
+    // newResults.push(Plan);
+    // setPlanningList({
+    //   results: newResults,
+    // });
+
+    let temp = Object.keys(planningList.results);
+    Plan.id = temp.length;
+
+    firebase
+      .database()
+      .ref('/PlanningList')
+      .push(Plan)
+      .then(() => {
+        alert('success add new Planning');
+      })
+      .catch(error => {
+        alert(error);
+      });
+
+    getPlan();
   };
 
   const editPlanItem = Plan => {
@@ -105,6 +92,7 @@ const planningHook = () => {
 
   return [
     planningList,
+    getPlan,
     addPlanItem,
     editPlanItem,
     deletePlanItem,
@@ -113,5 +101,3 @@ const planningHook = () => {
 };
 
 export default planningHook;
-
-const styles = StyleSheet.create({});
