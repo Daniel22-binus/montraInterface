@@ -15,7 +15,7 @@ import {useNavigation} from '@react-navigation/native';
 import {printPrice} from '../logic/printPrice';
 import firebase from 'firebase';
 
-const MonthlyPaymentItem = ({Monthly, editMonthly, deleteMonthly}) => {
+const MonthlyPaymentItem = ({namee, fee, deadline}) => {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const navigation = useNavigation();
 
@@ -27,15 +27,16 @@ const MonthlyPaymentItem = ({Monthly, editMonthly, deleteMonthly}) => {
         start={{x: 1, y: 0}}
         end={{x: 0, y: 1}}>
         <View style={styles.upperStyle}>
-          <Text style={styles.font1}>{Monthly.paymentName}</Text>
+          {/* <Text style={styles.font1}>{Monthly.paymentName}</Text> */}
+          <Text style={styles.font1}>{namee}</Text>
           <View style={styles.icons}>
             <TouchableOpacity
               style={styles.oneIcon}
               onPress={() => {
                 navigation.navigate('MonthlyAddEdit', {
-                  getMonthly: Monthly,
+                  // getMonthly: Monthly,
                   Header: 'Edit Monthly Payment',
-                  FormAction: editMonthly,
+                  // FormAction: editMonthly,
                   TitleBtn: 'Edit',
                 });
               }}>
@@ -43,7 +44,8 @@ const MonthlyPaymentItem = ({Monthly, editMonthly, deleteMonthly}) => {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.oneIcon}
-              onPress={() => deleteMonthly(Monthly.id)}>
+              // onPress={() => deleteMonthly(Monthly.id)}
+              >
               <DeleteIcon />
             </TouchableOpacity>
           </View>
@@ -51,8 +53,10 @@ const MonthlyPaymentItem = ({Monthly, editMonthly, deleteMonthly}) => {
 
         <View style={styles.descWrapper}>
 
-          <Text style={styles.font1}>{printPrice(Monthly.paymentFee)}</Text>
-          <Text style={styles.font2}>deadline: day-{Monthly.paymentDeadline} of the month</Text>
+          {/* <Text style={styles.font1}>{printPrice(Monthly.paymentFee)}</Text> */}
+          <Text style={styles.font1}>{fee}</Text>
+          {/* <Text style={styles.font2}>deadline: day-{Monthly.paymentDeadline} of the month</Text> */}
+          <Text style={styles.font2}>deadline: day-{deadline} of the month</Text>
 
         </View>
 
