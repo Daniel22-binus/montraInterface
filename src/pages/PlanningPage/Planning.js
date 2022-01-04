@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {
   View,
   Text,
@@ -13,6 +13,7 @@ import PlanningItem from '../../components/PlanningComponent/PlanningItem';
 import {Add1Icon} from '../../assets/icons';
 import planningHook from '../../hooks/planningHook';
 import {objectToList} from '../../logic/firebaseFunction';
+import {useFocusEffect} from '@react-navigation/native';
 import firebase from '../../../firebase';
 
 const Planning = ({navigation}) => {
@@ -25,7 +26,11 @@ const Planning = ({navigation}) => {
     setStateNeed,
   ] = planningHook();
 
-  getPlan();
+  useFocusEffect(
+    useCallback(() => {
+      getPlan();
+    }, []),
+  );
 
   return (
     <View style={styles.container}>
@@ -39,18 +44,15 @@ const Planning = ({navigation}) => {
       <View style={{marginTop: 25}}>
         <ScrollView horizontal={true}>
           {objectToList(planningList.results).map(planning => (
-            <>
-              <PlanningItem
-                key={planningList.results[planning].id}
-                planningList={planningList.results}
-                planning={planning}
-                editPlanItem={editPlanItem}
-                deletePlanItem={deletePlanItem}
-                setStateNeed={setStateNeed}
-                navigation={navigation}
-              />
-              {/* <Text>{planningList.results[planning].planningName}</Text> */}
-            </>
+            <PlanningItem
+              key={planningList.results[planning].id}
+              planningList={planningList.results}
+              planning={planning}
+              editPlanItem={editPlanItem}
+              deletePlanItem={deletePlanItem}
+              setStateNeed={setStateNeed}
+              navigation={navigation}
+            />
           ))}
 
           <TouchableOpacity
@@ -79,12 +81,7 @@ const Planning = ({navigation}) => {
         </ScrollView>
       </View>
 
-      <TouchableOpacity
-        onPress={() => {
-          // let temp = Object.keys(planningList.results);
-          console.log(planningList.results);
-          // console.log(firebase.auth().currentUser?.uid);
-        }}>
+      <TouchableOpacity onPress={() => {}}>
         <Text>Print</Text>
       </TouchableOpacity>
     </View>

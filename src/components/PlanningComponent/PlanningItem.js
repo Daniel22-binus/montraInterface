@@ -64,7 +64,7 @@ const PlanningItem = props => {
 
         <View style={styles.needsContainer}>
           {planningList[planning].needs.map(need => (
-            <PlanningNeeds
+            <PlanningNeeds 
               key={need.id}
               need={need}
               indexPlan={planning.id}

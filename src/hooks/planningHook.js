@@ -17,31 +17,18 @@ const planningHook = () => {
   };
 
   const getPlan = async () => {
-    let tempResults = [];
     await firebase
       .database()
       .ref(path)
       .once('value')
       .then(snapshot => {
-        //function ini looping forever
         if (snapshot) {
-          // console.log('=====================================');
-          // setPlanningList({
-          //   results: snapshot.val(),
-          // });
-
-          tempResults = snapshot.val();
-          // Object.keys(tempResults).map(item => {
-          //   let needList = tempResults[item].needs;
-
-          //   console.log(needList);
-          // });
+          console.log('=====================================');
+          setPlanningList({
+            results: snapshot.val(),
+          });
         }
       });
-
-    setPlanningList({
-      results: tempResults,
-    });
   };
 
   const addPlanItem = Plan => {
