@@ -8,7 +8,7 @@ import {
   SECONDARY_COLOR,
   TITLE_COLOR,
 } from '../../constant';
-import {printPrice} from '../../logic/printPrice';
+import {PrintPrice} from '../../logic/printPrice';
 import ProgressBar from './ProgressBar';
 
 const TotalBudget = ({totalBudget, currentUse}) => {
@@ -19,10 +19,10 @@ const TotalBudget = ({totalBudget, currentUse}) => {
       start={{x: 1, y: 0}}
       end={{x: 0, y: 1}}>
       <Text style={styles.title}> Total Budget</Text>
-      <Text style={styles.TotBudget}>{printPrice(totalBudget)}</Text>
+      <Text style={styles.TotBudget}>{PrintPrice(totalBudget)}</Text>
 
       <ProgressBar current={currentUse} total={totalBudget} />
-      <Text style={styles.TotBudgetUse}>{printPrice(currentUse)}</Text>
+      <Text style={styles.TotBudgetUse}>{PrintPrice(currentUse)}</Text>
     </LinearGradient>
   );
 };
