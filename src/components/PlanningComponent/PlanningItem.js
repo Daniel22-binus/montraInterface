@@ -51,7 +51,7 @@ const PlanningItem = props => {
             }}>
             <Edit2Icon />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => deletePlanItem(planning.id)}>
+          <TouchableOpacity onPress={() => deletePlanItem(planningList[planning].id)}>
             <DeleteIcon />
           </TouchableOpacity>
         </View>
