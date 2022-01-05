@@ -44,7 +44,12 @@ const PlanningAddNeeds = ({getNeed, inputNeedsArray}) => {
 
   const inputPriceField = (price, key) => {
     const newList = [...needsList];
-    newList[key].needPrice = parseInt(price, 10);
+
+    if (price == 0) {
+      newList[key].needPrice = '';
+    } else {
+      newList[key].needPrice = parseInt(price, 10);
+    }
     newList[key].id = key;
     setNeedsList(newList);
     inputNeedsArray(newList);
