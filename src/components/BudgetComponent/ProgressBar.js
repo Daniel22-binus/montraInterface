@@ -29,13 +29,25 @@ const ProgressBar = ({current, total}) => {
         style={styles.progressBoxStyle}>
         <Animated.View
           style={[
-            styles.progressBarStyle,
+            // styles.progressBarStyle,
+            checkProgress(current, total),
             {transform: [{translateX: animatedValue}]},
           ]}
         />
       </View>
     </View>
   );
+};
+
+const checkProgress = (current, total) => {
+  //limit 0.8
+  let limit = total * 0.8;
+
+  if (current > limit) {
+    return styles.progressBarStyleLimit;
+  } else if (current < limit) {
+    return styles.progressBarStyle;
+  }
 };
 
 export default ProgressBar;
@@ -46,6 +58,15 @@ const styles = StyleSheet.create({
     backgroundColor: GRAY_COLOR,
     borderRadius: 20,
     overflow: 'hidden',
+  },
+  progressBarStyleLimit: {
+    height: 20,
+    borderRadius: 20,
+    width: '100%',
+    backgroundColor: 'red',
+    position: 'absolute',
+    left: 0,
+    top: 0,
   },
   progressBarStyle: {
     height: 20,

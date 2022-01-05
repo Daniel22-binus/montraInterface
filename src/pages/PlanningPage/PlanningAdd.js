@@ -79,7 +79,7 @@ const PlanningAdd = ({route, navigation}) => {
                 }
 
                 FormAction(PlanFirebase);
-                navigation.goBack();
+                // navigation.goBack();
               }}>
               <Text style={styles.btnText}>{TitleBtn}</Text>
             </TouchableOpacity>

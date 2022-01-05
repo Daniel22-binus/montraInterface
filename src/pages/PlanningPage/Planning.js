@@ -66,7 +66,7 @@ const Planning = ({navigation}) => {
                     {id: '', needName: '', needPrice: '', needState: false},
                   ],
                 },
-                
+
                 FormAction: addPlanItem,
                 TitleBtn: 'Add',
               });
@@ -83,7 +83,14 @@ const Planning = ({navigation}) => {
 
       <TouchableOpacity
         onPress={() => {
-          console.log(planningList.results['-MsYVir_JOI1-nhM4YKV']);
+          firebase
+            .firestore()
+            .collection('users')
+            .doc(firebase.auth().currentUser.uid)
+            .get()
+            .then(doc => {
+              console.log(doc);
+            });
         }}>
         <Text>Print</Text>
       </TouchableOpacity>
