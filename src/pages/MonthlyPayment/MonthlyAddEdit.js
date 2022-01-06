@@ -5,8 +5,9 @@ import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import {BOLD_FONT, TITLE_COLOR, PRIMARY_FONT, WHITE} from '../../constant';
 
 const MonthlyPaymentAdd = ({route, navigation}) => {
-  const {getMonthly, Header,FormAction, TitleBtn} = route.params;
+  const {getMonthly, Header,FormAction, TitleBtn, keyFirebase} = route.params;
   const [Monthly, setMonthly] = useState(getMonthly);
+
 
   const paymentTitleInputChange = text => {
     setMonthly({
@@ -63,11 +64,17 @@ const MonthlyPaymentAdd = ({route, navigation}) => {
         </View>
 
         <View style={styles.button}>
-          <TouchableOpacity
-            onPress={() => {
-              FormAction(Monthly);
-              navigation.goBack();
-            }}>
+              <TouchableOpacity
+              onPress={() => {
+                
+                let MonthlyFirebase = {
+                  keyFirebase: keyFirebase,
+                  Monthly: Monthly,
+                }
+
+                FormAction(MonthlyFirebase);
+                navigation.goBack();
+              }}>
             <View style={styles.buttonAdd}>
               <Text style={styles.buttonText}>{TitleBtn}</Text>
             </View>

@@ -16,16 +16,16 @@ import {
   BOLD_FONT,
   PRIMARY_COLOR,
   PRIMARY_FONT,
-  SECONDARY_COLOR,
   SOFT_COLOR,
   TITLE_COLOR,
   WHITE,
 } from '../../constant';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
+import ProfileJoinedDate from '../../components/ProfileComponent/ProfileJoinedDate';
 
 const EditProfileScreen = ({navigation}) => {
-  const [image, setImage] = useState('https://ui-avatars.com/api/?name=User');
+  const [image, setImage] = useState('https://ui-avatars.com/api/?name="user"');
 
   const takePhotoFromCamera = () => {
     ImagePicker.openCamera({
@@ -138,7 +138,7 @@ const EditProfileScreen = ({navigation}) => {
                 <FontAwesome name="calendar" color={TITLE_COLOR} size={30} />
                 <Text style={styles.buttonName}>Joined Date</Text>
               </View>
-              <Text style={styles.fontDate}>28 December 2020</Text>
+              <ProfileJoinedDate/>
             </View>
           </View>
           <View style={styles.fiturBox}>
@@ -234,15 +234,6 @@ const styles = StyleSheet.create({
     fontFamily: BOLD_FONT,
     fontSize: 16,
     paddingLeft: 15,
-  },
-
-  fontDate: {
-    fontSize: 18,
-    fontFamily: PRIMARY_FONT,
-
-    fontStyle: 'italic',
-    color: SOFT_COLOR,
-    textAlign: 'right',
   },
 
   panel: {

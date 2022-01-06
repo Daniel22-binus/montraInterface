@@ -14,8 +14,7 @@ import CheckBox from '@react-native-community/checkbox';
 import {useNavigation} from '@react-navigation/native';
 import {PrintPrice} from '../logic/printPrice';
 
-const MonthlyPaymentItem = ({Monthly, editMonthly, deleteMonthly}) => {
-  const [toggleCheckBox, setToggleCheckBox] = useState(false);
+const MonthlyPaymentItem = ({Monthly, editMonthly, deleteMonthly,monthlyList,setState}) => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
@@ -25,13 +24,14 @@ const MonthlyPaymentItem = ({Monthly, editMonthly, deleteMonthly}) => {
         start={{x: 1, y: 0}}
         end={{x: 0, y: 1}}>
         <View style={styles.upperStyle}>
-          <Text style={styles.font1}>{Monthly.paymentName}</Text>
+          <Text style={styles.font1}> {monthlyList[Monthly].paymentName}</Text>
           <View style={styles.icons}>
             <TouchableOpacity
               style={styles.oneIcon}
               onPress={() => {
                 navigation.navigate('MonthlyAddEdit', {
-                  getMonthly: Monthly,
+                  getMonthly: monthlyList[Monthly],
+                  keyFirebase: Monthly,
                   Header: 'Edit Monthly Payment',
                   FormAction: editMonthly,
                   TitleBtn: 'Edit',
@@ -41,24 +41,24 @@ const MonthlyPaymentItem = ({Monthly, editMonthly, deleteMonthly}) => {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.oneIcon}
-              onPress={() => deleteMonthly(Monthly.id)}>
+              onPress={() => deleteMonthly(monthlyList[Monthly].id)}>
               <DeleteIcon />
             </TouchableOpacity>
           </View>
         </View>
 
         <View style={styles.descWrapper}>
-          <Text style={styles.font1}>{PrintPrice(Monthly.paymentFee)}</Text>
+          <Text style={styles.font1}>{PrintPrice(monthlyList[Monthly].paymentFee)}</Text>
           <Text style={styles.font2}>
-            deadline: day-{Monthly.paymentDeadline} of the month
+            deadline: day-{monthlyList[Monthly].paymentDeadline} of the month
           </Text>
         </View>
 
         <View style={styles.checkBox}>
           <CheckBox
             disabled={false}
-            value={toggleCheckBox}
-            onValueChange={newValue => setToggleCheckBox(newValue)}
+            value={monthlyList[Monthly].paymentState}
+            onValueChange={newValue => setState(Monthly, newValue)}
             tintColors={{true: TITLE_COLOR, false: TITLE_COLOR}}
           />
         </View>

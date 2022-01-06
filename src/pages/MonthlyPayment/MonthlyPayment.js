@@ -1,27 +1,38 @@
-import React from 'react';
-import {StyleSheet, Text, View, Dimensions} from 'react-native';
-import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
-import {Add1Icon} from '../../assets';
+import React, { useCallback } from 'react';
+import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import { Add1Icon } from '../../assets';
 import MonthlyPaymentItem from '../../components/MonthlyPaymentItem';
-import {BOLD_FONT, TITLE_COLOR} from '../../constant';
+import { BOLD_FONT, TITLE_COLOR } from '../../constant';
 import HeaderBack from '../../components/HeaderBack';
 import monthlyHook from '../../hooks/monthlyHook';
+import { useFocusEffect } from '@react-navigation/native';
+import { objectToList } from '../../logic/firebaseFunction';
 
-const MonthlyPayment = ({navigation}) => {
-  const [monthlyList, addMonthly, editMonthly, deleteMonthly, setStateNeed] =
+const MonthlyPayment = ({ navigation }) => {
+  const [monthlyList, getMonthly, addMonthly, editMonthly, deleteMonthly, setState] =
     monthlyHook();
 
+  useFocusEffect(
+    useCallback(() => {
+      getMonthly();
+    }, [])
+  );
+
+  console.log(monthlyList);
+
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <HeaderBack navigation={navigation} title="Monthly Payment" />
       <ScrollView>
-        {monthlyList.results.map((Monthly, index) => (
+        {objectToList(monthlyList.results).map(Monthly => (
           <MonthlyPaymentItem
-            key={index}
+            key={monthlyList.results[Monthly].id}
+            monthlyList={monthlyList.results}
             Monthly={Monthly}
             editMonthly={editMonthly}
             deleteMonthly={deleteMonthly}
-            setStateNeed={setStateNeed}
+            setState={setState}
             navigation={navigation}
           />
         ))}
@@ -31,10 +42,10 @@ const MonthlyPayment = ({navigation}) => {
             onPress={() => {
               navigation.navigate('MonthlyAddEdit', {
                 getMonthly: {
-                  id: 0,
-                  title: '',
-                  budget: '',
-                  deadline: '',
+                  paymentName: '',
+                  paymentFee: '',
+                  paymentDeadline: '',
+                  paymentState:false,
                 },
                 Header: 'Add New Monthly Payment',
                 FormAction: addMonthly,
@@ -43,6 +54,7 @@ const MonthlyPayment = ({navigation}) => {
             }}>
             <Add1Icon />
           </TouchableOpacity>
+
           <Text style={styles.miniFont}>add new Monthly Payment</Text>
           <View style={styles.announcement}>
             <Text style={styles.miniFont2}>
