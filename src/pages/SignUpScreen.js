@@ -1,12 +1,8 @@
-//ini yg lama
-import React, {useContext, useState, useRef} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
-  Button,
   StyleSheet,
-  Dimensions,
-  Image,
   TouchableOpacity,
   Platform,
   TextInput,
@@ -22,14 +18,12 @@ import {
   WHITE,
   SECONDARY_COLOR,
   GREEN_COLOR,
-  TITLE_FONT,
   TITLE_COLOR,
   BOLD_FONT,
   PRIMARY_FONT,
   BACKGROUND_COLOR,
 } from '../constant';
 import {auth} from '../../firebase';
-// import { firestore } from '../../firebase';
 import firebase from 'firebase';
 
 const SignUpScreen = ({navigation}) => {
@@ -46,17 +40,14 @@ const SignUpScreen = ({navigation}) => {
       auth
         .createUserWithEmailAndPassword(email.toString().trim(), password)
         .then(result => {
-          firebase
-            .firestore()
-            .collection('users')
-            .doc(firebase.auth().currentUser.uid)
+          firebase.database().ref('users/'+firebase.auth().currentUser?.uid)
             .set({
               username,
               phone,
               email,
             });
           console.log(result);
-          navigation.navigate('SignInScreen');
+          navigation.navigate('MainApp');
         })
         .catch(error => alert(error.message));
     }
@@ -183,6 +174,7 @@ const SignUpScreen = ({navigation}) => {
               placeholder="Your Phone Number"
               style={styles.textInput}
               autoCapitalize="none"
+              keyboardType='numeric'
               onChangeText={text => setPhone(text)}
               // onChangeText={(phone) => this.setState({phone})}
             />
