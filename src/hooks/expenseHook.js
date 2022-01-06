@@ -47,4 +47,8 @@ const expenseHook = () => {
   return [expenseList];
 };
 
+const NewExpense = () => {
+  
+}
+
 export default expenseHook;

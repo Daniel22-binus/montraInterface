@@ -1,71 +1,107 @@
 import {useState} from 'react';
 import {StyleSheet} from 'react-native';
+import firebase from '../../firebase'
 
 const budgetHook = () => {
   const [budgetList, setBudgetList] = useState({
-    results: [
-      {
-        id: 0,
-        budgetCategory:"Education",
-        budgetLimit:"10000000",
-        budgetUse:"5400000"
-      },
-      {
-        id:1,
-        budgetCategory:"Food and Beverage",
-        budgetLimit:"5000000",
-        budgetUse:"4500000"
-      },
-      {
-        id:2,
-        budgetCategory:"Transportation",
-        budgetLimit:"1000000",
-        budgetUse:"100000"
-      },
-    ],
+    results: [],
   });
+  
+  let path = '/Budget/' + firebase.auth().currentUser?.uid;
 
-  const setStateNeed = (indexBudget, newState) => {
-    const newResults = [...budgetList.results];
-    newResults[indexBudget] = newState;
-    setBudgetList({
-      results: newResults,
+  // const setState = (IndexBudget, newState) => {
+  //   firebase
+  //     .database()
+  //     .ref(path + '/' + IndexBudget )
+  //     .set(newState)
+  //     .then(() => {
+  //       getBudget();
+  //     })
+  //     .catch(error => {
+  //       alert(error);
+  //     });
+  // };
+
+  const getBudget = async() => {
+    await firebase
+    .database()
+    .ref(path)
+    .once('value')
+    .then(snapshot => {
+      if (snapshot) {
+        setBudgetList({
+          results: snapshot.val(),
+        });
+      }
     });
+  }
+
+  const addBudget = BudgetFirebase => {
+    let Budget = BudgetFirebase.Budget;
+
+    if (budgetList.results) {
+      let temp = Object.keys(budgetList.results);
+      Budget.id = temp.length;
+    }
+
+    firebase
+      .database()
+      .ref(path)
+      .push(Budget)
+      .then(() => {
+        getBudget();
+        alert('Successfully added new Budget.');
+      })
+      .catch(error => {
+        alert(error);
+      });
   };
 
-  const addBudget = Budget => {
-    const newResults = [...budgetList.results];
-    Budget.id = newResults.length;
-    newResults.push(Budget);
-    setBudgetList({
-      results: newResults,
-    });
-  };
-
-  const editBudget = Budget => {
-    const newResults = [...budgetList.results];
-    newResults[Budget.id] = Budget;
-    setBudgetList({
-      results: newResults,
-    });
+  const editBudget = BudgetFirebase => {
+    firebase
+      .database()
+      .ref(path + '/' + BudgetFirebase.keyFirebase)
+      .set(BudgetFirebase.Budget)
+      .then(() => {
+        getBudget();
+        alert('Successfully edited Budget.')
+      })
+      .catch(error => {
+        alert(error);
+      });
   };
 
   const deleteBudget = key => {
-    const newResults = [...budgetList.results];
-    newResults.splice(key, 1);
-
-    newResults.map(Budget => {
-      if (Budget.id > key) {
-        Budget.id = Budget.id - 1;
+    const newResults = budgetList.results;
+    Object.keys(newResults).map(Budget => {
+      if (newResults[Budget].id == key) {
+        firebase
+          .database()
+          .ref(path + '/' + Budget)
+          .remove()
+          .then(()=>{
+            alert('Successfully deleted your Budget.')
+          })
+          .catch(error => {
+            alert(error);
+          });
+      } else if (newResults[Budget].id > key) {
+        let temp = newResults[Budget];
+        temp.id -= 1;
+        firebase
+          .database()
+          .ref(path + '/' + Budget)
+          .set(temp)
+          .catch(error => {
+            alert(error);
+          });
       }
     });
-
-    setBudgetList({
-      results: newResults,
-    });
+    getBudget();
   };
 
-  return [budgetList, addBudget, editBudget, deleteBudget, setStateNeed];
+
+  return [budgetList, getBudget, addBudget, editBudget, deleteBudget];
 };
 
 export default budgetHook;

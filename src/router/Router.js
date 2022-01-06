@@ -1,5 +1,6 @@
-import React from 'react';
-import {StyleSheet} from 'react-native';
+
+import React, {useEffect} from 'react';
+import {StyleSheet, Text, View, Button} from 'react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createStackNavigator} from '@react-navigation/stack';
 import Home from '../pages/HomePage/Home';
@@ -19,12 +20,12 @@ import DrawerContent from '../components/DrawerNavigation/DrawerContent';
 import HistoryTransactionPage from '../pages/HistoryTransactionPage';
 
 import MonthlyPayment from '../pages/MonthlyPayment/MonthlyPayment';
-import MonthlyAddEdit from '../pages/MonthlyPayment/MonthlyAddEdit';
-import WaitingPage from '../pages/WaitingPage';
 
 import Profile from '../pages/Profile/Profile';
 import profileEdit from '../pages/Profile/profileEdit';
-
+import MonthlyAddEdit from '../pages/MonthlyPayment/MonthlyAddEdit';
+import AddExpense from '../pages/AddExpense';
+import WaitingPage from '../pages/WaitingPage';
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
@@ -102,6 +103,11 @@ const Router = () => {
       />
 
       {PlanningPage()}
+      <Stack.Screen
+        name="AddExpense"
+        component={AddExpense}
+        options={{headerShown: false}}
+      />
     </Stack.Navigator>
   );
 };

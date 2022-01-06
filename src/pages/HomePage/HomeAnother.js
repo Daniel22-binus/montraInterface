@@ -22,7 +22,7 @@ const HomeAnother = ({navigation}) => {
 
   return (
     <View>
-      <HomeHeader />
+      <HomeHeader navigation={navigation} />
       <ProgressCircle
         style={circleStyle.circle}
         progress={0.7}

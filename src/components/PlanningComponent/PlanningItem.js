@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,23 +7,25 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {
-  BOLD_FONT,
-  PRIMARY_COLOR,
-  PRIMARY_FONT,
-  SECONDARY_COLOR,
-  TITLE_COLOR,
-} from '../../constant';
+import {BOLD_FONT, PRIMARY_FONT, TITLE_COLOR} from '../../constant';
 import {DeleteIcon, Edit2Icon} from '../../assets/icons';
 import PlanningNeeds from './PlanningNeeds';
-import {printPrice} from '../../logic/printPrice';
+
+import {PrintPrice} from '../../logic/printPrice';
 
 const PlanningItem = props => {
-  const {planning, editPlanItem, deletePlanItem, setStateNeed, navigation} =
-    props;
+  const {
+    planningList,
+    planning,
+    editPlanItem,
+    deletePlanItem,
+    setStateNeed,
+    navigation,
+  } = props;
 
   let price = 0;
-  planning.needs.map(need => {
+
+  planningList[planning].needs.map(need => {
     price = price + need.needPrice;
   });
 
@@ -35,13 +37,15 @@ const PlanningItem = props => {
       colors={['#9ABCDD', '#CAD8D2']}>
       <View style={styles.container}>
         <View style={{flexDirection: 'row'}}>
-          <Text style={styles.title}>{planning.planningName}</Text>
+          <Text style={styles.title}>
+            {planningList[planning].planningName}
+          </Text>
           <TouchableOpacity
             style={{marginRight: 8}}
             onPress={() => {
               navigation.navigate('PlanningAdd', {
-                getPlan: planning,
-                Header: 'Edit New Planning',
+                getPlan: planningList[planning],
+                keyFirebase: planning,
                 FormAction: editPlanItem,
                 TitleBtn: 'Edit',
               });
@@ -53,21 +57,21 @@ const PlanningItem = props => {
           </TouchableOpacity>
         </View>
 
-        <Text style={styles.description}>{planning.planningDescription}</Text>
-        <Text style={styles.price}> {printPrice(price)} </Text>
+        <Text style={styles.description}>
+          {planningList[planning].planningDescription}
+        </Text>
+        <Text style={styles.price}> {PrintPrice(price)} </Text>
         <View style={styles.line} />
 
         <View style={styles.needsContainer}>
-          {planning.needs.map(need => {
-            return (
-              <PlanningNeeds
-                key={need.id}
-                need={need}
-                indexPlan={planning.id}
-                setStateNeed={setStateNeed}
-              />
-            );
-          })}
+          {planningList[planning].needs.map(need => (
+            <PlanningNeeds 
+              key={need.id}
+              need={need}
+              indexPlan={planning}
+              setStateNeed={setStateNeed}
+            />
+          ))}
         </View>
       </View>
     </LinearGradient>

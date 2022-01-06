@@ -45,6 +45,7 @@ export {auth};
 
 
 
+export default firebase;
 
 
 

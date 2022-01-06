@@ -27,7 +27,7 @@ const Home = ({navigation}) => {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     {key: 'first', title: 'All'},
-    {key: 'second', title: 'empty'},
+    {key: 'second', title: '1234567890'},
     {key: 'third', title: 'konsumsi'},
   ]);
 

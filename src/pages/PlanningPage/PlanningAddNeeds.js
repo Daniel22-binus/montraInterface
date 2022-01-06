@@ -23,6 +23,13 @@ const PlanningAddNeeds = ({getNeed, inputNeedsArray}) => {
   const deleteField = key => {
     const newList = [...needsList];
     newList.splice(key, 1);
+
+    newList.map(need => {
+      if (need.id > key) {
+        need.id -= 1;
+      }
+    });
+
     setNeedsList(newList);
     inputNeedsArray(newList);
   };
@@ -65,7 +72,7 @@ const PlanningAddNeeds = ({getNeed, inputNeedsArray}) => {
           <TextInput
             style={styles.inputPrice}
             placeholder="Price"
-            value={need.needPrice+""}
+            value={need.needPrice + ''}
             onChangeText={price => {
               inputPriceField(price, key);
             }}

@@ -1,77 +1,112 @@
 import {useState} from 'react';
-import {StyleSheet} from 'react-native';
+import firebase from '../../firebase';
 
 const monthlyHook = () => {
   const [monthlyList, setMonthlyList] = useState({
-    results: [
-      // {
-      //   id: 0,
-      //   paymentName:"PLN’s Fee",
-      //   paymentFee:"1400000",
-      //   paymentDeadline:"5",
-      // },
-      // {
-      //   id:1,
-      //   paymentName:"Wifi’s Fee",
-      //   paymentFee:"500000",
-      //   paymentDeadline:"5",
-      // },
-      // {
-      //   id:2,
-      //   paymentName:"School's Fee",
-      //   paymentFee:"1900000",
-      //   paymentDeadline:"15",
-      // },
-    ],
+    results: [],
   });
 
-  const setStateNeed = (indexMonthly, newState) => {
-    const newResults = [...monthlyList.results];
-    newResults[indexMonthly] = newState;
-    setMonthlyList({
-      results: newResults,
-    });
-    console.log(newResults)
+  let path = '/MonthlyPayment/' + firebase.auth().currentUser?.uid;
+
+  const setState = (indexMonthly, newState) => {
+    firebase
+      .database()
+      .ref(path + '/' + indexMonthly + '/paymentState')
+      .set(newState)
+      .then(() => {
+        getMonthly();
+      })
+      .catch(error => {
+        alert(error);
+      });
   };
 
-  const addMonthly = Monthly => {
-    const newResults = [...monthlyList.results];
-    Monthly.id = newResults.length;
-    newResults.push(Monthly);
-    setMonthlyList({
-      results: newResults,
-    });
-    console.log(newResults)
+  const getMonthly = async () => {
+    await firebase
+      .database()
+      .ref(path)
+      .once('value')
+      .then(snapshot => {
+        if (snapshot) {
+          setMonthlyList({
+            results: snapshot.val(),
+          });
+        }
+      });
   };
 
-  const editMonthly = Monthly => {
-    const newResults = [...monthlyList.results];
-    newResults[Monthly.id] = Monthly;
-    setMonthlyList({
-      results: newResults,
-    });
-    console.log(newResults)
+  const addMonthly = MonthlyFirebase => {
+    let Monthly = MonthlyFirebase.Monthly;
+
+    if (monthlyList.results) {
+      let temp = Object.keys(monthlyList.results);
+      Monthly.id = temp.length;
+    }
+
+    firebase
+      .database()
+      .ref(path)
+      .push(Monthly)
+      .then(() => {
+        getMonthly();
+        alert('Successfully added new Monthly Payment.');
+      })
+      .catch(error => {
+        alert(error);
+      });
+  };
+
+  const editMonthly = MonthlyFirebase => {
+    firebase
+      .database()
+      .ref(path + '/' + MonthlyFirebase.keyFirebase)
+      .set(MonthlyFirebase.Monthly)
+      .then(() => {
+        getMonthly();
+        alert('Successfully edited Monthly Payment.')
+      })
+      .catch(error => {
+        alert(error);
+      });
   };
 
   const deleteMonthly = key => {
-    const newResults = [...monthlyList.results];
-    newResults.splice(key, 1);
-
-    newResults.map(Monthly => {
-      if (Monthly.id > key) {
-        Monthly.id = Monthly.id - 1;
+    const newResults = monthlyList.results;
+    Object.keys(newResults).map(Monthly => {
+      if (newResults[Monthly].id == key) {
+        firebase
+          .database()
+          .ref(path + '/' + Monthly)
+          .remove()
+          .then(()=>{
+            alert('Successfully deleted your Monthly Payment.')
+          })
+          .catch(error => {
+            alert(error);
+          });
+      } else if (newResults[Monthly].id > key) {
+        let temp = newResults[Monthly];
+        temp.id -= 1;
+        firebase
+          .database()
+          .ref(path + '/' + Monthly)
+          .set(temp)
+          .catch(error => {
+            alert(error);
+          });
       }
     });
-
-    setMonthlyList({
-      results: newResults,
-    });
-    console.log(newResults)
+    getMonthly();
   };
 
-  return [monthlyList, addMonthly, editMonthly, deleteMonthly, setStateNeed];
+  return [
+    monthlyList,
+    getMonthly,
+    addMonthly,
+    editMonthly,
+    deleteMonthly,
+    setState,
+  ];
 };
 
 export default monthlyHook;
-
-const styles = StyleSheet.create({});

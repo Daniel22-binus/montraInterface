@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {Dimensions, StyleSheet, Text} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {
@@ -8,10 +8,36 @@ import {
   SECONDARY_COLOR,
   TITLE_COLOR,
 } from '../../constant';
-import {printPrice} from '../../logic/printPrice';
+import {PrintPrice} from '../../logic/printPrice';
 import ProgressBar from './ProgressBar';
+import firebase from '../../../firebase';
+import budgetHook from '../../hooks/budgetHook';
+import {useFocusEffect} from '@react-navigation/native';
 
 const TotalBudget = ({totalBudget, currentUse}) => {
+  const [budgetList, getBudget] = budgetHook();
+
+  useFocusEffect(
+    useCallback(() => {
+      getBudget();
+    }, []),
+  );
+  console.log(budgetList);
+
+  //cara dpet semua budget gimana?
+  const editBudget = BudgetFirebase => {
+    firebase
+      .database()
+      .ref(path + '/' + BudgetFirebase.keyFirebase)
+      .set(BudgetFirebase.Budget)
+      .then(() => {
+
+      })
+      .catch(error => {
+        alert(error);
+      });
+  }; 
+
   return (
     <LinearGradient
       style={styles.linear}
@@ -19,10 +45,10 @@ const TotalBudget = ({totalBudget, currentUse}) => {
       start={{x: 1, y: 0}}
       end={{x: 0, y: 1}}>
       <Text style={styles.title}> Total Budget</Text>
-      <Text style={styles.TotBudget}>{printPrice(totalBudget)}</Text>
+      <Text style={styles.TotBudget}>{PrintPrice(totalBudget)}</Text>
 
       <ProgressBar current={currentUse} total={totalBudget} />
-      <Text style={styles.TotBudgetUse}>{printPrice(currentUse)}</Text>
+      <Text style={styles.TotBudgetUse}>{PrintPrice(currentUse)}</Text>
     </LinearGradient>
   );
 };

@@ -1,10 +1,9 @@
 
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import DrawerItemContent from './DrawerItemContent';
-import React, { useState } from 'react';
+import {WrongDefault} from '../../assets';
 import DrawerLogOutContent from './DrawerLogOutContent';
-
-import { WrongDefault } from '../../assets';
 import {
   BACKGROUND_COLOR,
   BOLD_FONT,
@@ -13,34 +12,36 @@ import {
 } from '../../constant';
 import firebase from 'firebase';
 
+import {auth} from '../../../firebase';
+
 const DrawerContent = ({ navigation }) => {
   //array
   const [username, setUsername] = useState('');
 
   //get username
-  const Usernamee = firebase
-    .firestore()
-    .collection('users')
-    .doc(firebase.auth().currentUser.uid)
-    .get()
-    .then(doc => {
-      setUsername(doc.data().username);
+  // const Usernamee = firebase
+  //   .firestore()
+  //   .collection('users')
+  //   .doc(firebase.auth().currentUser.uid)
+  //   .get()
+  //   .then(doc => {
+  //     setUsername(doc.data().username);
       
-      // if (doc.exists) {
-      //       console.log('Document data:', doc.data());
-      //     } else {
-      //       // doc.data() //will be undefined in this case
-      //       console.log('No such document!');
-      //     }
-      // if (doc && doc.exists) {
-      //   console.log(doc.id, '=>', doc.data().username);
-      // }else{
-      //   console.log('no data');
-      // }
-    })
-    .catch(error => {
-      console.log('Error getting document:', error);
-    });
+  //     // if (doc.exists) {
+  //     //       console.log('Document data:', doc.data());
+  //     //     } else {
+  //     //       // doc.data() //will be undefined in this case
+  //     //       console.log('No such document!');
+  //     //     }
+  //     // if (doc && doc.exists) {
+  //     //   console.log(doc.id, '=>', doc.data().username);
+  //     // }else{
+  //     //   console.log('no data');
+  //     // }
+  //   })
+  //   .catch(error => {
+  //     console.log('Error getting document:', error);
+  //   });
 
   //get all user data
   // const UserUID = firebase
@@ -82,7 +83,12 @@ const DrawerContent = ({ navigation }) => {
           <View style={userStyle.container}>
             <Image style={userStyle.image} source={WrongDefault} />
             <View style={userStyle.userData}>
-              <Text style={userStyle.text}>{username}</Text>
+
+              <Text style={userStyle.text}>User</Text>
+              <Text style={userStyle.text}>user@gmail.com</Text>
+              {/* <Text style={userStyle.text}>{username}</Text> */}
+              {/* <Text style={userStyle.text}>{firebase.firestore().collection("users").doc(firebase.auth().currentUser.uid).get().then()}</Text> */}
+
               <Text style={userStyle.text}>
                 {firebase.auth().currentUser?.email}
               </Text>
