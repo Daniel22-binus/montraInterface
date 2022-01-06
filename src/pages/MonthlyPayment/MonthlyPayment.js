@@ -42,6 +42,7 @@ const MonthlyPayment = ({ navigation }) => {
             onPress={() => {
               navigation.navigate('MonthlyAddEdit', {
                 getMonthly: {
+                  id:0,
                   paymentName: '',
                   paymentFee: '',
                   paymentDeadline: '',

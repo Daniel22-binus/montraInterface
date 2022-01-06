@@ -1,4 +1,5 @@
-import * as firebase from 'firebase';
+// import * as firebase from 'firebase';
+import firebase from 'firebase';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -13,35 +14,11 @@ const firebaseConfig = {
 // Initialize Firebase
 // const app = initializeApp(firebaseConfig);
 
-let app;
-if (firebase.apps.length === 0) {
-  app = firebase.initializeApp(firebaseConfig);
-} else {
-  app = firebase.app();
+if (firebase.apps.length === 0){
+  firebase.initializeApp(firebaseConfig);
+  firebase.firestore().settings({experimentalForceLongPolling: true});
 }
 
 const auth = firebase.auth();
 export {auth};
 export default firebase;
-
-
-
-// if (firebase.apps.length === 0) {
-//   firebase.initializeApp(firebaseConfig);
-// }
-// if(firebase.apps.length === 0){
-//   firebase.initializeApp(firebaseConfig)
-//   // var db = firebase.firestore();
-// }
-
-// firebase.firestore().settings({experimentalForceLongPolling: true});
-
-// export const firebase = firebase.firestore();
-// const app = initializeApp(firebaseConfig);
-// export const db = app.database();
-
-// if (firebase.apps.length === 0) {
-//   firebase.initializeApp(firebaseConfig)
-// }
-
-// export firebase;
