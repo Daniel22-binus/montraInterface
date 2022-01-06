@@ -34,7 +34,7 @@ const Budget = ({navigation}) => {
       <HeaderBack navigation={navigation} title="Budget" />
       <MonthPick />
       <View style={styles.container}>
-        <TotalBudget totalBudget="16000000" currentUse="10000000" />
+        <TotalBudget budgetList={budgetList} />
 
         <View
           style={{

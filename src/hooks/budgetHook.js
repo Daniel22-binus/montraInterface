@@ -8,20 +8,7 @@ const budgetHook = () => {
   });
   
   let path = '/Budget/' + firebase.auth().currentUser?.uid;
-
-  // const setState = (IndexBudget, newState) => {
-  //   firebase
-  //     .database()
-  //     .ref(path + '/' + IndexBudget )
-  //     .set(newState)
-  //     .then(() => {
-  //       getBudget();
-  //     })
-  //     .catch(error => {
-  //       alert(error);
-  //     });
-  // };
-
+  
   const getBudget = async() => {
     await firebase
     .database()
