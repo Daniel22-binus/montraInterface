@@ -12,7 +12,7 @@ import {
 import MonthPick from '../../components/BudgetComponent/MonthPick';
 
 const BudgetAdd = ({navigation, route}) => {
-  const {getBudget, Header, FormAction, Button} = route.params;
+  const {getBudget, Header, FormAction, Button, keyFirebase} = route.params;
   const [Budget, setBudget] = useState(getBudget);
 
   const budgetTitleInputChange = text => {
@@ -61,7 +61,11 @@ const BudgetAdd = ({navigation, route}) => {
           </View>
           <TouchableOpacity
             onPress={() => {
-              FormAction(Budget);
+              let BudgetFirebase = {
+                keyFirebase: keyFirebase,
+                Budget: Budget,
+              }
+              FormAction(BudgetFirebase);
               navigation.goBack();
             }}>
             <View style={styles.buttonAdd}>

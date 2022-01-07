@@ -9,11 +9,6 @@ const planningHook = () => {
   let path = '/PlanningList/' + firebase.auth().currentUser?.uid;
 
   const setStateNeed = (indexPlan, indexNeed, newState) => {
-    // const newResults = [...planningList.results];
-    // newResults[indexPlan].needs[indexNeed].needState = newState;
-    // setPlanningList({
-    //   results: newResults,
-    // });
 
     firebase
       .database()

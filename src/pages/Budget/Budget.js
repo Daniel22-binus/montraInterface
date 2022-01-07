@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {
   StyleSheet,
   Text,
@@ -14,16 +14,27 @@ import {ScrollView} from 'react-native-gesture-handler';
 import MonthPick from '../../components/BudgetComponent/MonthPick';
 import TotalBudget from '../../components/BudgetComponent/TotalBudget';
 import budgetHook from '../../hooks/budgetHook';
+import {useFocusEffect} from '@react-navigation/native';
+import {objectToList} from '../../logic/firebaseFunction';
 
 const Budget = ({navigation}) => {
-  const [budgetList, addBudget, editBudget, deleteBudget, setStateNeed] =
+  const [budgetList, getBudget, addBudget, editBudget, deleteBudget] =
     budgetHook();
+
+  useFocusEffect(
+    useCallback(() => {
+      getBudget();
+    }, []),
+  );
+
+  // console.log(budgetList);
+
   return (
     <View style={{flex: 1}}>
       <HeaderBack navigation={navigation} title="Budget" />
       <MonthPick />
       <View style={styles.container}>
-        <TotalBudget totalBudget="16000000" currentUse="10000000" />
+        <TotalBudget budgetList={budgetList} />
 
         <View
           style={{
@@ -42,13 +53,13 @@ const Budget = ({navigation}) => {
         </View>
 
         <ScrollView>
-          {budgetList.results.map((Budget, index) => (
+          {objectToList(budgetList.results).map(Budget => (
             <BudgetItem
-              key={index}
+              key={budgetList.results[Budget].id}
+              budgetList={budgetList.results}
               Budget={Budget}
               editBudget={editBudget}
               deleteBudget={deleteBudget}
-              setStateNeed={setStateNeed}
               navigation={navigation}
             />
           ))}
@@ -59,8 +70,8 @@ const Budget = ({navigation}) => {
                 navigation.navigate('BudgetAddEdit', {
                   getBudget: {
                     id: 0,
-                    title: '',
-                    total: '',
+                    budgetCategory: '',
+                    budgetLimit: '',
                     budgetUse: '',
                   },
                   Button: 'Add',

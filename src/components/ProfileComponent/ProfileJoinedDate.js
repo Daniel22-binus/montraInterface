@@ -1,11 +1,12 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import { BOLD_FONT, SECONDARY_COLOR } from '../../constant';
+import { BOLD_FONT, PRIMARY_FONT, SECONDARY_COLOR, SOFT_COLOR } from '../../constant';
+import firebase from 'firebase';
 
-const ProfileJoinedDate = ({date}) => {
+const ProfileJoinedDate = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.fontDate}>{date}</Text>
+      <Text style={styles.fontDate}>{firebase.auth().currentUser?.metadata.lastSignInTime}</Text>
     </View>
   );
 };
@@ -18,11 +19,9 @@ const styles = StyleSheet.create({
   },
   fontDate: {
     fontSize: 18,
-    fontFamily: BOLD_FONT,
+    fontFamily: PRIMARY_FONT,
     fontStyle: 'italic',
-    color: SECONDARY_COLOR,
+    color: SOFT_COLOR,
     textAlign: 'right',
-    // width: 200,
-    // paddingRight: 100,
   },
 });

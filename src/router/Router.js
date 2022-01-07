@@ -1,3 +1,4 @@
+
 import React, {useEffect} from 'react';
 import {StyleSheet, Text, View, Button} from 'react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
@@ -19,6 +20,7 @@ import DrawerContent from '../components/DrawerNavigation/DrawerContent';
 import HistoryTransactionPage from '../pages/HistoryTransactionPage';
 
 import MonthlyPayment from '../pages/MonthlyPayment/MonthlyPayment';
+
 import Profile from '../pages/Profile/Profile';
 import profileEdit from '../pages/Profile/profileEdit';
 import MonthlyAddEdit from '../pages/MonthlyPayment/MonthlyAddEdit';
@@ -88,15 +90,15 @@ const Router = () => {
         component={MonthlyAddEdit}
         options={{headerShown: false}}
       />
+      <Stack.Screen
+        name="WaitingPage"
+        component={WaitingPage}
+        options={{headerShown: false}}
+      />
 
       <Stack.Screen
         name="profileEdit"
         component={profileEdit}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="WaitingPage"
-        component={WaitingPage}
         options={{headerShown: false}}
       />
 

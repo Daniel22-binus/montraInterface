@@ -10,6 +10,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {BOLD_FONT, PRIMARY_FONT, TITLE_COLOR} from '../../constant';
 import {DeleteIcon, Edit2Icon} from '../../assets/icons';
 import PlanningNeeds from './PlanningNeeds';
+
 import {PrintPrice} from '../../logic/printPrice';
 
 const PlanningItem = props => {
