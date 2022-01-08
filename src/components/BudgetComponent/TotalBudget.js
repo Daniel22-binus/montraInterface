@@ -30,8 +30,6 @@ const hitung = () => {
   // JumlahBudget -= 1
 }
 hitung()
-console.log('======================')
-console.log(JumlahBudget.toString())
 
   return (
     <LinearGradient

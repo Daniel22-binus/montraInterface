@@ -46,15 +46,15 @@ const SignUpScreen = ({navigation}) => {
       auth
         .createUserWithEmailAndPassword(email.toString().trim(), password)
         .then(result => {
-          firebase
-            .firestore()
-            .collection('users')
-            .doc(firebase.auth().currentUser.uid)
-            .set({
-              username,
-              phone,
-              email,
-            });
+          // firebase
+          //   .firestore()
+          //   .collection('users')
+          //   .doc(firebase.auth().currentUser.uid)
+          //   .set({
+          //     username,
+          //     phone,
+          //     email,
+          //   });
           console.log(result);
           navigation.navigate('SignInScreen');
         })

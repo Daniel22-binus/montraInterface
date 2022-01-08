@@ -5,10 +5,13 @@ import HomeAll from './HomeAll';
 import Header from '../../components/Header';
 import HomeAnother from './HomeAnother';
 import {BOLD_FONT, TITLE_COLOR, REGULAR_FONT} from '../../constant';
+import PieChartReact from '../../components/HomeComponent/PieChartReact';
 
 const Home = ({navigation}) => {
   const SecondRoute = () => (
-    <View style={{flex: 1, backgroundColor: '#673ab7'}} />
+    <View style={{flex: 1, backgroundColor: '#673ab7'}}>
+      <PieChartReact />
+    </View>
   );
 
   const renderScene = ({route}) => {

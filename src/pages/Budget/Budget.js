@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -20,19 +20,18 @@ import {objectToList} from '../../logic/firebaseFunction';
 const Budget = ({navigation}) => {
   const [budgetList, getBudget, addBudget, editBudget, deleteBudget] =
     budgetHook();
+  const [date, setDate] = useState(new Date());
 
   useFocusEffect(
     useCallback(() => {
-      getBudget();
+      getBudget(date);
     }, []),
   );
-
-  // console.log(budgetList);
 
   return (
     <View style={{flex: 1}}>
       <HeaderBack navigation={navigation} title="Budget" />
-      <MonthPick />
+      <MonthPick date={date} setDate={setDate} getBudget={getBudget} />
       <View style={styles.container}>
         <TotalBudget budgetList={budgetList} />
 
@@ -73,6 +72,7 @@ const Budget = ({navigation}) => {
                     budgetCategory: '',
                     budgetLimit: '',
                     budgetUse: '',
+                    budgetMonth: date,
                   },
                   Button: 'Add',
                   Header: 'Add New Budget',

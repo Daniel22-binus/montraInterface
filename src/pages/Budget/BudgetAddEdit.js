@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, {useState} from 'react';
 import {View, Text, Dimensions, StyleSheet, TextInput} from 'react-native';
 import HeaderBack from '../../components/HeaderBack';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
@@ -10,6 +10,7 @@ import {
   PRIMARY_COLOR,
 } from '../../constant';
 import MonthPick from '../../components/BudgetComponent/MonthPick';
+import printDate from '../../logic/printDate';
 
 const BudgetAdd = ({navigation, route}) => {
   const {getBudget, Header, FormAction, Button, keyFirebase} = route.params;
@@ -29,10 +30,25 @@ const BudgetAdd = ({navigation, route}) => {
     });
   };
 
+  const budgetMonthChange = newDate => {
+    setBudget({
+      ...Budget,
+      budgetMonth: newDate,
+    });
+  };
+
+  const editNotEdit = () => {
+    if (Header == 'Add New Budget') {
+      return (
+        <MonthPick date={Budget.budgetMonth} setDate={budgetMonthChange} />
+      );
+    }
+  };
+
   return (
     <View style={{flex: 1}}>
       <HeaderBack navigation={navigation} title={Header} />
-      <MonthPick />
+      {editNotEdit()}
       <ScrollView>
         <View style={styles.input}>
           <Text style={[styles.text_footer, {marginTop: 8}]}>Budget Name</Text>
@@ -55,16 +71,16 @@ const BudgetAdd = ({navigation, route}) => {
         </View>
 
         <View style={styles.button}>
-          <View style={styles.budgetDetail}>
+          {/* <View style={styles.budgetDetail}>
             <Text style={styles.font1}>Current Total Budget in November </Text>
             <Text style={styles.font2}>RP 17.000.000</Text>
-          </View>
+          </View> */}
           <TouchableOpacity
             onPress={() => {
               let BudgetFirebase = {
                 keyFirebase: keyFirebase,
                 Budget: Budget,
-              }
+              };
               FormAction(BudgetFirebase);
               navigation.goBack();
             }}>

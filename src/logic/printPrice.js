@@ -1,4 +1,3 @@
-
 const PrintPrice = price => {
   let strResult = '';
   let titik = 0;
@@ -24,4 +23,15 @@ const PrintPrice = price => {
 
   return strResult;
 };
-export {PrintPrice};
+
+const printStringPrice = str => {
+  let price = 0;
+
+  if (!isNaN(str) && str != '') {
+    price = parseInt(str);
+  }
+
+  return PrintPrice(price);
+};
+
+export {PrintPrice, printStringPrice};

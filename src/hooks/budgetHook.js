@@ -1,30 +1,38 @@
 import {useState} from 'react';
 import {StyleSheet} from 'react-native';
-import firebase from '../../firebase'
+import firebase from '../../firebase';
+import printDate, {getMonthPick} from '../logic/printDate';
 
 const budgetHook = () => {
   const [budgetList, setBudgetList] = useState({
     results: [],
   });
-  
+
   let path = '/Budget/' + firebase.auth().currentUser?.uid;
-  
-  const getBudget = async() => {
+
+  const getBudget = async date => {
+    let pathMonth = getMonthPick(date);
+
     await firebase
-    .database()
-    .ref(path)
-    .once('value')
-    .then(snapshot => {
-      if (snapshot) {
-        setBudgetList({
-          results: snapshot.val(),
-        });
-      }
-    });
-  }
+      .database()
+      .ref(path + '/' + pathMonth)
+      .once('value')
+      .then(snapshot => {
+        if (snapshot) {
+          setBudgetList({
+            results: snapshot.val(),
+          });
+        }
+      });
+  };
 
   const addBudget = BudgetFirebase => {
     let Budget = BudgetFirebase.Budget;
+    let monthPath = getMonthPick(Budget.budgetMonth);
+    let month = printDate(Budget.budgetMonth);
+    Budget.budgetMonth = month;
+
+    getBudget(month);
 
     if (budgetList.results) {
       let temp = Object.keys(budgetList.results);
@@ -33,10 +41,10 @@ const budgetHook = () => {
 
     firebase
       .database()
-      .ref(path)
+      .ref(path + '/' + monthPath)
       .push(Budget)
       .then(() => {
-        getBudget();
+        getBudget(month);
         alert('Successfully added new Budget.');
       })
       .catch(error => {
@@ -45,29 +53,37 @@ const budgetHook = () => {
   };
 
   const editBudget = BudgetFirebase => {
+    let key = BudgetFirebase.keyFirebase;
+    let Budget = BudgetFirebase.Budget;
+    let monthPath = getMonthPick(Budget.budgetMonth);
+    let month = printDate(Budget.budgetMonth);
+    Budget.budgetMonth = month;
+
     firebase
       .database()
-      .ref(path + '/' + BudgetFirebase.keyFirebase)
-      .set(BudgetFirebase.Budget)
+      .ref(path + '/' + monthPath + '/' + key)
+      .set(Budget)
       .then(() => {
-        getBudget();
-        alert('Successfully edited Budget.')
+        getBudget(month);
+        alert('Successfully edited Budget.');
       })
       .catch(error => {
         alert(error);
       });
   };
 
-  const deleteBudget = key => {
+  const deleteBudget = (key, date) => {
     const newResults = budgetList.results;
+    const monthPath = getMonthPick(date);
+
     Object.keys(newResults).map(Budget => {
       if (newResults[Budget].id == key) {
         firebase
           .database()
-          .ref(path + '/' + Budget)
+          .ref(path + '/' + monthPath + '/' + Budget)
           .remove()
-          .then(()=>{
-            alert('Successfully deleted your Budget.')
+          .then(() => {
+            alert('Successfully deleted your Budget.');
           })
           .catch(error => {
             alert(error);
@@ -77,16 +93,15 @@ const budgetHook = () => {
         temp.id -= 1;
         firebase
           .database()
-          .ref(path + '/' + Budget)
+          .ref(path + '/' + monthPath + '/' + Budget)
           .set(temp)
           .catch(error => {
             alert(error);
           });
       }
     });
-    getBudget();
+    getBudget(date);
   };
-
 
   return [budgetList, getBudget, addBudget, editBudget, deleteBudget];
 };
