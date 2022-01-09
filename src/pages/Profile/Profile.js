@@ -49,7 +49,7 @@ const EditProfileScreen = ({navigation}) => {
       setUsername(snapshot.val().username);
       setPhone(snapshot.val().phone);
     });
-  // console.log(username);
+  // console.log(username); 
 
 
 
