@@ -14,16 +14,15 @@ import firebase from 'firebase';
 const DrawerContent = ({navigation}) => {
   const [username, setUsername] = useState('');
 
-  const getUser = () => {firebase
+  firebase
     .database()
     .ref(`users/${firebase.auth().currentUser.uid}`)
     .once('value', function (snapshot) {
-      const setName= []
-      setName.push(snapshot.val().username)
-    setUsername(setName)
+      // console.log(snapshot.val().username);
+      setUsername(snapshot.val().username);
     });
-  }
-  // console.log('get username: ', username);
+
+  console.log('get Username: ',username);
 
   return (
     <View style={styles.container}>
