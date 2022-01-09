@@ -12,7 +12,19 @@ import {
 import firebase from 'firebase';
 
 const DrawerContent = ({navigation}) => {
-  
+  const [username, setUsername] = useState('');
+
+  const getUser = () => {firebase
+    .database()
+    .ref(`users/${firebase.auth().currentUser.uid}`)
+    .once('value', function (snapshot) {
+      const setName= []
+      setName.push(snapshot.val().username)
+    setUsername(setName)
+    });
+  }
+  // console.log('get username: ', username);
+
   return (
     <View style={styles.container}>
       <View style={userStyle.bg}>
@@ -21,7 +33,7 @@ const DrawerContent = ({navigation}) => {
           <View style={userStyle.container}>
             <Image style={userStyle.image} source={WrongDefault} />
             <View style={userStyle.userData}>
-              <Text style={userStyle.text}>User</Text>
+              <Text style={userStyle.text}>{username}</Text>
               <Text style={userStyle.text}>
                 {firebase.auth().currentUser?.email}
               </Text>
