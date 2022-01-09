@@ -23,7 +23,6 @@ import {
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import ProfileJoinedDate from '../../components/ProfileComponent/ProfileJoinedDate';
-import {profileHook} from '../../hooks/profileHook';
 import firebase from '../../../firebase';
 import { DrawerContentScrollView } from '@react-navigation/drawer';
 import { useFocusEffect } from '@react-navigation/native';
