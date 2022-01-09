@@ -47,7 +47,7 @@ const SignUpScreen = ({navigation}) => {
               email,
             });
           console.log(result);
-          navigation.navigate('MainApp');
+          navigation.navigate('SignInScreen');
         })
         .catch(error => alert(error.message));
     }

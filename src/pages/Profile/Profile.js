@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {
   View,
   Text,
@@ -25,34 +25,31 @@ import Feather from 'react-native-vector-icons/Feather';
 import ProfileJoinedDate from '../../components/ProfileComponent/ProfileJoinedDate';
 import {profileHook} from '../../hooks/profileHook';
 import firebase from '../../../firebase';
+import { DrawerContentScrollView } from '@react-navigation/drawer';
+import { useFocusEffect } from '@react-navigation/native';
 
 const EditProfileScreen = ({navigation}) => {
   const [image, setImage] = useState('https://ui-avatars.com/api/?name="user"');
 
-  // const [getProfile] =
-  //   profileHook();
-
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     getProfile();
-  //   }, [])
-  // );
+  useFocusEffect(
+    useCallback(() => {
+      getUserData();
+    }, [])
+  );
 
   const [username, setUsername] = useState('');
   const [phone, setPhone] = useState('');
 
-  const getUserData = firebase
-    .database()
-    .ref(`users/${firebase.auth().currentUser.uid}`)
-    .once('value', function (snapshot) {
-      // console.log(snapshot.val().username);
-      setUsername(snapshot.val().username);
-      setPhone(snapshot.val().phone);
-    });
-  // console.log(username); 
-
-
-
+  const getUserData = () => {
+    firebase
+      .database()
+      .ref(`users/${firebase.auth().currentUser.uid}`)
+      .once('value', function (snapshot) {
+        setUsername(snapshot.val().username);
+        setPhone(snapshot.val().phone);
+      }); 
+    }
+    
   const takePhotoFromCamera = () => {
     ImagePicker.openCamera({
       compressImageMaxWidth: 300,
@@ -147,7 +144,9 @@ const EditProfileScreen = ({navigation}) => {
             }}
           />
           <Text style={styles.nameFont}>{username}</Text>
-          <Text style={styles.profileFont}>{firebase.auth().currentUser.email}</Text>
+          <Text style={styles.profileFont}>
+            {firebase.auth().currentUser.email}
+          </Text>
           <Text style={styles.profileFont}>{phone}</Text>
         </View>
         <View style={styles.containerInsideBox}>
@@ -164,7 +163,7 @@ const EditProfileScreen = ({navigation}) => {
                 <FontAwesome name="calendar" color={TITLE_COLOR} size={30} />
                 <Text style={styles.buttonName}>Joined Date</Text>
               </View>
-              <ProfileJoinedDate/>
+              <ProfileJoinedDate />
             </View>
           </View>
           <View style={styles.fiturBox}>

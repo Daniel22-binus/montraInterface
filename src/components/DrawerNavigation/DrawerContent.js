@@ -22,7 +22,7 @@ const DrawerContent = ({navigation}) => {
       setUsername(snapshot.val().username);
     });
 
-  console.log('get Username: ',username);
+  // console.log('get Username: ',username);
 
   return (
     <View style={styles.container}>
