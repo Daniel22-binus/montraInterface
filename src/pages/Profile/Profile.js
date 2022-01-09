@@ -23,9 +23,35 @@ import {
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import ProfileJoinedDate from '../../components/ProfileComponent/ProfileJoinedDate';
+import {profileHook} from '../../hooks/profileHook';
+import firebase from '../../../firebase';
 
 const EditProfileScreen = ({navigation}) => {
   const [image, setImage] = useState('https://ui-avatars.com/api/?name="user"');
+
+  // const [getProfile] =
+  //   profileHook();
+
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     getProfile();
+  //   }, [])
+  // );
+
+  const [username, setUsername] = useState('');
+  const [phone, setPhone] = useState('');
+
+  const getUserData = firebase
+    .database()
+    .ref(`users/${firebase.auth().currentUser.uid}`)
+    .once('value', function (snapshot) {
+      // console.log(snapshot.val().username);
+      setUsername(snapshot.val().username);
+      setPhone(snapshot.val().phone);
+    });
+  // console.log(username);
+
+
 
   const takePhotoFromCamera = () => {
     ImagePicker.openCamera({
@@ -120,9 +146,9 @@ const EditProfileScreen = ({navigation}) => {
               uri: image,
             }}
           />
-          <Text style={styles.nameFont}>User</Text>
-          <Text style={styles.profileFont}>user@gmail.com</Text>
-          <Text style={styles.profileFont}>0877 0877 0877</Text>
+          <Text style={styles.nameFont}>{username}</Text>
+          <Text style={styles.profileFont}>{firebase.auth().currentUser.email}</Text>
+          <Text style={styles.profileFont}>{phone}</Text>
         </View>
         <View style={styles.containerInsideBox}>
           <View style={styles.fiturBox}>
