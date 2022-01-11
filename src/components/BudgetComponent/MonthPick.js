@@ -11,7 +11,7 @@ import {ArrowDownIcon} from '../../assets';
 import {BOLD_FONT, GRAY_COLOR, PRIMARY_FONT, TITLE_COLOR} from '../../constant';
 import {format} from 'date-fns';
 
-const MonthPick = ({date, setDate, getBudget}) => {
+const MonthPick = ({date, setDate, getBudget, secondGet}) => {
   const [show, setShow] = useState(false);
 
   const showPicker = useCallback(value => setShow(value), []);
@@ -25,6 +25,9 @@ const MonthPick = ({date, setDate, getBudget}) => {
 
       if (getBudget) {
         getBudget(selectedDate);
+        if (secondGet) {
+          secondGet(selectedDate);
+        }
       }
     },
     [date, showPicker],

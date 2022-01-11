@@ -65,7 +65,7 @@ const budgetHook = () => {
       .set(Budget)
       .then(() => {
         getBudget(month);
-        alert('Successfully edited Budget.');
+        // alert('Successfully edited Budget.');
       })
       .catch(error => {
         alert(error);

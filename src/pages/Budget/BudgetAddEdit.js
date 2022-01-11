@@ -10,7 +10,6 @@ import {
   PRIMARY_COLOR,
 } from '../../constant';
 import MonthPick from '../../components/BudgetComponent/MonthPick';
-import printDate from '../../logic/printDate';
 
 const BudgetAdd = ({navigation, route}) => {
   const {getBudget, Header, FormAction, Button, keyFirebase} = route.params;

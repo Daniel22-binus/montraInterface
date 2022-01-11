@@ -3,7 +3,7 @@ import {useState} from 'react';
 const newExpenseHook = () => {
   const [newExpense, setNewExpense] = useState({
     id: 0,
-    budgetId: 0,
+    budgetId: -1,
     expensesDescription: '',
     date: new Date(),
     amount: 0,
@@ -33,7 +33,7 @@ const newExpenseHook = () => {
   const inputAmountField = newAmount => {
     setNewExpense({
       ...newExpense,
-      amount: newAmount,
+      amount: parseInt(newAmount),
     });
   };
 
