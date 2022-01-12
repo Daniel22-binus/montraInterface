@@ -29,7 +29,6 @@ const planningHook = () => {
       .once('value')
       .then(snapshot => {
         if (snapshot) {
-          // console.log('=====================================');
           setPlanningList({
             results: snapshot.val(),
           });
