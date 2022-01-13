@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import firebase from '../../firebase';
 import {objectToList} from '../logic/firebaseFunction';
+import {notification} from '../Notification';
 
 const notificationHook = () => {
   const [notifList, setNotifList] = useState({
@@ -26,8 +27,6 @@ const notificationHook = () => {
   const addNotif = str => {
     let tempId = 0;
 
-    console.log(str);
-
     if (notifList.results) {
       let temp = objectToList(notifList.results);
       tempId = temp.length;
@@ -42,6 +41,9 @@ const notificationHook = () => {
       })
       .then(() => {
         getNotif();
+        notification.configure();
+        notification.createChannel("1");
+        notification.sendNotif("1", str);
       })
       .catch(error => {
         alert(error);
