@@ -38,7 +38,7 @@ const settingsMain = ({navigation}) => {
     if(newPassword.length<8){
       alert('Password is less than 8 characters.')
     }
-    if (newPassword !== confirmNewPassword) {
+    else if (newPassword !== confirmNewPassword) {
       alert('Password does not match.');
     } else {
       reauthenticate(currentPassword)
