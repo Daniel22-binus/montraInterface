@@ -9,7 +9,7 @@ const printPrice = price => {
     }
 
     strResult = (price % 10) + strResult;
-    price = price / 10;
+    price = parseInt(price / 10);
     titik += 1;
   }
 

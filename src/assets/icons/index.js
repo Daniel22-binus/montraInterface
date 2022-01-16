@@ -16,7 +16,10 @@ import Edit2Icon from './edit2.svg';
 import BackIcon from './BackIcon.svg';
 import DeleteIcon from './delete.svg';
 import Add1Icon from './add1.svg';
-
+import ArrowDownIcon from './arrow-down.svg';
+import AboutUs from './AboutUs.svg';
+import ChangePassword from './ChangePassword.svg';
+import Profile from './Profile.svg';
 
 //png
 export {
@@ -32,7 +35,17 @@ export {
   Edit2Icon,
   DeleteIcon,
   Add1Icon,
+  ArrowDownIcon,
 };
 
 //svg
-export {AddIcon, MenuIcon, NotifNotActiveIcon, NotifActiveIcon, BackIcon};
+export {
+  AddIcon,
+  MenuIcon,
+  NotifNotActiveIcon,
+  NotifActiveIcon,
+  BackIcon,
+  Profile,
+  ChangePassword,
+  AboutUs,
+};

@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View, Button} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createStackNavigator} from '@react-navigation/stack';
 import Home from '../pages/HomePage/Home';
@@ -8,13 +8,25 @@ import Splash from '../pages/Splash';
 import SignInScreen from '../pages/SignInScreen';
 import ForgetPasswordScreen from '../pages/ForgetPassword';
 import SignUpScreen from '../pages/SignUpScreen';
-import Budget from '../pages/Budget';
+
 import Planning from '../pages/PlanningPage/Planning';
 import PlanningAdd from '../pages/PlanningPage/PlanningAdd';
+
+import Budget from '../pages/Budget/Budget';
+import BudgetAddEdit from '../pages/Budget/BudgetAddEdit';
+
 import DrawerContent from '../components/DrawerNavigation/DrawerContent';
+import HistoryTransactionPage from '../pages/HistoryTransactionPage';
+
 import MonthlyPayment from '../pages/MonthlyPayment/MonthlyPayment';
-import MonthlyPaymentAdd from '../pages/MonthlyPayment/MonthlyPaymentAdd';
-import MonthlyPaymentEdit from '../pages/MonthlyPayment/MonthlyPaymentEdit';
+import MonthlyAddEdit from '../pages/MonthlyPayment/MonthlyAddEdit';
+
+import Profile from '../pages/Profile/Profile';
+import profileEdit from '../pages/Profile/profileEdit';
+
+import Settings from '../pages/Settings/settingsMain';
+import ChangePassword from '../pages/Settings/changePassword';
+import About from '../pages/Settings/About';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -29,7 +41,14 @@ const MainApp = () => {
       <Drawer.Screen name="Notifications" component={Notification} />
       <Drawer.Screen name="Budget" component={Budget} />
       <Drawer.Screen name="Monthly Payment" component={MonthlyPayment} />
+
       <Drawer.Screen name="Planning" component={Planning} />
+      <Drawer.Screen
+        name="History Transaction"
+        component={HistoryTransactionPage}
+      />
+      <Drawer.Screen name="Profile" component={Profile} />
+      <Drawer.Screen name="Settings" component={Settings} />
     </Drawer.Navigator>
   );
 };
@@ -64,13 +83,32 @@ const Router = () => {
       />
 
       <Stack.Screen
-        name="MonthlyPaymentAdd"
-        component={MonthlyPaymentAdd}
+        name="BudgetAddEdit"
+        component={BudgetAddEdit}
         options={{headerShown: false}}
       />
+
       <Stack.Screen
-        name="MonthlyPaymentEdit"
-        component={MonthlyPaymentEdit}
+        name="MonthlyAddEdit"
+        component={MonthlyAddEdit}
+        options={{headerShown: false}}
+      />
+
+      <Stack.Screen
+        name="profileEdit"
+        component={profileEdit}
+        options={{headerShown: false}}
+      />
+
+      <Stack.Screen
+        name="Change Password"
+        component={ChangePassword}
+        options={{headerShown: false}}
+      />
+
+      <Stack.Screen
+        name="About"
+        component={About}
         options={{headerShown: false}}
       />
 

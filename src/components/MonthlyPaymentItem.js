@@ -9,14 +9,12 @@ import {
   PRIMARY_FONT,
 } from '../constant';
 import LinearGradient from 'react-native-linear-gradient';
-import {
-  TouchableOpacity,
-  TouchableHighlight,
-} from 'react-native-gesture-handler';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import CheckBox from '@react-native-community/checkbox';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
+import {printPrice} from '../logic/printPrice'
 
-const MonthlyPaymentItem = ({title, budget, deadline}) => {
+const MonthlyPaymentItem = ({Monthly, editMonthly, deleteMonthly}) => {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const navigation = useNavigation();
   return (
@@ -27,23 +25,32 @@ const MonthlyPaymentItem = ({title, budget, deadline}) => {
         start={{x: 1, y: 0}}
         end={{x: 0, y: 1}}>
         <View style={styles.upperStyle}>
-          <Text style={styles.font1}>{title}</Text>
+          <Text style={styles.font1}>{Monthly.paymentName}</Text>
           <View style={styles.icons}>
             <TouchableOpacity
               style={styles.oneIcon}
-              onPress={() => navigation.navigate('MonthlyPaymentEdit')}
-              >
+              onPress={() => {
+                navigation.navigate('MonthlyAddEdit',
+                  {
+                    getMonthly: Monthly,
+                    Header:'Edit Monthly Payment',
+                    FormAction: editMonthly,
+                    TitleBtn: 'Edit',
+                  });
+              }}>
               <Edit2Icon />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.oneIcon}>
+            <TouchableOpacity
+              style={styles.oneIcon}
+              onPress={() => deleteMonthly(Monthly.id)}>
               <DeleteIcon />
             </TouchableOpacity>
           </View>
         </View>
 
         <View style={styles.descWrapper}>
-          <Text style={styles.font1}>{budget}</Text>
-          <Text style={styles.font2}>{deadline}</Text>
+          <Text style={styles.font1}>{printPrice(Monthly.paymentFee)}</Text>
+          <Text style={styles.font2}>deadline: day-{Monthly.paymentDeadline} of the month</Text>
         </View>
 
         <View style={styles.checkBox}>

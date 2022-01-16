@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View, useWindowDimensions} from 'react-native';
-import {TabView, SceneMap} from 'react-native-tab-view';
+import {TabView} from 'react-native-tab-view';
 import HomeAll from './HomeAll';
 import Header from '../../components/Header';
 
@@ -9,10 +9,15 @@ const Home = ({navigation}) => {
     <View style={{flex: 1, backgroundColor: '#673ab7'}} />
   );
 
-  const renderScene = SceneMap({
-    first: HomeAll,
-    second: SecondRoute,
-  });
+  const renderScene = ({route}) => {
+    switch (route.key) {
+      case 'first':
+        return <HomeAll navigation={navigation} />
+      case 'second':
+        return <SecondRoute />
+    }
+
+  }
 
   const layout = useWindowDimensions();
 

@@ -31,7 +31,7 @@ const PieChartReact = () => {
       space={0}
       innerRadius={'60%'}
       outerRadius={'95%'}>
-      <Text style={styles.text}>DECEMBER</Text>
+      <Text style={styles.text}>January</Text>
     </PieChart>
   );
 };

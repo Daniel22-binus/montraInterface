@@ -10,8 +10,19 @@ import PieChartReact from '../../components/HomeComponent/PieChartReact';
 import HistoryItem from '../../components/HistoryItem';
 import {AddIcon} from '../../assets/icons';
 import {BOLD_FONT, PRIMARY_COLOR, PRIMARY_FONT} from '../../constant';
+import historyHook from '../../hooks/historyHook';
 
-const HomeAll = () => {
+const HomeAll = ({navigation}) => {
+  const [historyList] = historyHook();
+  let historyListShort = [];
+
+  if (historyList.length > 3) {
+    let length = historyList.length;
+    historyListShort = historyList.slice(length - 3, length);
+  } else {
+    historyListShort = [...historyList];
+  }
+
   return (
     <View style={{backgroundColor: 'white', flex: 1}}>
       <View style={{flexDirection: 'row', marginLeft: 10, marginVertical: 12}}>
@@ -29,23 +40,20 @@ const HomeAll = () => {
       <PieChartReact />
       <View>
         <Text style={styles.textTitle}>Expenses</Text>
-        <HistoryItem
-          title="Beli mcflurry rainbow"
-          date="15 January 2021"
-          rp="50.000"
-        />
-        <HistoryItem
-          title="isi saldo mrt card"
-          date="3 January 2021"
-          rp="100.000"
-        />
-        <HistoryItem
-          title="Bayar uang sekolah bulan january"
-          date="1 January 2021"
-          rp="1.000.000"
-        />
 
-        <TouchableOpacity>
+        {historyListShort.reverse().map(history => (
+          <HistoryItem
+            key={history.id}
+            title={history.title}
+            date={history.date}
+            rp={history.rp}
+          />
+        ))}
+
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('History Transaction');
+          }}>
           <View>
             <Text style={styles.textDetails}>see details.</Text>
           </View>
