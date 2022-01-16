@@ -1,15 +1,29 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import DrawerItemContent from './DrawerItemContent';
 import {WrongDefault} from '../../assets';
+import DrawerLogOutContent from './DrawerLogOutContent';
 import {
   BACKGROUND_COLOR,
   BOLD_FONT,
   PRIMARY_COLOR,
   TITLE_COLOR,
 } from '../../constant';
+import firebase from 'firebase';
 
 const DrawerContent = ({navigation}) => {
+  const [username, setUsername] = useState('');
+
+  firebase
+    .database()
+    .ref(`users/${firebase.auth().currentUser.uid}`)
+    .once('value', function (snapshot) {
+      // console.log(snapshot.val().username);
+      setUsername(snapshot.val().username);
+    });
+
+  // console.log('get Username: ',username);
+
   return (
     <View style={styles.container}>
       <View style={userStyle.bg}>
@@ -18,8 +32,10 @@ const DrawerContent = ({navigation}) => {
           <View style={userStyle.container}>
             <Image style={userStyle.image} source={WrongDefault} />
             <View style={userStyle.userData}>
-              <Text style={userStyle.text}>User</Text>
-              <Text style={userStyle.text}>user@gmail.com</Text>
+              <Text style={userStyle.text}>{username}</Text>
+              <Text style={userStyle.text}>
+                {firebase.auth().currentUser?.email}
+              </Text>
             </View>
           </View>
         </TouchableOpacity>
@@ -33,7 +49,7 @@ const DrawerContent = ({navigation}) => {
       <DrawerItemContent title="Monthly Payment" navigation={navigation} />
       <View style={styles.line} />
       <DrawerItemContent title="Settings" navigation={navigation} />
-      <DrawerItemContent title="Logout" navigation={navigation} />
+      <DrawerLogOutContent title="Logout" />
     </View>
   );
 };
@@ -52,7 +68,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 3,
     marginHorizontal: 8,
     borderColor: TITLE_COLOR,
-    // borderColor: "#6E14FF"
   },
 });
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {
   View,
   Text,
@@ -12,15 +12,25 @@ import {BOLD_FONT, PRIMARY_FONT, TITLE_COLOR} from '../../constant';
 import PlanningItem from '../../components/PlanningComponent/PlanningItem';
 import {Add1Icon} from '../../assets/icons';
 import planningHook from '../../hooks/planningHook';
+import {objectToList} from '../../logic/firebaseFunction';
+import {useFocusEffect} from '@react-navigation/native';
+import firebase from '../../../firebase';
 
 const Planning = ({navigation}) => {
   const [
     planningList,
+    getPlan,
     addPlanItem,
     editPlanItem,
     deletePlanItem,
     setStateNeed,
   ] = planningHook();
+
+  useFocusEffect(
+    useCallback(() => {
+      getPlan();
+    }, []),
+  );
 
   return (
     <View style={styles.container}>
@@ -33,9 +43,10 @@ const Planning = ({navigation}) => {
 
       <View style={{marginTop: 25}}>
         <ScrollView horizontal={true}>
-          {planningList.results.map(planning => (
+          {objectToList(planningList.results).map(planning => (
             <PlanningItem
-              key={planning.id}
+              key={planningList.results[planning].id}
+              planningList={planningList.results}
               planning={planning}
               editPlanItem={editPlanItem}
               deletePlanItem={deletePlanItem}
@@ -49,13 +60,13 @@ const Planning = ({navigation}) => {
               navigation.navigate('PlanningAdd', {
                 getPlan: {
                   id: 0,
-                  title: '',
-                  description: '',
+                  planningName: '',
+                  planningDescription: '',
                   needs: [
                     {id: '', needName: '', needPrice: '', needState: false},
                   ],
                 },
-                Header:"Add New Planning",
+
                 FormAction: addPlanItem,
                 TitleBtn: 'Add',
               });
@@ -70,14 +81,19 @@ const Planning = ({navigation}) => {
         </ScrollView>
       </View>
 
-      {/* <TouchableOpacity
+      <TouchableOpacity
         onPress={() => {
-          planningList.results.map(plan => {
-            console.log(plan);
-          });
+          firebase
+            .firestore()
+            .collection('users')
+            .doc(firebase.auth().currentUser.uid)
+            .get()
+            .then(doc => {
+              console.log(doc);
+            });
         }}>
         <Text>Print</Text>
-      </TouchableOpacity> */}
+      </TouchableOpacity>
     </View>
   );
 };

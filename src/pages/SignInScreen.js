@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   TextInput,
   StyleSheet,
@@ -7,6 +7,7 @@ import {
   Platform,
   Image,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Feather from 'react-native-vector-icons/Feather';
@@ -23,8 +24,23 @@ import {
   TITLE_COLOR,
   BACKGROUND_COLOR,
 } from '../constant/index';
+import {auth} from '../../firebase';
 
 const SignInScreen = ({navigation}) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogIn = () => {
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then(result => {
+        console.log(result);
+        navigation.navigate('MainApp');
+      })
+
+      .catch(error => alert(error.message));
+  };
+
   const [data, setData] = useState({
     email: '',
     password: '',
@@ -64,12 +80,12 @@ const SignInScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <Animatable.View 
-      animation="fadeInDownBig"style={styles.header}>
+      <Animatable.View animation="fadeInDownBig" style={styles.header}>
         <View style={{flexDirection: 'row'}}>
           <View style={{flexDirection: 'column'}}>
-            <Text style={styles.text_header}>Welcome to</Text>
-            <Text style={styles.text_header}>Montra!</Text>
+            <Text style={styles.text_header}>Welcome to Montra!</Text>
+            {/* <Text style={styles.text_header}>Welcome to</Text>
+            <Text style={styles.text_header}>Montra!</Text> */}
           </View>
           <Image
             source={require('../assets/images/LogoMontra.png')}
@@ -79,17 +95,20 @@ const SignInScreen = ({navigation}) => {
         </View>
       </Animatable.View>
 
-      <Animatable.View animation="fadeInUpBig"style={styles.footer}>
+      <Animatable.View animation="fadeInUpBig" style={styles.footer}>
         <Text style={styles.text_login}>Login Here!</Text>
-        <Text style={styles.text_userPassword}>Username</Text>
+        <Text style={styles.text_userPassword}>E-mail</Text>
 
         <View style={styles.action}>
-          <FontAwesome name="user-o" color={TITLE_COLOR } size={20} />
+          {/* <FontAwesome name="envelope-o" color={TITLE_COLOR} size={20} /> */}
+          <FontAwesome name="envelope" color={TITLE_COLOR} size={20} />
           <TextInput
-            placeholder="input your username"
+            placeholder="input your E-mail"
             style={styles.textInput}
             autoCapitalize="none"
-            onChangeText={a => textInputChange(a)}
+            value={email}
+            onChangeText={text => setEmail(text)}
+            // onChangeText={a => textInputChange(a)}
           />
           {data.check_textInputChange ? (
             <Animatable.View animation="bounceIn">
@@ -101,12 +120,15 @@ const SignInScreen = ({navigation}) => {
         <Text style={styles.text_userPassword}>Password</Text>
         <View style={styles.action}>
           <FontAwesome name="lock" color={TITLE_COLOR} size={20} />
+          {/* <Feather name="lock" color={TITLE_COLOR} size={20} /> */}
           <TextInput
             placeholder="input your password"
             secureTextEntry={data.secureTextEntry ? true : false}
             style={styles.textInput}
             autoCapitalize="none"
-            onChangeText={a => passwordToggle(a)}
+            value={password}
+            onChangeText={text => setPassword(text)}
+            // onChangeText={a => passwordToggle(a)}
           />
           <TouchableOpacity onPress={updateSecurePasswordEntry}>
             {data.secureTextEntry ? (
@@ -127,7 +149,8 @@ const SignInScreen = ({navigation}) => {
         </View>
 
         <View style={styles.button}>
-          <TouchableOpacity onPress={() => navigation.navigate('MainApp')}>
+          {/* <TouchableOpacity onPress={() => navigation.navigate('MainApp')}> */}
+          <TouchableOpacity onPress={handleLogIn}>
             <LinearGradient
               colors={[PRIMARY_COLOR, SECONDARY_COLOR]}
               style={styles.signIn}>
@@ -149,14 +172,16 @@ const SignInScreen = ({navigation}) => {
 
 export default SignInScreen;
 
+const {height} = Dimensions.get('screen');
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: BACKGROUND_COLOR,
   },
   logo: {
-    width: 90,
-    height: 90,
+    width: 120,
+    height: 120,
     justifyContent: 'flex-end',
     marginLeft: 60,
   },
@@ -165,7 +190,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     paddingHorizontal: 20,
     paddingBottom: 50,
-    paddingVertical: 30,
+    paddingVertical: 50,
   },
   footer: {
     flex: 3,
@@ -176,6 +201,9 @@ const styles = StyleSheet.create({
     paddingVertical: 30,
   },
   text_header: {
+    width: 185,
+    height: 120, 
+    paddingTop: height *0.025,
     color: WHITE,
     fontSize: 30,
     fontFamily: TITLE_FONT,

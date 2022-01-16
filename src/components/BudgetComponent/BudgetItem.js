@@ -11,7 +11,7 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import ProgressBar from '../../components/BudgetComponent/ProgressBar';
-import {printPrice} from '../../logic/printPrice';
+import {PrintPrice} from '../../logic/printPrice';
 
 const BudgetItem = ({navigation,Budget, deleteBudget, editBudget}) => {
 
@@ -43,9 +43,9 @@ const BudgetItem = ({navigation,Budget, deleteBudget, editBudget}) => {
           </View>
         </View>
 
-        <Text style={styles.font2}>{printPrice(Budget.budgetLimit)}</Text>
+        <Text style={styles.font2}>{PrintPrice(Budget.budgetLimit)}</Text>
         <ProgressBar current={[Budget.budgetUse]} total={[Budget.budgetLimit]} />
-        <Text style={styles.font3}>{printPrice(Budget.budgetUse)}</Text>
+        <Text style={styles.font3}>{PrintPrice(Budget.budgetUse)}</Text>
       </LinearGradient>
     </View>
   );

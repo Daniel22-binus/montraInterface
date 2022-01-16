@@ -9,8 +9,20 @@ import {
 import {AboutUs, ChangePassword, Profile} from '../../assets/icons';
 import HeaderBack from '../../components/HeaderBack';
 import {BACKGROUND_COLOR, BOLD_FONT, TITLE_COLOR, WHITE} from '../../constant';
+import firebase from 'firebase';
 
 const settingsMain = ({navigation}) => {
+
+  const handleLogOut = () => {
+    firebase.auth()
+      .signOut()
+      .then(() => {
+        navigation.replace('Splash');
+        console.log();
+      })
+      .catch(error => alert(error.message));
+  };
+
   return (
     <View style={{flex: 1}}>
       <HeaderBack navigation={navigation} title="Settings" />
@@ -38,7 +50,7 @@ const settingsMain = ({navigation}) => {
           </TouchableOpacity>
         </View>
 
-          <TouchableOpacity style={{alignItems: 'center'}}>
+          <TouchableOpacity style={{alignItems: 'center'}} onPress={handleLogOut}>
             <View style={styles.logoutBtn}>
               <Text style={styles.logoutText}>Log Out</Text>
             </View>

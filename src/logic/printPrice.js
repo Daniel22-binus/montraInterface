@@ -1,4 +1,4 @@
-const printPrice = price => {
+const PrintPrice = price => {
   let strResult = '';
   let titik = 0;
 
@@ -24,4 +24,4 @@ const printPrice = price => {
   return strResult;
 };
 
-export {printPrice};
+export {PrintPrice};

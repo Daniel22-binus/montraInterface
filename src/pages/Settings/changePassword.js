@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useReducer} from 'react';
 import {useState} from 'react';
 import {
+  Alert,
   Dimensions,
   StyleSheet,
   Text,
@@ -16,48 +17,46 @@ import {
   TITLE_COLOR,
   WHITE,
 } from '../../constant';
+import firebase from 'firebase';
 
 const settingsMain = ({navigation}) => {
-  const isValidObjField = obj => {
-    return Object.values(obj).every(value => value.trim());
+
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmNewPassword, setConfirmNewPassword] = useState('');
+
+  const reauthenticate = currentPassword => {
+    var currentUser = firebase.auth().currentUser;
+    var cred = firebase.auth.EmailAuthProvider.credential(
+      currentUser.email,
+      currentPassword,
+    );
+    return currentUser.reauthenticateWithCredential(cred);
   };
 
-  const updateError = (error, stateUpdater) => {
-    stateUpdater(error);
-    setTimeout(() => {
-      stateUpdater('');
-    }, 2500);
-  };
-
-  const [data, setData] = useState({
-    currentPassword: '',
-    newPassword: '',
-    confirm_newPassword: '',
-  });
-
-  const [error, setError] = useState('');
-  const {currentPassword, newPassword, confirm_newPassword} = data;
-
-  const handleOnChangeText = (value, fieldName) => {
-    setData({...data, [fieldName]: value});
-  };
-
-  const isValidForm = () => {
-    if (!isValidObjField(data))
-      return updateError('All fields must be filled in', setError);
-    if (!newPassword.trim() || newPassword.length < 8)
-      return updateError('Password is less than 8 characters!', setError);
-    if (newPassword !== confirm_newPassword)
-      return updateError('Password does not match!', setError);
-
-    return true;
-  };
-
-  const submitForm = () => {
-    if (isValidForm()) {
-      console.log(data);
-      alert('Password has been changed.');
-      navigation.navigate('Settings');
+  const onChangePassword = () => {
+    if(newPassword.length<8){
+      alert('Password is less than 8 characters.')
+    }
+    if (newPassword !== confirmNewPassword) {
+      alert('Password does not match.');
+    } else {
+      reauthenticate(currentPassword)
+        .then(() => {
+          var currentUser = firebase.auth().currentUser;
+          currentUser
+            .updatePassword(newPassword)
+            .then(() => {
+              alert('Password successfully changed');
+              navigation.navigate('Settings');
+            })
+            .catch(error => {
+              alert(error.message);
+            });
+        })
+        .catch(error => {
+          alert(error.message);
+        });
     }
   };
 
@@ -73,40 +72,36 @@ const settingsMain = ({navigation}) => {
         </View>
 
         <View style={styles.fiturBox}>
-          {error ? <Text style={styles.errorText}>{error}</Text> : null}
           <FormInput
             value={currentPassword}
-            onChangeText={value => handleOnChangeText(value, 'currentPassword')}
-            label="Current Password "
-            placeholder="Input your current password"
-            autoCapitalize="none"
-            secureTextEntry
-          />
-
-          <FormInput
-            value={newPassword}
-            onChangeText={value => handleOnChangeText(value, 'newPassword')}
-            label="New Password"
+            label="Current Password"
+            onChangeText={value => setCurrentPassword(value)}
             placeholder="Input your new password"
             autoCapitalize="none"
             secureTextEntry
           />
+          <FormInput
+            value={newPassword}
+            onChangeText={value => setNewPassword(value)}
+            placeholder="Input your new password"
+            autoCapitalize="none"
+            label="New Password"
+            secureTextEntry
+          />
 
           <FormInput
-            value={confirm_newPassword}
-            onChangeText={value =>
-              handleOnChangeText(value, 'confirm_newPassword')
-            }
-            label="Confirm New Password"
+            value={confirmNewPassword}
+            onChangeText={value => setConfirmNewPassword(value)}
             placeholder="Input confirm new password"
             autoCapitalize="none"
+            label="Confirm New Password "
             secureTextEntry
           />
         </View>
 
         <TouchableOpacity
           style={{alignItems: 'center', marginTop: 5}}
-          onPress={submitForm}>
+          onPress={onChangePassword}>
           <View style={styles.saveBtn}>
             <Text style={styles.saveText}>Save</Text>
           </View>

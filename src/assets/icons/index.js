@@ -20,6 +20,7 @@ import ArrowDownIcon from './arrow-down.svg';
 import AboutUs from './AboutUs.svg';
 import ChangePassword from './ChangePassword.svg';
 import Profile from './Profile.svg';
+import CalendarIcon from './Calendar.svg';
 
 //png
 export {
@@ -48,4 +49,6 @@ export {
   Profile,
   ChangePassword,
   AboutUs,
+  CalendarIcon
 };
+

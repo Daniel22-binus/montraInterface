@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {
   View,
   Text,
@@ -16,17 +16,39 @@ import {
   BOLD_FONT,
   PRIMARY_COLOR,
   PRIMARY_FONT,
-  SECONDARY_COLOR,
   SOFT_COLOR,
   TITLE_COLOR,
   WHITE,
 } from '../../constant';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
+import ProfileJoinedDate from '../../components/ProfileComponent/ProfileJoinedDate';
+import firebase from '../../../firebase';
+import { DrawerContentScrollView } from '@react-navigation/drawer';
+import { useFocusEffect } from '@react-navigation/native';
 
 const EditProfileScreen = ({navigation}) => {
-  const [image, setImage] = useState('https://ui-avatars.com/api/?name=User');
+  const [image, setImage] = useState('https://ui-avatars.com/api/?name="user"');
 
+  useFocusEffect(
+    useCallback(() => {
+      getUserData();
+    }, [])
+  );
+
+  const [username, setUsername] = useState('');
+  const [phone, setPhone] = useState('');
+
+  const getUserData = () => {
+    firebase
+      .database()
+      .ref(`users/${firebase.auth().currentUser.uid}`)
+      .once('value', function (snapshot) {
+        setUsername(snapshot.val().username);
+        setPhone(snapshot.val().phone);
+      }); 
+    }
+    
   const takePhotoFromCamera = () => {
     ImagePicker.openCamera({
       compressImageMaxWidth: 300,
@@ -120,9 +142,11 @@ const EditProfileScreen = ({navigation}) => {
               uri: image,
             }}
           />
-          <Text style={styles.nameFont}>User</Text>
-          <Text style={styles.profileFont}>user@gmail.com</Text>
-          <Text style={styles.profileFont}>0877 0877 0877</Text>
+          <Text style={styles.nameFont}>{username}</Text>
+          <Text style={styles.profileFont}>
+            {firebase.auth().currentUser.email}
+          </Text>
+          <Text style={styles.profileFont}>{phone}</Text>
         </View>
         <View style={styles.containerInsideBox}>
           <View style={styles.fiturBox}>
@@ -138,7 +162,7 @@ const EditProfileScreen = ({navigation}) => {
                 <FontAwesome name="calendar" color={TITLE_COLOR} size={30} />
                 <Text style={styles.buttonName}>Joined Date</Text>
               </View>
-              <Text style={styles.fontDate}>28 December 2020</Text>
+              <ProfileJoinedDate />
             </View>
           </View>
           <View style={styles.fiturBox}>
@@ -234,15 +258,6 @@ const styles = StyleSheet.create({
     fontFamily: BOLD_FONT,
     fontSize: 16,
     paddingLeft: 15,
-  },
-
-  fontDate: {
-    fontSize: 18,
-    fontFamily: PRIMARY_FONT,
-
-    fontStyle: 'italic',
-    color: SOFT_COLOR,
-    textAlign: 'right',
   },
 
   panel: {

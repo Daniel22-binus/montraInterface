@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1078465613538",
+    "project_id": "thesis-montra-app-1eef7",
+    "storage_bucket": "thesis-montra-app-1eef7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1078465613538:android:e8db05e6f7af82f9ee18bb",
+        "android_client_info": {
+          "package_name": "com.montrainterface"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1078465613538-8ubng5t6sa424icmf97irhfrf99sgep7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC06WDvGSYaOXBxLZvGATyZ3wjoReKAUKA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1078465613538-8ubng5t6sa424icmf97irhfrf99sgep7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

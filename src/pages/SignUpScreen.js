@@ -1,11 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
-  Button,
   StyleSheet,
-  Dimensions,
-  Image,
   TouchableOpacity,
   Platform,
   TextInput,
@@ -21,14 +18,41 @@ import {
   WHITE,
   SECONDARY_COLOR,
   GREEN_COLOR,
-  TITLE_FONT,
   TITLE_COLOR,
   BOLD_FONT,
   PRIMARY_FONT,
   BACKGROUND_COLOR,
 } from '../constant';
+import {auth} from '../../firebase';
+import firebase from 'firebase';
 
 const SignUpScreen = ({navigation}) => {
+  const [username, setUsername] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const handleRegister = () => {
+    if (password != confirmPassword) {
+      alert("Passwords don't match");
+    } else {
+      auth
+        .createUserWithEmailAndPassword(email.toString().trim(), password)
+        .then(result => {
+          firebase.database().ref('users/'+firebase.auth().currentUser?.uid)
+            .set({
+              username,
+              phone,
+              email,
+            });
+          console.log(result);
+          navigation.navigate('SignInScreen');
+        })
+        .catch(error => alert(error.message));
+    }
+  };
+
   const [data, setData] = React.useState({
     username: '',
     email: '',
@@ -43,33 +67,18 @@ const SignUpScreen = ({navigation}) => {
   });
 
   const usernameInputChange = val => {
-    if (val.length != 0) {
-      setData({
-        ...data,
-        username: val,
-        check_usernameInputChange: true,
-      });
-    } else {
+    if (val.length === '') {
       setData({
         ...data,
         username: val,
         check_usernameInputChange: false,
       });
-    }
-  };
-
-  const textInputChange = val => {
-    if (val.length != 0) {
-      setData({
-        ...data,
-        email: val,
-        check_textInputChange: true,
-      });
+      alert('User name cannot be empty');
     } else {
       setData({
         ...data,
-        email: val,
-        check_textInputChange: false,
+        username: val,
+        check_usernameInputChange: true,
       });
     }
   };
@@ -88,20 +97,6 @@ const SignUpScreen = ({navigation}) => {
         check_phoneInputChange: false,
       });
     }
-  };
-
-  const handlePasswordChange = val => {
-    setData({
-      ...data,
-      password: val,
-    });
-  };
-
-  const handleConfirmPasswordChange = val => {
-    setData({
-      ...data,
-      confirm_password: val,
-    });
   };
 
   const updateSecureTextEntry = () => {
@@ -131,9 +126,9 @@ const SignUpScreen = ({navigation}) => {
       </View>
 
       <Animatable.View style={styles.footer} animation="fadeInUpBig">
-          <View>
-            <Text style={styles.text_header}>Register! </Text>
-          </View>
+        <View>
+          <Text style={styles.text_header}>Register! </Text>
+        </View>
         <ScrollView>
           <Text style={[styles.text_footer, {marginTop: 8}]}>Username</Text>
           <View style={styles.action}>
@@ -142,7 +137,8 @@ const SignUpScreen = ({navigation}) => {
               placeholder="Your Username"
               style={styles.textInput}
               autoCapitalize="none"
-              onChangeText={val => usernameInputChange(val)}
+              onChangeText={text => setUsername(text)}
+              // onChangeText={(username) => this.setState({username})}
             />
             {data.check_usernameInputChange ? (
               <Animatable.View animation="bounceIn">
@@ -153,12 +149,14 @@ const SignUpScreen = ({navigation}) => {
 
           <Text style={[styles.text_footer, , {marginTop: 8}]}>E-mail</Text>
           <View style={styles.action}>
-            <FontAwesome name="envelope-o" color={TITLE_COLOR} size={20} />
+            <FontAwesome name="envelope" color={TITLE_COLOR} size={20} />
             <TextInput
               placeholder="Your E-mail"
               style={styles.textInput}
               autoCapitalize="none"
-              onChangeText={val => textInputChange(val)}
+              value={email}
+              onChangeText={text => setEmail(text)}
+              // onChangeText={(email) => this.setState({email})}
             />
             {data.check_textInputChange ? (
               <Animatable.View animation="bounceIn">
@@ -176,8 +174,9 @@ const SignUpScreen = ({navigation}) => {
               placeholder="Your Phone Number"
               style={styles.textInput}
               autoCapitalize="none"
-              onChangeText={val => phoneInputChange(val)}
-              keyboardType="numeric"
+              keyboardType='numeric'
+              onChangeText={text => setPhone(text)}
+              // onChangeText={(phone) => this.setState({phone})}
             />
             {data.check_phoneInputChange ? (
               <Animatable.View animation="bounceIn">
@@ -188,13 +187,16 @@ const SignUpScreen = ({navigation}) => {
 
           <Text style={[styles.text_footer, {marginTop: 8}]}>Password</Text>
           <View style={styles.action}>
-            <Feather name="lock" color={TITLE_COLOR} size={20} />
+            {/* <Feather name="lock" color={TITLE_COLOR} size={20} /> */}
+            <FontAwesome name="lock" color={TITLE_COLOR} size={20} />
             <TextInput
               placeholder="Your Password"
               style={styles.textInput}
               autoCapitalize="none"
               secureTextEntry={data.secureTextEntry ? true : false}
-              onChangeText={val => handlePasswordChange(val)}
+              value={password}
+              onChangeText={text => setPassword(text)}
+              // onChangeText={(password) => this.setState({password})}
             />
             <TouchableOpacity onPress={updateSecureTextEntry}>
               {data.secureTextEntry ? (
@@ -209,13 +211,15 @@ const SignUpScreen = ({navigation}) => {
             Confirm Password
           </Text>
           <View style={styles.action}>
-            <Feather name="lock" color={TITLE_COLOR} size={20} />
+            {/* <Feather name="lock" color={TITLE_COLOR} size={20} /> */}
+            <FontAwesome name="lock" color={TITLE_COLOR} size={20} />
             <TextInput
               placeholder="Confirm Your Password"
               style={styles.textInput}
               autoCapitalize="none"
               secureTextEntry={data.confirm_secureTextEntry ? true : false}
-              onChangeText={val => handleConfirmPasswordChange(val)}
+              onChangeText={text => setConfirmPassword(text)}
+              // onChangeText={(confirmPassword) => this.setState({confirmPassword})}
             />
             <TouchableOpacity onPress={updateConfirmSecureTextEntry}>
               {data.confirm_secureTextEntry ? (
@@ -227,7 +231,10 @@ const SignUpScreen = ({navigation}) => {
           </View>
 
           <View style={styles.button}>
-            <TouchableOpacity onPress={() => navigation.navigate('MainApp')}>
+            {/* <TouchableOpacity onPress={() => navigation.navigate('WaitingPage')}> */}
+            {/* tambahan auth */}
+            {/* <TouchableOpacity onPress={() => register()}> */}
+            <TouchableOpacity onPress={handleRegister}>
               <LinearGradient
                 colors={[PRIMARY_COLOR, SECONDARY_COLOR]}
                 style={styles.signIn}>
@@ -328,7 +335,7 @@ const styles = StyleSheet.create({
   logoMontra: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: 130,
-    height: 130,
+    width: 170,
+    height: 170,
   },
 });

@@ -12,17 +12,19 @@ import SignUpScreen from '../pages/SignUpScreen';
 import Planning from '../pages/PlanningPage/Planning';
 import PlanningAdd from '../pages/PlanningPage/PlanningAdd';
 
+import DrawerContent from '../components/DrawerNavigation/DrawerContent';
+import MonthlyPayment from '../pages/MonthlyPayment/MonthlyPayment';
+import MonthlyAddEdit from '../pages/MonthlyPayment/MonthlyAddEdit';
+import WaitingPage from '../pages/WaitingPage';
+
 import Budget from '../pages/Budget/Budget';
 import BudgetAddEdit from '../pages/Budget/BudgetAddEdit';
 
-import DrawerContent from '../components/DrawerNavigation/DrawerContent';
 import HistoryTransactionPage from '../pages/HistoryTransactionPage';
-
-import MonthlyPayment from '../pages/MonthlyPayment/MonthlyPayment';
-import MonthlyAddEdit from '../pages/MonthlyPayment/MonthlyAddEdit';
 
 import Profile from '../pages/Profile/Profile';
 import profileEdit from '../pages/Profile/profileEdit';
+import AddExpense from '../pages/AddExpense';
 
 import Settings from '../pages/Settings/settingsMain';
 import ChangePassword from '../pages/Settings/changePassword';
@@ -99,6 +101,11 @@ const Router = () => {
         component={profileEdit}
         options={{headerShown: false}}
       />
+      <Stack.Screen
+        name="WaitingPage"
+        component={WaitingPage}
+        options={{headerShown: false}}
+      />
 
       <Stack.Screen
         name="Change Password"
@@ -113,6 +120,11 @@ const Router = () => {
       />
 
       {PlanningPage()}
+      <Stack.Screen
+        name="AddExpense"
+        component={AddExpense}
+        options={{headerShown: false}}
+      />
     </Stack.Navigator>
   );
 };
