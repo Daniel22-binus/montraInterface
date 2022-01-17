@@ -27,7 +27,6 @@ import profileEdit from '../pages/Profile/profileEdit';
 import AddExpense from '../pages/AddExpense';
 
 import Settings from '../pages/Settings/settingsMain';
-import ChangePassword from '../pages/Settings/changePassword';
 import About from '../pages/Settings/About';
 
 const Drawer = createDrawerNavigator();
@@ -104,12 +103,6 @@ const Router = () => {
       <Stack.Screen
         name="WaitingPage"
         component={WaitingPage}
-        options={{headerShown: false}}
-      />
-
-      <Stack.Screen
-        name="Change Password"
-        component={ChangePassword}
         options={{headerShown: false}}
       />
 
