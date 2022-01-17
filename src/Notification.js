@@ -78,6 +78,16 @@ class Notification {
       message: description,
     });
   };
+
+  sendNotifSchedule = (channel, date, description) => {
+    PushNotification.localNotificationSchedule ({
+      channelId: channel,
+      title: 'Money Transaction',
+      date: new Date(date),
+      message: description,
+    })
+  }
+
 }
 
 export const notification = new Notification();

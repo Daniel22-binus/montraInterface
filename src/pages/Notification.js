@@ -37,10 +37,10 @@ const Notification = ({navigation}) => {
         </View>
 
         <View>
-          <HistoryItem title="Your ‘Food & Beverage’ Budget almost exceeds the limit " />
+          {/* <HistoryItem title="Your ‘Food & Beverage’ Budget almost exceeds the limit " />
           <HistoryItem title="Successfully added new Budget ‘Transportation’" />
           <HistoryItem title="Successfully added new Budget ‘Education’" />
-          <HistoryItem title="Don’t forget to pay your PLN’s fee and check in Monthly Payment!" />
+          <HistoryItem title="Don’t forget to pay your PLN’s fee and check in Monthly Payment!" /> */}
 
           {objectToList(notifList.results).map(Notif => (
             <HistoryItem

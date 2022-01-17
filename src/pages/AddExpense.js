@@ -17,6 +17,7 @@ import budgetHook from '../hooks/budgetHook';
 import {useFocusEffect} from '@react-navigation/native';
 import {objectToList} from '../logic/firebaseFunction';
 import expenseHook from '../hooks/ExpenseHook/expenseHook';
+import notificationHook from '../hooks/notificationHook';
 
 const AddExpense = ({navigation}) => {
   const [
@@ -31,10 +32,13 @@ const AddExpense = ({navigation}) => {
     budgetHook();
   const [expenseList, getExpense, AddNewExpense] = expenseHook();
 
+  const [notifList, getNotif, addNotif] = notificationHook();
+
   useFocusEffect(
     useCallback(() => {
       getBudget(new Date());
       getExpense(new Date());
+      getNotif();
     }, []),
   );
 
@@ -56,10 +60,20 @@ const AddExpense = ({navigation}) => {
           keyFirebase: BudgetVal,
           Budget: temp,
         };
+        notifLimit(amount, parseInt(temp.budgetLimit), temp.budgetCategory);
         editBudget(BudgetFirebase);
         return;
       }
     });
+  };
+
+  const notifLimit = (use, total, budgetTitle) => {
+    let limit = total * 0.8;
+
+    if (use > limit) {
+      let message = "Your '" + budgetTitle + "' Budget almost exceed the limit";
+      addNotif(message);
+    }
   };
 
   return (
