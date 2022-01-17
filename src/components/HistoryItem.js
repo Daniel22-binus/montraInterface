@@ -13,13 +13,20 @@ import {
   DETAIL_COLOR,
   SECONDARY_COLOR,
 } from '../constant';
+import {PrintPrice} from '../logic/printPrice';
+import printDate from '../logic/printDate';
 
 const HistoryItem = props => {
   const {title, date, rp} = props;
 
   const DateDetail = () => {
     if (date != null) {
-      return <Text style={styles.date}>{date}</Text>;
+
+      return (
+        <Text style={styles.date}>
+          {printDate(date)}
+        </Text>
+      );
     }
 
     return null;
@@ -27,7 +34,7 @@ const HistoryItem = props => {
 
   const RpDetail = () => {
     if (rp != null) {
-      return <Text style={styles.rp}>-Rp. {rp}</Text>;
+      return <Text style={styles.rp}>-{PrintPrice(rp)}</Text>;
     }
 
     return null;

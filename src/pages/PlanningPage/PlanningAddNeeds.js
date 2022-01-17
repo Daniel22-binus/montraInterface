@@ -23,6 +23,13 @@ const PlanningAddNeeds = ({getNeed, inputNeedsArray}) => {
   const deleteField = key => {
     const newList = [...needsList];
     newList.splice(key, 1);
+
+    newList.map(need => {
+      if (need.id > key) {
+        need.id -= 1;
+      }
+    });
+
     setNeedsList(newList);
     inputNeedsArray(newList);
   };
@@ -37,7 +44,12 @@ const PlanningAddNeeds = ({getNeed, inputNeedsArray}) => {
 
   const inputPriceField = (price, key) => {
     const newList = [...needsList];
-    newList[key].needPrice = parseInt(price, 10);
+
+    if (price == 0) {
+      newList[key].needPrice = '';
+    } else {
+      newList[key].needPrice = parseInt(price, 10);
+    }
     newList[key].id = key;
     setNeedsList(newList);
     inputNeedsArray(newList);
@@ -65,7 +77,7 @@ const PlanningAddNeeds = ({getNeed, inputNeedsArray}) => {
           <TextInput
             style={styles.inputPrice}
             placeholder="Price"
-            value={need.needPrice+""}
+            value={need.needPrice + ''}
             onChangeText={price => {
               inputPriceField(price, key);
             }}
@@ -97,12 +109,14 @@ const styles = StyleSheet.create({
     width: windowWidth * 0.4,
     marginRight: 12,
     borderColor: TITLE_COLOR,
+    color: TITLE_COLOR,
   },
   inputPrice: {
     borderBottomWidth: 1,
     width: windowWidth * 0.3,
     marginHorizontal: 12,
     borderColor: TITLE_COLOR,
+    color: TITLE_COLOR,
   },
   deleteIcon: {
     marginTop: 24,

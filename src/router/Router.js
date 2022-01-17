@@ -1,20 +1,27 @@
 import React from 'react';
-import {StyleSheet, Text, View, Button} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createStackNavigator} from '@react-navigation/stack';
 import Home from '../pages/HomePage/Home';
 import Notification from '../pages/Notification';
 import Splash from '../pages/Splash';
 import SignInScreen from '../pages/SignInScreen';
-import ForgetPasswordScreen from '../pages/ForgetPassword';
 import SignUpScreen from '../pages/SignUpScreen';
-import Budget from '../pages/Budget';
 import Planning from '../pages/PlanningPage/Planning';
 import PlanningAdd from '../pages/PlanningPage/PlanningAdd';
 import DrawerContent from '../components/DrawerNavigation/DrawerContent';
 import MonthlyPayment from '../pages/MonthlyPayment/MonthlyPayment';
-import MonthlyPaymentAdd from '../pages/MonthlyPayment/MonthlyPaymentAdd';
-import MonthlyPaymentEdit from '../pages/MonthlyPayment/MonthlyPaymentEdit';
+import MonthlyAddEdit from '../pages/MonthlyPayment/MonthlyAddEdit';
+import WaitingPage from '../pages/WaitingPage';
+import Budget from '../pages/Budget/Budget';
+import BudgetAddEdit from '../pages/Budget/BudgetAddEdit';
+import HistoryTransactionPage from '../pages/HistoryTransactionPage';
+import Profile from '../pages/Profile/Profile';
+import profileEdit from '../pages/Profile/profileEdit';
+import AddExpense from '../pages/AddExpense';
+import changePassword from '../pages/Settings/changePassword';
+import Settings from '../pages/Settings/settingsMain';
+import About from '../pages/Settings/About';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -30,6 +37,12 @@ const MainApp = () => {
       <Drawer.Screen name="Budget" component={Budget} />
       <Drawer.Screen name="Monthly Payment" component={MonthlyPayment} />
       <Drawer.Screen name="Planning" component={Planning} />
+      <Drawer.Screen
+        name="History Transaction"
+        component={HistoryTransactionPage}
+      />
+      <Drawer.Screen name="Profile" component={Profile} />
+      <Drawer.Screen name="Settings" component={Settings} />
     </Drawer.Navigator>
   );
 };
@@ -53,28 +66,52 @@ const Router = () => {
         options={{headerShown: false}}
       />
       <Stack.Screen
-        name="ForgetPasswordScreen"
-        component={ForgetPasswordScreen}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
         name="MainApp"
         component={MainApp}
         options={{headerShown: false}}
       />
 
       <Stack.Screen
-        name="MonthlyPaymentAdd"
-        component={MonthlyPaymentAdd}
+        name="BudgetAddEdit"
+        component={BudgetAddEdit}
+        options={{headerShown: false}}
+      />
+
+      <Stack.Screen
+        name="MonthlyAddEdit"
+        component={MonthlyAddEdit}
         options={{headerShown: false}}
       />
       <Stack.Screen
-        name="MonthlyPaymentEdit"
-        component={MonthlyPaymentEdit}
+        name="WaitingPage"
+        component={WaitingPage}
+        options={{headerShown: false}}
+      />
+
+      <Stack.Screen
+        name="profileEdit"
+        component={profileEdit}
+        options={{headerShown: false}}
+      />
+
+      <Stack.Screen
+        name="About"
+        component={About}
+        options={{headerShown: false}}
+      />
+
+      <Stack.Screen
+        name="Change Password"
+        component={changePassword}
         options={{headerShown: false}}
       />
 
       {PlanningPage()}
+      <Stack.Screen
+        name="AddExpense"
+        component={AddExpense}
+        options={{headerShown: false}}
+      />
     </Stack.Navigator>
   );
 };

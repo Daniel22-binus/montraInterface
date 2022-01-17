@@ -10,42 +10,57 @@ import PieChartReact from '../../components/HomeComponent/PieChartReact';
 import HistoryItem from '../../components/HistoryItem';
 import {AddIcon} from '../../assets/icons';
 import {BOLD_FONT, PRIMARY_COLOR, PRIMARY_FONT} from '../../constant';
+import expenseHook from '../../hooks/expenseHook';
 
-const HomeAll = () => {
+const HomeHeader = ({navigation}) => {
+  return (
+    <View style={{flexDirection: 'row', marginLeft: 10, marginVertical: 12}}>
+      <View style={textTop.budgetContainer}>
+        <Text style={textTop.budget}>your budget left:</Text>
+        <Text style={textTop.rp}>Rp. 6.700.000</Text>
+      </View>
+      <View style={textTop.textcontainer}>
+        <TouchableOpacity style={{flexDirection: 'row'}}
+        onPress={() => {navigation.navigate("AddExpense")}}>
+          <Text style={textTop.textexpense}>Add Expense</Text>
+          <AddIcon />
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
+
+const HomeAll = ({navigation}) => {
+  const [historyList] = expenseHook();
+  let historyListShort = [];
+
+  if (historyList.length > 3) {
+    let length = historyList.length;
+    historyListShort = historyList.slice(length - 3, length);
+  } else {
+    historyListShort = [...historyList];
+  }
+
   return (
     <View style={{backgroundColor: 'white', flex: 1}}>
-      <View style={{flexDirection: 'row', marginLeft: 10, marginVertical: 12}}>
-        <View style={textTop.budgetContainer}>
-          <Text style={textTop.budget}>your budget left:</Text>
-          <Text style={textTop.rp}>Rp. 6.700.000</Text>
-        </View>
-        <View style={textTop.textcontainer}>
-          <TouchableOpacity style={{flexDirection: 'row'}}>
-            <Text style={textTop.textexpense}>Add Expense</Text>
-            <AddIcon />
-          </TouchableOpacity>
-        </View>
-      </View>
+      <HomeHeader navigation={navigation} />
       <PieChartReact />
       <View>
         <Text style={styles.textTitle}>Expenses</Text>
-        <HistoryItem
-          title="Beli mcflurry rainbow"
-          date="15 January 2021"
-          rp="50.000"
-        />
-        <HistoryItem
-          title="isi saldo mrt card"
-          date="3 January 2021"
-          rp="100.000"
-        />
-        <HistoryItem
-          title="Bayar uang sekolah bulan january"
-          date="1 January 2021"
-          rp="1.000.000"
-        />
 
-        <TouchableOpacity>
+        {historyListShort.reverse().map(history => (
+          <HistoryItem
+            key={history.id}
+            title={history.expensesDescription}
+            date={history.date}
+            rp={history.amount}
+          />
+        ))}
+
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('History Transaction');
+          }}>
           <View>
             <Text style={styles.textDetails}>see details.</Text>
           </View>
@@ -56,6 +71,7 @@ const HomeAll = () => {
 };
 
 export default HomeAll;
+export {HomeHeader};
 
 const windowWidth = Dimensions.get('window').width;
 

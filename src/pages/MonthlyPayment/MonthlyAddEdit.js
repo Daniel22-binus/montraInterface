@@ -1,80 +1,82 @@
-import React from 'react';
+import React ,{useState} from 'react';
 import {View, Text, Dimensions, StyleSheet, TextInput} from 'react-native';
 import HeaderBack from '../../components/HeaderBack';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import {BOLD_FONT, TITLE_COLOR, PRIMARY_FONT, WHITE} from '../../constant';
 
-const MonthlyPaymentEdit = ({navigation}) => {
-  const [data, setData] = React.useState({
-    paymentName: '',
-    fee: '',
-    deadline: '',
-  });
+const MonthlyPaymentAdd = ({route, navigation}) => {
+  const {getMonthly, Header,FormAction, TitleBtn, keyFirebase} = route.params;
+  const [Monthly, setMonthly] = useState(getMonthly);
 
-  const paymentNameInputChange = val => {
-    setData({
-      ...data,
-      paymentName: val,
-      check_usernameInputChange: true,
+
+  const paymentTitleInputChange = text => {
+    setMonthly({
+      ...Monthly,
+      paymentName: text,
     });
   };
 
-  const feeInputChange = val => {
-    setData({
-      ...data,
-      fee: val,
-      check_usernameInputChange: true,
+  const budgetInputChange = text => {
+    setMonthly({
+      ...Monthly,
+      paymentFee: text,
     });
   };
 
-  const deadlineInputChange = val => {
-    setData({
-      ...data,
-      deadline: val,
-      check_usernameInputChange: true,
+  const deadlineInputChange = text => {
+    setMonthly({
+      ...Monthly,
+      paymentDeadline: text,
     });
   };
 
   return (
     <View style={{flex: 1}}>
-      <HeaderBack navigation={navigation} title="Edit Monthly Payment" />
+      <HeaderBack navigation={navigation} title={Header}/>
 
       <ScrollView>
         <View style={styles.input}>
           <Text style={[styles.text_footer, {marginTop: 8}]}>Payment Name</Text>
           <TextInput
-            placeholder="PLN’s Fee"
             style={styles.textInput}
             autoCapitalize="none"
-            onChangeText={val => paymentNameInputChange(val)}
+            value={Monthly.paymentName}
+            onChangeText={text => paymentTitleInputChange(text)}
           />
         </View>
         <View style={styles.input}>
           <Text style={[styles.text_footer, {marginTop: 8}]}>Fee</Text>
           <TextInput
-            placeholder="1.000.000"
             style={styles.textInput}
-            autoCapitalize="none"
-            onChangeText={val => feeInputChange(val)}
+            value={Monthly.paymentFee}
+            onChangeText={text => budgetInputChange(text)}
             keyboardType="numeric"
           />
         </View>
         <View style={styles.input}>
           <Text style={[styles.text_footer, {marginTop: 8}]}>Deadline</Text>
           <TextInput
-            placeholder="15"
             style={styles.textInput}
-            autoCapitalize="none"
-            onChangeText={val => deadlineInputChange(val)}
+            value={Monthly.paymentDeadline}
+            onChangeText={text => deadlineInputChange(text)}
             keyboardType="numeric"
           />
         </View>
 
         <View style={styles.button}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Monthly Payment')}>
+              <TouchableOpacity
+              onPress={() => {
+                
+                let MonthlyFirebase = {
+                  keyFirebase: keyFirebase,
+                  Monthly: Monthly,
+                }
+
+                FormAction(MonthlyFirebase);
+                navigation.goBack();
+              }}>
             <View style={styles.buttonAdd}>
-              <Text style={styles.buttonText}>Save</Text>
+              <Text style={styles.buttonText}>{TitleBtn}</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -83,7 +85,7 @@ const MonthlyPaymentEdit = ({navigation}) => {
   );
 };
 
-export default MonthlyPaymentEdit;
+export default MonthlyPaymentAdd;
 
 const WindowWidth = Dimensions.get('window').width;
 
@@ -109,6 +111,8 @@ const styles = StyleSheet.create({
     color: 'black',
     borderBottomColor: TITLE_COLOR,
     borderBottomWidth: 1,
+    fontSize: 15,
+    fontStyle: 'italic',
   },
   button: {
     alignItems: 'flex-end',

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Dimensions, StyleSheet, Text, View} from 'react-native';
 import {Edit2Icon, DeleteIcon} from '../assets';
 import {
@@ -9,16 +9,15 @@ import {
   PRIMARY_FONT,
 } from '../constant';
 import LinearGradient from 'react-native-linear-gradient';
-import {
-  TouchableOpacity,
-  TouchableHighlight,
-} from 'react-native-gesture-handler';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import CheckBox from '@react-native-community/checkbox';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
-const MonthlyPaymentItem = ({title, budget, deadline}) => {
-  const [toggleCheckBox, setToggleCheckBox] = useState(false);
+import {PrintPrice} from '../logic/printPrice';
+
+const MonthlyPaymentItem = ({Monthly, editMonthly, deleteMonthly,monthlyList,setState}) => {
   const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -27,30 +26,45 @@ const MonthlyPaymentItem = ({title, budget, deadline}) => {
         start={{x: 1, y: 0}}
         end={{x: 0, y: 1}}>
         <View style={styles.upperStyle}>
-          <Text style={styles.font1}>{title}</Text>
+
+          <Text style={styles.font1}> {monthlyList[Monthly].paymentName}</Text>
           <View style={styles.icons}>
             <TouchableOpacity
               style={styles.oneIcon}
-              onPress={() => navigation.navigate('MonthlyPaymentEdit')}
-              >
+              onPress={() => {
+                navigation.navigate('MonthlyAddEdit', {
+
+                  getMonthly: monthlyList[Monthly],
+                  keyFirebase: Monthly,
+                  Header: 'Edit Monthly Payment',
+                  FormAction: editMonthly,
+                  TitleBtn: 'Edit',
+                });
+              }}>
               <Edit2Icon />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.oneIcon}>
+            <TouchableOpacity
+              style={styles.oneIcon}
+
+              onPress={() => deleteMonthly(monthlyList[Monthly].id)}>
+
               <DeleteIcon />
             </TouchableOpacity>
           </View>
         </View>
 
         <View style={styles.descWrapper}>
-          <Text style={styles.font1}>{budget}</Text>
-          <Text style={styles.font2}>{deadline}</Text>
+          <Text style={styles.font1}>{PrintPrice(monthlyList[Monthly].paymentFee)}</Text>
+          <Text style={styles.font2}>
+            deadline: day-{monthlyList[Monthly].paymentDeadline} of the month
+          </Text>
         </View>
 
         <View style={styles.checkBox}>
           <CheckBox
             disabled={false}
-            value={toggleCheckBox}
-            onValueChange={newValue => setToggleCheckBox(newValue)}
+            value={monthlyList[Monthly].paymentState}
+            onValueChange={newValue => setState(Monthly, newValue)}
             tintColors={{true: TITLE_COLOR, false: TITLE_COLOR}}
           />
         </View>

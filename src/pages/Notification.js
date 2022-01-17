@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,14 +8,21 @@ import {
 } from 'react-native';
 import Header from '../components/Header';
 import HistoryItem from '../components/HistoryItem';
-import {
-  BACKGROUND_COLOR,
-  ITALIC_FONT,
-  PRIMARY_FONT,
-  TITLE_COLOR,
-} from '../constant';
+import {BACKGROUND_COLOR, PRIMARY_FONT, TITLE_COLOR} from '../constant';
+import notificationHook from '../hooks/notificationHook';
+import {useFocusEffect} from '@react-navigation/native';
+import {objectToList} from '../logic/firebaseFunction';
 
 const Notification = ({navigation}) => {
+  const [notifList, getNotif, addNotif, deleteNotif, deleteAllNotif] =
+    notificationHook();
+
+  useFocusEffect(
+    useCallback(() => {
+      getNotif();
+    }, []),
+  );
+
   return (
     <View style={{backgroundColor: 'white', flex: 1}}>
       <Header navigation={navigation} notif="active" />
@@ -24,16 +31,23 @@ const Notification = ({navigation}) => {
         <View style={{marginTop: windowHeight * 0.01}}>
           <Text style={styles.titleNotif}>Notification</Text>
           <View style={styles.line} />
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => deleteAllNotif()}>
             <Text style={styles.textClear}>Clear All Notification </Text>
           </TouchableOpacity>
         </View>
 
         <View>
-          <HistoryItem title="Your ‘Food & Beverage’ Budget almost exceeds the limit " />
+          {/* <HistoryItem title="Your ‘Food & Beverage’ Budget almost exceeds the limit " />
           <HistoryItem title="Successfully added new Budget ‘Transportation’" />
           <HistoryItem title="Successfully added new Budget ‘Education’" />
-          <HistoryItem title="Don’t forget to pay your PLN’s fee and check in Monthly Payment!" />
+          <HistoryItem title="Don’t forget to pay your PLN’s fee and check in Monthly Payment!" /> */}
+
+          {objectToList(notifList.results).map(Notif => (
+            <HistoryItem
+              key={Notif}
+              title={notifList.results[Notif].description}
+            />
+          ))}
         </View>
       </View>
     </View>

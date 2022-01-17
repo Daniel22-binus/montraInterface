@@ -1,11 +1,5 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  Dimensions,
-  StyleSheet,
-  TextInput,
-} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, Dimensions, StyleSheet, TextInput} from 'react-native';
 import HeaderBack from '../../components/HeaderBack';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import {
@@ -13,76 +7,76 @@ import {
   TITLE_COLOR,
   PRIMARY_FONT,
   WHITE,
+  PRIMARY_COLOR,
 } from '../../constant';
+import firebase from '../../../firebase';
 
-const MonthlyPaymentAdd = ({navigation}) => {
+const profileEdit = ({navigation}) => {
+  const [username2, setUsername2] = useState('');
+  const [phone2, setPhone2] = useState('');
+
+  const editProfile = () => {
+    firebase
+      .database()
+      .ref('/users/' + firebase.auth().currentUser?.uid)
+      .set({
+        username: username2,
+        phone: phone2,
+      })
+      .then(console.log(username2));
+  };
+
+  const getUserData = () => {
+    firebase
+      .database()
+      .ref(`users/${firebase.auth().currentUser.uid}`)
+      .once('value', function (snapshot) {
+        setUsername2(snapshot.val().username);
+        setPhone2(snapshot.val().phone);
+      });
+  };
+
   const [data, setData] = React.useState({
-    paymentName: '',
-    fee: '',
-    deadline: '',
+    name: '',
+    email: '',
+    phoneNumber: '',
   });
-
-  const paymentNameInputChange = val => {
-    setData({
-      ...data,
-      paymentName: val,
-      check_usernameInputChange: true,
-    });
-  };
-
-  const feeInputChange = val => {
-    setData({
-      ...data,
-      fee: val,
-      check_usernameInputChange: true,
-    });
-  };
-
-  const deadlineInputChange = val => {
-    setData({
-      ...data,
-      deadline: val,
-      check_usernameInputChange: true,
-    });
-  };
 
   return (
     <View style={{flex: 1}}>
-      <HeaderBack navigation={navigation} title="Add New Monthly Payment" />
+      <HeaderBack navigation={navigation} title="Edit Profile" />
 
       <ScrollView>
         <View style={styles.input}>
-          <Text style={[styles.text_footer, {marginTop: 8}]}>Payment Name</Text>
+          <Text style={[styles.text_footer, {marginTop: 8}]}>Name</Text>
           <TextInput
             style={styles.textInput}
             autoCapitalize="none"
-            onChangeText={val => paymentNameInputChange(val)}
+            onChangeText={val => {
+              setUsername2(val);
+            }}
           />
         </View>
         <View style={styles.input}>
-          <Text style={[styles.text_footer, {marginTop: 8}]}>Fee</Text>
+          <Text style={[styles.text_footer, {marginTop: 8}]}>Phone Number</Text>
           <TextInput
             style={styles.textInput}
             autoCapitalize="none"
-            onChangeText={val => feeInputChange(val)}
-            keyboardType="numeric"
-          />
-        </View>
-        <View style={styles.input}>
-          <Text style={[styles.text_footer, {marginTop: 8}]}>Deadline</Text>
-          <TextInput
-            style={styles.textInput}
-            autoCapitalize="none"
-            onChangeText={val => deadlineInputChange(val)}
+            onChangeText={val => {
+              setPhone2(val);
+            }}
             keyboardType="numeric"
           />
         </View>
 
         <View style={styles.button}>
           <TouchableOpacity
-            onPress={() => navigation.navigate('Monthly Payment')}>
+            onPress={() => {
+              editProfile();
+              navigation.goBack();
+            }}>
             <View style={styles.buttonAdd}>
-              <Text style={styles.buttonText}>Add</Text>
+              <Text style={styles.buttonText}>Save</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -90,8 +84,7 @@ const MonthlyPaymentAdd = ({navigation}) => {
     </View>
   );
 };
-
-export default MonthlyPaymentAdd;
+export default profileEdit;
 
 const WindowWidth = Dimensions.get('window').width;
 
@@ -117,12 +110,30 @@ const styles = StyleSheet.create({
     color: 'black',
     borderBottomColor: TITLE_COLOR,
     borderBottomWidth: 1,
+    fontSize: 15,
+    fontStyle: 'italic',
   },
   button: {
     alignItems: 'flex-end',
     paddingTop: 30,
     paddingRight: WindowWidth * 0.04,
     paddingBottom: 35,
+  },
+  budgetDetail: {
+    paddingBottom: 15,
+    alignItems: 'flex-end',
+  },
+  font1: {
+    color: PRIMARY_COLOR,
+    fontSize: 16,
+    fontStyle: 'italic',
+    paddingBottom: 5,
+  },
+  font2: {
+    color: TITLE_COLOR,
+    fontSize: 20,
+    fontFamily: BOLD_FONT,
+    paddingBottom: 5,
   },
   buttonAdd: {
     width: 120,

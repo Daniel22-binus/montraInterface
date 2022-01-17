@@ -13,21 +13,21 @@ import {BOLD_FONT, PRIMARY_COLOR, TITLE_COLOR} from '../../constant/index';
 import PlanningAddNeeds from './PlanningAddNeeds';
 
 const PlanningAdd = ({route, navigation}) => {
-  const {getPlan, FormAction, TitleBtn} = route.params;
+  const {getPlan, keyFirebase, FormAction, TitleBtn} = route.params;
 
   const [Plan, setPlan] = useState(getPlan);
 
   const inputTitleField = text => {
     setPlan({
       ...Plan,
-      title: text,
+      planningName: text,
     });
   };
 
   const inputDescriptionField = text => {
     setPlan({
       ...Plan,
-      description: text,
+      planningDescription: text,
     });
   };
 
@@ -40,14 +40,14 @@ const PlanningAdd = ({route, navigation}) => {
 
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
-      <HeaderBack navigation={navigation} title="Add New Planning" />
+      <HeaderBack navigation={navigation} title={TitleBtn + ' Planning'} />
       <ScrollView>
         <View style={form.container}>
           <View style={form.containerInput}>
             <Text style={form.inputLabel}>Planning Name</Text>
             <TextInput
               style={form.inputText}
-              value={Plan.title}
+              value={Plan.planningName}
               onChangeText={text => inputTitleField(text)}
             />
           </View>
@@ -59,17 +59,26 @@ const PlanningAdd = ({route, navigation}) => {
               numberOfLines={4}
               editable
               maxLength={40}
-              value={Plan.description}
+              value={Plan.planningDescription}
               onChangeText={text => inputDescriptionField(text)}
             />
           </View>
-          <PlanningAddNeeds getNeed={Plan.needs} inputNeedsArray={inputNeedsArray} />
+          <PlanningAddNeeds
+            getNeed={Plan.needs}
+            inputNeedsArray={inputNeedsArray}
+          />
 
           <View style={{alignItems: 'flex-end', marginTop: 15}}>
             <TouchableOpacity
               style={styles.btnContainer}
               onPress={() => {
-                FormAction(Plan);
+                
+                let PlanFirebase = {
+                  keyFirebase: keyFirebase,
+                  Plan: Plan,
+                }
+
+                FormAction(PlanFirebase);
                 navigation.goBack();
               }}>
               <Text style={styles.btnText}>{TitleBtn}</Text>
@@ -119,11 +128,13 @@ const form = StyleSheet.create({
     borderBottomWidth: 1,
     width: 235,
     borderColor: TITLE_COLOR,
+    color: TITLE_COLOR,
   },
   inputBox: {
     borderWidth: 1,
     width: 235,
     borderColor: TITLE_COLOR,
+    color: TITLE_COLOR,
   },
   btnAddNeeds: {
     paddingVertical: windowHeight * 0.02,
