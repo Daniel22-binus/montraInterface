@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback} from 'react';
 import {
   StyleSheet,
   Text,
@@ -12,17 +12,69 @@ import HeaderBack from '../components/HeaderBack';
 import {BOLD_FONT, PRIMARY_COLOR, TITLE_COLOR} from '../constant';
 import DatePickerModal from '../components/DatePickerModal';
 import printDate from '../logic/printDate';
+import newExpenseHook from '../hooks/ExpenseHook/newExpenseHook';
+import budgetHook from '../hooks/budgetHook';
+import {useFocusEffect} from '@react-navigation/native';
+import {objectToList} from '../logic/firebaseFunction';
+import expenseHook from '../hooks/ExpenseHook/expenseHook';
+import notificationHook from '../hooks/notificationHook';
 
 const AddExpense = ({navigation}) => {
-  const [selectedCategory, setSelectedCategory] = useState();
-  const [date, setDate] = useState(new Date());
-  const [newExpense, setNewExpense] = useState({
-    id: 0,
-    budgetId: 0,
-    expensesDescription: '',
-    date: new Date(),
-    amount: 0,
-  });
+  const [
+    newExpense,
+    inputBudgetIdField,
+    inputDescriptionField,
+    inputDateField,
+    inputAmountField,
+  ] = newExpenseHook();
+
+  const [budgetList, getBudget, addBudget, editBudget, deleteBudget] =
+    budgetHook();
+  const [expenseList, getExpense, AddNewExpense] = expenseHook();
+
+  const [notifList, getNotif, addNotif] = notificationHook();
+
+  useFocusEffect(
+    useCallback(() => {
+      getBudget(new Date());
+      getExpense(new Date());
+      getNotif();
+    }, []),
+  );
+
+  const addBudgetUse = () => {
+    let budgetId = newExpense.budgetId;
+    let addAmount = newExpense.amount;
+    objectToList(budgetList.results).map(BudgetVal => {
+      let temp = budgetList.results[BudgetVal];
+      if (temp.id == budgetId) {
+        let amount = 0;
+        if (temp.budgetUse == '') {
+          amount = 0;
+        } else {
+          amount = parseInt(temp.budgetUse);
+        }
+        amount += addAmount;
+        temp.budgetUse = amount.toString();
+        let BudgetFirebase = {
+          keyFirebase: BudgetVal,
+          Budget: temp,
+        };
+        notifLimit(amount, parseInt(temp.budgetLimit), temp.budgetCategory);
+        editBudget(BudgetFirebase);
+        return;
+      }
+    });
+  };
+
+  const notifLimit = (use, total, budgetTitle) => {
+    let limit = total * 0.8;
+
+    if (use > limit) {
+      let message = "Your '" + budgetTitle + "' Budget almost exceed the limit";
+      addNotif(message);
+    }
+  };
 
   return (
     <View style={{backgroundColor: 'white', flex: 1}}>
@@ -34,34 +86,48 @@ const AddExpense = ({navigation}) => {
           <View style={form.containerInputBorderBottom}>
             <TextInput
               style={form.inputDate}
-              value={printDate(date)}
+              value={printDate(newExpense.date)}
               editable={false}
             />
             <DatePickerModal
               style={form.modalDate}
-              getDate={date}
-              getSetDate={setDate}
+              getDate={newExpense.date}
+              getSetDate={inputDateField}
             />
           </View>
         </View>
         <View style={form.containerInput}>
           <Text style={form.inputLabel}>Category</Text>
-          <Picker
-            selectedValue={selectedCategory}
-            onValueChange={(itemValue, itemIndex) => {
-              setSelectedCategory(itemValue);
-            }}
-            dropdownIconColor={TITLE_COLOR}
-            style={selectionBox.pickerContainer}
-            itemStyle={selectionBox.pickerItem}>
-            <Picker.Item label="Konsumsi" value={1} />
-            <Picker.Item label="Edukasi" value={2} />
-            <Picker.Item label="Lain - lain" value={3} />
-          </Picker>
+          <View style={{borderBottomWidth: 1, borderColor: TITLE_COLOR}}>
+            <Picker
+              selectedValue={newExpense.budgetId}
+              onValueChange={(itemValue, itemIndex) => {
+                if (itemValue != -1) inputBudgetIdField(itemValue);
+              }}
+              dropdownIconColor={TITLE_COLOR}
+              style={selectionBox.pickerContainer}
+              itemStyle={selectionBox.pickerItem}>
+              <Picker.Item label="Select Budget" value={-1} />
+
+              {objectToList(budgetList.results).map(Budget => (
+                <Picker.Item
+                  key={Budget}
+                  label={budgetList.results[Budget].budgetCategory}
+                  value={budgetList.results[Budget].id}
+                />
+              ))}
+            </Picker>
+          </View>
         </View>
         <View style={form.containerInput}>
           <Text style={form.inputLabel}>Amount</Text>
-          <TextInput style={form.inputText} keyboardType="numeric" />
+          <TextInput
+            style={form.inputText}
+            keyboardType="numeric"
+            onChangeText={text => {
+              inputAmountField(text);
+            }}
+          />
         </View>
         <View style={form.containerInput}>
           <Text style={form.inputLabel}>Note</Text>
@@ -71,10 +137,21 @@ const AddExpense = ({navigation}) => {
             numberOfLines={4}
             editable
             maxLength={40}
+            onChangeText={text => {
+              inputDescriptionField(text);
+            }}
           />
         </View>
         <View style={{alignItems: 'flex-end', marginTop: 15}}>
-          <TouchableOpacity style={styles.btnContainer}>
+          <TouchableOpacity
+            style={styles.btnContainer}
+            onPress={() => {
+              let flag = AddNewExpense(newExpense);
+              if (flag == true) {
+                addBudgetUse();
+                navigation.goBack();
+              }
+            }}>
             <Text style={styles.btnText}>Add</Text>
           </TouchableOpacity>
         </View>

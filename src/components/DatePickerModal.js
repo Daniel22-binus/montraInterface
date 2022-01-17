@@ -18,6 +18,7 @@ const DatePickerModal = ({getDate, getSetDate, style}) => {
         modal
         open={open}
         date={getDate}
+        mode="date"
         onConfirm={newDate => {
           setOpen(false);
           getSetDate(newDate);

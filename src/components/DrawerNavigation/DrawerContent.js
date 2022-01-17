@@ -1,3 +1,4 @@
+
 import React, {useState} from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import DrawerItemContent from './DrawerItemContent';
@@ -27,6 +28,7 @@ const DrawerContent = ({navigation}) => {
     <View style={styles.container}>
       <View style={userStyle.bg}>
         <Text style={userStyle.welcome}>Welcome,</Text>
+
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
           <View style={userStyle.container}>
             <Image style={userStyle.image} source={Default} />
@@ -37,6 +39,8 @@ const DrawerContent = ({navigation}) => {
               </Text>
             </View>
           </View>
+
+
         </TouchableOpacity>
       </View>
       <DrawerItemContent title="Home" navigation={navigation} />

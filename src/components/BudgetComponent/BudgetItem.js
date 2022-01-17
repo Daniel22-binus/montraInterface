@@ -11,10 +11,15 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import ProgressBar from '../../components/BudgetComponent/ProgressBar';
-import {PrintPrice} from '../../logic/printPrice';
+import {PrintPrice, printStringPrice} from '../../logic/printPrice';
 
-const BudgetItem = ({navigation,Budget, deleteBudget, editBudget}) => {
-
+const BudgetItem = ({
+  navigation,
+  Budget,
+  deleteBudget,
+  editBudget,
+  budgetList,
+}) => {
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -23,29 +28,46 @@ const BudgetItem = ({navigation,Budget, deleteBudget, editBudget}) => {
         start={{x: 1, y: 0}}
         end={{x: 0, y: 1}}>
         <View style={styles.upperStyle}>
-          <Text style={styles.font1}>{Budget.budgetCategory}</Text>
+          <Text style={styles.font1}>{budgetList[Budget].budgetCategory}</Text>
           <View style={styles.icons}>
             <TouchableOpacity
               style={styles.oneIcon}
-              onPress={() => {navigation.navigate('BudgetAddEdit',
-              {
-                getBudget:Budget,
-                Header:"Edit Budget",
-                Button:"Edit",
-                FormAction:editBudget,
-              })}}
-            >
+              onPress={() => {
+                let tempBudget = budgetList[Budget];
+                tempBudget.budgetMonth = new Date(tempBudget.budgetMonth);
+
+                navigation.navigate('BudgetAddEdit', {
+                  getBudget: tempBudget,
+                  keyFirebase: Budget,
+                  Header: 'Edit Budget',
+                  Button: 'Edit',
+                  FormAction: editBudget,
+                });
+              }}>
               <Edit2Icon />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.oneIcon} onPress={()=>deleteBudget(Budget.id)}>
+            <TouchableOpacity
+              style={styles.oneIcon}
+              onPress={() =>
+                deleteBudget(
+                  budgetList[Budget].id,
+                  budgetList[Budget].budgetMonth,
+                )
+              }>
               <DeleteIcon />
             </TouchableOpacity>
           </View>
         </View>
 
-        <Text style={styles.font2}>{PrintPrice(Budget.budgetLimit)}</Text>
-        <ProgressBar current={[Budget.budgetUse]} total={[Budget.budgetLimit]} />
-        <Text style={styles.font3}>{PrintPrice(Budget.budgetUse)}</Text>
+        <Text style={styles.font2}>
+          {PrintPrice(budgetList[Budget].budgetLimit)}
+        </Text>
+        {/* expenses */}
+        <ProgressBar
+          current={budgetList[Budget].budgetUse}
+          total={budgetList[Budget].budgetLimit}
+        />
+        <Text style={styles.font3}>{printStringPrice(budgetList[Budget].budgetUse)}</Text>
       </LinearGradient>
     </View>
   );

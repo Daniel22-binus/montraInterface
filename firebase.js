@@ -20,5 +20,29 @@ if (firebase.apps.length === 0){
 }
 
 const auth = firebase.auth();
+// let app;
+// if (firebase.apps.length === 0) {
+//   firebase.initializeApp(firebaseConfig);
+//   firebase.firestore().settings({ experimentalForceLongPolling: true });
+// } 
+// else {
+//   app = firebase.app();
+// }
+// const auth = firebase.auth();
+
+// let app2;
+// if (firebase.apps.length === 0) {
+//   app2 = firebase.initializeApp(firebaseConfig);
+// } else {
+//   app2 = firebase.app();
+// }
+// const db = firebase.firestore().settings({ experimentalForceLongPolling: true })
+
+// firebase.firestore().settings({experimentalForceLongPolling: true});
 export {auth};
+// export {db};
+
+
+
+
 export default firebase;

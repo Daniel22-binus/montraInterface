@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Dimensions, StyleSheet, Text, View} from 'react-native';
 import {Edit2Icon, DeleteIcon} from '../assets';
 import {
@@ -12,10 +12,12 @@ import LinearGradient from 'react-native-linear-gradient';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import CheckBox from '@react-native-community/checkbox';
 import {useNavigation} from '@react-navigation/native';
+
 import {PrintPrice} from '../logic/printPrice';
 
 const MonthlyPaymentItem = ({Monthly, editMonthly, deleteMonthly,monthlyList,setState}) => {
   const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -24,12 +26,14 @@ const MonthlyPaymentItem = ({Monthly, editMonthly, deleteMonthly,monthlyList,set
         start={{x: 1, y: 0}}
         end={{x: 0, y: 1}}>
         <View style={styles.upperStyle}>
+
           <Text style={styles.font1}> {monthlyList[Monthly].paymentName}</Text>
           <View style={styles.icons}>
             <TouchableOpacity
               style={styles.oneIcon}
               onPress={() => {
                 navigation.navigate('MonthlyAddEdit', {
+
                   getMonthly: monthlyList[Monthly],
                   keyFirebase: Monthly,
                   Header: 'Edit Monthly Payment',
@@ -41,7 +45,9 @@ const MonthlyPaymentItem = ({Monthly, editMonthly, deleteMonthly,monthlyList,set
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.oneIcon}
+
               onPress={() => deleteMonthly(monthlyList[Monthly].id)}>
+
               <DeleteIcon />
             </TouchableOpacity>
           </View>

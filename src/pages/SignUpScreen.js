@@ -40,7 +40,7 @@ const SignUpScreen = ({navigation}) => {
       auth
         .createUserWithEmailAndPassword(email.toString().trim(), password)
         .then(result => {
-          firebase.database().ref('users/'+firebase.auth().currentUser?.uid)
+        firebase.database().ref('users/'+firebase.auth().currentUser?.uid)
             .set({
               username,
               phone,

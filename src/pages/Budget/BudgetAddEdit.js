@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import {View, Text, Dimensions, StyleSheet, TextInput} from 'react-native';
 import HeaderBack from '../../components/HeaderBack';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
@@ -10,10 +10,19 @@ import {
   PRIMARY_COLOR,
 } from '../../constant';
 import MonthPick from '../../components/BudgetComponent/MonthPick';
+import notificationHook from '../../hooks/notificationHook';
+import {useFocusEffect} from '@react-navigation/native';
 
 const BudgetAdd = ({navigation, route}) => {
-  const {getBudget, Header, FormAction, Button} = route.params;
+  const {getBudget, Header, FormAction, Button, keyFirebase} = route.params;
   const [Budget, setBudget] = useState(getBudget);
+  const [notifList, getNotif, addNotif] = notificationHook();
+
+  useFocusEffect(
+    useCallback(() => {
+      getNotif();
+    }, []),
+  );
 
   const budgetTitleInputChange = text => {
     setBudget({
@@ -29,10 +38,25 @@ const BudgetAdd = ({navigation, route}) => {
     });
   };
 
+  const budgetMonthChange = newDate => {
+    setBudget({
+      ...Budget,
+      budgetMonth: newDate,
+    });
+  };
+
+  const editNotEdit = () => {
+    if (Header == 'Add New Budget') {
+      return (
+        <MonthPick date={Budget.budgetMonth} setDate={budgetMonthChange} />
+      );
+    }
+  };
+
   return (
     <View style={{flex: 1}}>
       <HeaderBack navigation={navigation} title={Header} />
-      <MonthPick />
+      {editNotEdit()}
       <ScrollView>
         <View style={styles.input}>
           <Text style={[styles.text_footer, {marginTop: 8}]}>Budget Name</Text>
@@ -55,13 +79,20 @@ const BudgetAdd = ({navigation, route}) => {
         </View>
 
         <View style={styles.button}>
-          <View style={styles.budgetDetail}>
+          {/* <View style={styles.budgetDetail}>
             <Text style={styles.font1}>Current Total Budget in November </Text>
             <Text style={styles.font2}>RP 17.000.000</Text>
-          </View>
+          </View> */}
           <TouchableOpacity
             onPress={() => {
-              FormAction(Budget);
+              let BudgetFirebase = {
+                keyFirebase: keyFirebase,
+                Budget: Budget,
+              };
+              FormAction(BudgetFirebase);
+              addNotif(
+                'Success ' + Header + " '" + Budget.budgetCategory + "'",
+              );
               navigation.goBack();
             }}>
             <View style={styles.buttonAdd}>

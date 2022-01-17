@@ -29,7 +29,6 @@ const planningHook = () => {
       .once('value')
       .then(snapshot => {
         if (snapshot) {
-          // console.log('=====================================');
           setPlanningList({
             results: snapshot.val(),
           });
@@ -57,13 +56,12 @@ const planningHook = () => {
       .ref(path)
       .push(Plan)
       .then(() => {
+        getPlan();
         alert('success add new Planning');
       })
       .catch(error => {
         alert(error);
       });
-
-    getPlan();
   };
 
   const editPlanItem = PlanFirebase => {
@@ -79,6 +77,7 @@ const planningHook = () => {
       .set(PlanFirebase.Plan)
       .then(() => {
         getPlan();
+        alert('success edit Planning');
       })
       .catch(error => {
         alert(error);
@@ -88,16 +87,40 @@ const planningHook = () => {
   const deletePlanItem = key => {
     // const newResults = [...planningList.results];
     // newResults.splice(key, 1);
-
     // newResults.map(plan => {
     //   if (plan.id > key) {
     //     plan.id = plan.id - 1;
     //   }
     // });
-
     // setPlanningList({
     //   results: newResults,
     // });
+
+    const newResults = planningList.results;
+
+    Object.keys(newResults).map(plan => {
+      if (newResults[plan].id == key) {
+        firebase
+          .database()
+          .ref(path + '/' + plan)
+          .remove()
+          .catch(error => {
+            alert(error);
+          });
+      } else if (newResults[plan].id > key) {
+        let tempPlan = newResults[plan];
+        tempPlan.id -= 1;
+        firebase
+          .database()
+          .ref(path + '/' + plan)
+          .set(tempPlan)
+          .catch(error => {
+            alert(error);
+          });
+      }
+    });
+
+    getPlan();
   };
 
   return [

@@ -16,12 +16,10 @@ import DrawerContent from '../components/DrawerNavigation/DrawerContent';
 import MonthlyPayment from '../pages/MonthlyPayment/MonthlyPayment';
 import MonthlyAddEdit from '../pages/MonthlyPayment/MonthlyAddEdit';
 import WaitingPage from '../pages/WaitingPage';
-
 import Budget from '../pages/Budget/Budget';
 import BudgetAddEdit from '../pages/Budget/BudgetAddEdit';
-
 import HistoryTransactionPage from '../pages/HistoryTransactionPage';
-
+import MonthlyPayment from '../pages/MonthlyPayment/MonthlyPayment';
 import Profile from '../pages/Profile/Profile';
 import profileEdit from '../pages/Profile/profileEdit';
 import AddExpense from '../pages/AddExpense';
@@ -94,15 +92,15 @@ const Router = () => {
         component={MonthlyAddEdit}
         options={{headerShown: false}}
       />
+      <Stack.Screen
+        name="WaitingPage"
+        component={WaitingPage}
+        options={{headerShown: false}}
+      />
 
       <Stack.Screen
         name="profileEdit"
         component={profileEdit}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="WaitingPage"
-        component={WaitingPage}
         options={{headerShown: false}}
       />
 
