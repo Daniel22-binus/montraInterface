@@ -2,77 +2,27 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import DrawerItemContent from './DrawerItemContent';
-import {WrongDefault} from '../../assets';
+import {Default} from '../../assets';
 import DrawerLogOutContent from './DrawerLogOutContent';
 import {
-  BACKGROUND_COLOR,
   BOLD_FONT,
   PRIMARY_COLOR,
   TITLE_COLOR,
 } from '../../constant';
 import firebase from 'firebase';
 
-import {auth} from '../../../firebase';
-
-const DrawerContent = ({ navigation }) => {
-  //array
+const DrawerContent = ({navigation}) => {
   const [username, setUsername] = useState('');
 
-  //get username
-  // const Usernamee = firebase
-  //   .firestore()
-  //   .collection('users')
-  //   .doc(firebase.auth().currentUser.uid)
-  //   .get()
-  //   .then(doc => {
-  //     setUsername(doc.data().username);
-      
-  //     // if (doc.exists) {
-  //     //       console.log('Document data:', doc.data());
-  //     //     } else {
-  //     //       // doc.data() //will be undefined in this case
-  //     //       console.log('No such document!');
-  //     //     }
-  //     // if (doc && doc.exists) {
-  //     //   console.log(doc.id, '=>', doc.data().username);
-  //     // }else{
-  //     //   console.log('no data');
-  //     // }
-  //   })
-  //   .catch(error => {
-  //     console.log('Error getting document:', error);
-  //   });
+  firebase
+    .database()
+    .ref(`users/${firebase.auth().currentUser.uid}`)
+    .once('value', function (snapshot) {
+      // console.log(snapshot.val().username);
+      setUsername(snapshot.val().username);
+    });
 
-  //get all user data
-  // const UserUID = firebase
-  // .firestore()
-  // .collection('users')
-  // .doc(firebase.auth().currentUser.uid)
-  // .get()
-  // .then(doc => {
-  //   if (doc.exists) {
-  //     console.log('Document data:', doc.data());
-  //   } else {
-  //     // doc.data() will be undefined in this case
-  //     console.log('No such document!');
-  //   }
-  // })
-  // .catch(error => {
-  //   console.log('Error getting document:', error);
-  // });
-
-  // const monthly = ref
-  // .doc(firebase.auth().currentUser.uid)
-  // .collection('MonthlyPayment')
-  // .doc('DIAcT8ZCU0Qh0c0333M5')
-  // .get()
-  // .then(doc => {
-  //   if (doc.exists) {
-  //     console.log('Doc Data: ', doc.data());
-  //   } else {
-  //     console.log('doc g ada');
-  //   }
-  // });
+  // console.log('get Username: ',username);
 
   return (
     <View style={styles.container}>
@@ -81,14 +31,9 @@ const DrawerContent = ({ navigation }) => {
 
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
           <View style={userStyle.container}>
-            <Image style={userStyle.image} source={WrongDefault} />
+            <Image style={userStyle.image} source={Default} />
             <View style={userStyle.userData}>
-
-              <Text style={userStyle.text}>User</Text>
-              <Text style={userStyle.text}>user@gmail.com</Text>
-              {/* <Text style={userStyle.text}>{username}</Text> */}
-              {/* <Text style={userStyle.text}>{firebase.firestore().collection("users").doc(firebase.auth().currentUser.uid).get().then()}</Text> */}
-
+              <Text style={userStyle.text}>{username}</Text>
               <Text style={userStyle.text}>
                 {firebase.auth().currentUser?.email}
               </Text>
@@ -126,7 +71,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 3,
     marginHorizontal: 8,
     borderColor: TITLE_COLOR,
-    // borderColor: "#6E14FF"
   },
 });
 
@@ -151,6 +95,10 @@ const userStyle = StyleSheet.create({
   },
   image: {
     marginHorizontal: 12,
+    width: 50,
+    height: 50,
+    borderRadius: 50,
+    marginTop:-10
   },
   userData: {
     marginLeft: 14,

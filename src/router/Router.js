@@ -1,6 +1,5 @@
-
-import React, {useEffect} from 'react';
-import {StyleSheet, Text, View, Button} from 'react-native';
+import React from 'react';
+import {StyleSheet} from 'react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createStackNavigator} from '@react-navigation/stack';
 import Home from '../pages/HomePage/Home';
@@ -13,19 +12,21 @@ import SignUpScreen from '../pages/SignUpScreen';
 import Planning from '../pages/PlanningPage/Planning';
 import PlanningAdd from '../pages/PlanningPage/PlanningAdd';
 
+import DrawerContent from '../components/DrawerNavigation/DrawerContent';
+import MonthlyPayment from '../pages/MonthlyPayment/MonthlyPayment';
+import MonthlyAddEdit from '../pages/MonthlyPayment/MonthlyAddEdit';
+import WaitingPage from '../pages/WaitingPage';
 import Budget from '../pages/Budget/Budget';
 import BudgetAddEdit from '../pages/Budget/BudgetAddEdit';
-
-import DrawerContent from '../components/DrawerNavigation/DrawerContent';
 import HistoryTransactionPage from '../pages/HistoryTransactionPage';
-
 import MonthlyPayment from '../pages/MonthlyPayment/MonthlyPayment';
-
 import Profile from '../pages/Profile/Profile';
 import profileEdit from '../pages/Profile/profileEdit';
-import MonthlyAddEdit from '../pages/MonthlyPayment/MonthlyAddEdit';
 import AddExpense from '../pages/AddExpense';
-import WaitingPage from '../pages/WaitingPage';
+
+import Settings from '../pages/Settings/settingsMain';
+import About from '../pages/Settings/About';
+
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
@@ -46,6 +47,7 @@ const MainApp = () => {
         component={HistoryTransactionPage}
       />
       <Drawer.Screen name="Profile" component={Profile} />
+      <Drawer.Screen name="Settings" component={Settings} />
     </Drawer.Navigator>
   );
 };
@@ -99,6 +101,12 @@ const Router = () => {
       <Stack.Screen
         name="profileEdit"
         component={profileEdit}
+        options={{headerShown: false}}
+      />
+
+      <Stack.Screen
+        name="About"
+        component={About}
         options={{headerShown: false}}
       />
 

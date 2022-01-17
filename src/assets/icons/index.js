@@ -6,7 +6,7 @@ import PlanningIcon from './Planning.svg';
 import MonthPayIcon from './MonthlyPayment.svg';
 import SettingsIcon from './Settings.svg';
 import LogoutIcon from './LogOut.svg';
-import WrongDefault from './WrongDefault.png';
+import Default from './Default.png';
 
 import AddIcon from './AddIcon2.svg';
 import MenuIcon from './MenuIcon.svg';
@@ -17,6 +17,9 @@ import BackIcon from './BackIcon.svg';
 import DeleteIcon from './delete.svg';
 import Add1Icon from './add1.svg';
 import ArrowDownIcon from './arrow-down.svg';
+import AboutUs from './AboutUs.svg';
+import ChangePassword from './ChangePassword.svg';
+import Profile from './Profile.svg';
 import CalendarIcon from './Calendar.svg';
 
 //png
@@ -29,7 +32,7 @@ export {
   MonthPayIcon,
   SettingsIcon,
   LogoutIcon,
-  WrongDefault,
+  Default,
   Edit2Icon,
   DeleteIcon,
   Add1Icon,
@@ -37,4 +40,15 @@ export {
 };
 
 //svg
-export {AddIcon, MenuIcon, NotifNotActiveIcon, NotifActiveIcon, BackIcon, CalendarIcon};
+export {
+  AddIcon,
+  MenuIcon,
+  NotifNotActiveIcon,
+  NotifActiveIcon,
+  BackIcon,
+  Profile,
+  ChangePassword,
+  AboutUs,
+  CalendarIcon
+};
+

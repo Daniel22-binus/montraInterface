@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, Dimensions, StyleSheet, TextInput} from 'react-native';
 import HeaderBack from '../../components/HeaderBack';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
@@ -9,32 +9,38 @@ import {
   WHITE,
   PRIMARY_COLOR,
 } from '../../constant';
+import firebase from '../../../firebase';
 
 const profileEdit = ({navigation}) => {
+  const [username2, setUsername2] = useState('');
+  const [phone2, setPhone2] = useState('');
+
+  const editProfile = () => {
+    firebase
+      .database()
+      .ref('/users/' + firebase.auth().currentUser?.uid)
+      .set({
+        username: username2,
+        phone: phone2,
+      })
+      .then(console.log(username2));
+  };
+
+  const getUserData = () => {
+    firebase
+      .database()
+      .ref(`users/${firebase.auth().currentUser.uid}`)
+      .once('value', function (snapshot) {
+        setUsername2(snapshot.val().username);
+        setPhone2(snapshot.val().phone);
+      });
+  };
+
   const [data, setData] = React.useState({
-    name: '', 
+    name: '',
     email: '',
     phoneNumber: '',
   });
-
-  const nameInputChange = val => {
-    setData({
-      ...data,
-      name: val,
-    });
-  };
-  const emailInputChange = val => {
-    setData({
-      ...data,
-      email: val,
-    });
-  };
-  const phoneNumberInputChange = val => {
-    setData({
-      ...data,
-      phoneNumber: val,
-    });
-  };
 
   return (
     <View style={{flex: 1}}>
@@ -44,35 +50,31 @@ const profileEdit = ({navigation}) => {
         <View style={styles.input}>
           <Text style={[styles.text_footer, {marginTop: 8}]}>Name</Text>
           <TextInput
-            placeholder="User"
             style={styles.textInput}
             autoCapitalize="none"
-            onChangeText={val => nameInputChange(val)}
-          />
-        </View>
-        <View style={styles.input}>
-          <Text style={[styles.text_footer, {marginTop: 8}]}>Email</Text>
-          <TextInput
-            placeholder="user@gmail.com"
-            style={styles.textInput}
-            autoCapitalize="none"
-            onChangeText={val => emailInputChange(val)}
+            onChangeText={val => {
+              setUsername2(val);
+            }}
           />
         </View>
         <View style={styles.input}>
           <Text style={[styles.text_footer, {marginTop: 8}]}>Phone Number</Text>
           <TextInput
-            placeholder="0877 0877 0877"
             style={styles.textInput}
             autoCapitalize="none"
-            onChangeText={val => phoneNumberInputChange(val)}
+            onChangeText={val => {
+              setPhone2(val);
+            }}
             keyboardType="numeric"
           />
         </View>
 
         <View style={styles.button}>
           <TouchableOpacity
-            onPress={() => navigation.navigate('Profile')}>
+            onPress={() => {
+              editProfile();
+              navigation.goBack();
+            }}>
             <View style={styles.buttonAdd}>
               <Text style={styles.buttonText}>Save</Text>
             </View>

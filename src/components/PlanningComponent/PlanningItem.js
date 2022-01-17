@@ -56,7 +56,6 @@ const PlanningItem = props => {
             <DeleteIcon />
           </TouchableOpacity>
         </View>
-
         <Text style={styles.description}>
           {planningList[planning].planningDescription}
         </Text>
@@ -102,14 +101,10 @@ const styles = StyleSheet.create({
   container: {
     marginHorizontal: windowWidth * 0.05,
     marginVertical: windowHeight * 0.03,
-    // borderStyle: 'solid',
-    // borderWidth: 1,
-    // borderColor: 'white',
   },
   line: {
     borderStyle: 'solid',
     borderBottomWidth: 2,
-    // marginHorizontal: 3,
     borderColor: 'white',
   },
   title: {

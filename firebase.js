@@ -46,25 +46,3 @@ export {auth};
 
 
 export default firebase;
-
-
-
-// if (firebase.apps.length === 0) {
-//   firebase.initializeApp(firebaseConfig);
-// }
-// if(firebase.apps.length === 0){
-//   firebase.initializeApp(firebaseConfig)
-//   // var db = firebase.firestore();
-// }
-
-// firebase.firestore().settings({experimentalForceLongPolling: true});
-
-// export const firebase = firebase.firestore();
-// const app = initializeApp(firebaseConfig);
-// export const db = app.database();
-
-// if (firebase.apps.length === 0) {
-//   firebase.initializeApp(firebaseConfig)
-// }
-
-// export firebase;
