@@ -24,16 +24,14 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import ProfileJoinedDate from '../../components/ProfileComponent/ProfileJoinedDate';
 import firebase from '../../../firebase';
-import { DrawerContentScrollView } from '@react-navigation/drawer';
-import { useFocusEffect } from '@react-navigation/native';
+import {useFocusEffect} from '@react-navigation/native';
+import {Default} from '../../assets';
 
 const EditProfileScreen = ({navigation}) => {
-  const [image, setImage] = useState('https://ui-avatars.com/api/?name="user"');
-
   useFocusEffect(
     useCallback(() => {
       getUserData();
-    }, [])
+    }, []),
   );
 
   const [username, setUsername] = useState('');
@@ -46,9 +44,22 @@ const EditProfileScreen = ({navigation}) => {
       .once('value', function (snapshot) {
         setUsername(snapshot.val().username);
         setPhone(snapshot.val().phone);
-      }); 
-    }
-    
+      });
+  };
+
+  const handleLogOut = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        navigation.replace('Splash');
+        console.log();
+      })
+      .catch(error => alert(error.message));
+  };
+
+  /*Change Profile Picture
+  const [image, setImage] = useState(Default);
   const takePhotoFromCamera = () => {
     ImagePicker.openCamera({
       compressImageMaxWidth: 300,
@@ -109,7 +120,7 @@ const EditProfileScreen = ({navigation}) => {
 
   bs = React.createRef();
   fall = new Animated.Value(1);
-
+*/
   return (
     <View style={{flex: 1}}>
       <HeaderBack navigation={navigation} title="Profile" />
@@ -126,22 +137,10 @@ const EditProfileScreen = ({navigation}) => {
 
         <View style={styles.title}>
           <Text style={styles.titleFont}>Profile</Text>
-          <FontAwesome
-            onPress={() => navigation.navigate('profileEdit')}
-            name="edit"
-            color={TITLE_COLOR}
-            size={25}
-            style={styles.editIcon}
-          />
         </View>
 
         <View style={styles.profile}>
-          <Image
-            style={styles.profilePhoto}
-            source={{
-              uri: image,
-            }}
-          />
+          <Image style={styles.profilePhoto} source={Default} />
           <Text style={styles.nameFont}>{username}</Text>
           <Text style={styles.profileFont}>
             {firebase.auth().currentUser.email}
@@ -151,10 +150,10 @@ const EditProfileScreen = ({navigation}) => {
         <View style={styles.containerInsideBox}>
           <View style={styles.fiturBox}>
             <TouchableOpacity
-              onPress={() => bs.current.snapTo(0)}
+              onPress={() => navigation.navigate('profileEdit')}
               style={[styles.button, {paddingBottom: 15}]}>
-              <FontAwesome name="camera" color={TITLE_COLOR} size={30} />
-              <Text style={styles.buttonName}>Change Profile Picture</Text>
+              <FontAwesome name="edit" color={TITLE_COLOR} size={30} />
+              <Text style={styles.buttonName}>Edit User Profile</Text>
             </TouchableOpacity>
 
             <View>
@@ -166,9 +165,7 @@ const EditProfileScreen = ({navigation}) => {
             </View>
           </View>
           <View style={styles.fiturBox}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('Splash')}
-              style={styles.button}>
+            <TouchableOpacity onPress={handleLogOut} style={styles.button}>
               <Feather name="log-out" color={TITLE_COLOR} size={30} />
               <Text style={styles.buttonName}>Log Out</Text>
             </TouchableOpacity>
@@ -203,7 +200,6 @@ const styles = StyleSheet.create({
   },
 
   editIcon: {
-    paddingRight: WindowWidth / 18,
     position: 'absolute',
     right: 0,
     marginTop: 8,

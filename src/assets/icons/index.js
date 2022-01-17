@@ -6,7 +6,7 @@ import PlanningIcon from './Planning.svg';
 import MonthPayIcon from './MonthlyPayment.svg';
 import SettingsIcon from './Settings.svg';
 import LogoutIcon from './LogOut.svg';
-import WrongDefault from './WrongDefault.png';
+import Default from './Default.png';
 
 import AddIcon from './AddIcon2.svg';
 import MenuIcon from './MenuIcon.svg';
@@ -32,7 +32,7 @@ export {
   MonthPayIcon,
   SettingsIcon,
   LogoutIcon,
-  WrongDefault,
+  Default,
   Edit2Icon,
   DeleteIcon,
   Add1Icon,

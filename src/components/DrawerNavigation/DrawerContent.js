@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import DrawerItemContent from './DrawerItemContent';
-import {WrongDefault} from '../../assets';
+import {Default} from '../../assets';
 import DrawerLogOutContent from './DrawerLogOutContent';
 import {
-  BACKGROUND_COLOR,
   BOLD_FONT,
   PRIMARY_COLOR,
   TITLE_COLOR,
@@ -30,7 +29,7 @@ const DrawerContent = ({navigation}) => {
         <Text style={userStyle.welcome}>Welcome,</Text>
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
           <View style={userStyle.container}>
-            <Image style={userStyle.image} source={WrongDefault} />
+            <Image style={userStyle.image} source={Default} />
             <View style={userStyle.userData}>
               <Text style={userStyle.text}>{username}</Text>
               <Text style={userStyle.text}>
@@ -92,6 +91,10 @@ const userStyle = StyleSheet.create({
   },
   image: {
     marginHorizontal: 12,
+    width: 50,
+    height: 50,
+    borderRadius: 50,
+    marginTop:-10
   },
   userData: {
     marginLeft: 14,
