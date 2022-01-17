@@ -41,6 +41,17 @@ const SignInScreen = ({navigation}) => {
       .catch(error => alert(error.message));
   };
 
+  const forgetPassword = () => {
+    auth
+      .sendPasswordResetEmail(email)
+      .then(() => {
+        alert('Reset Password has been sent to ' + email);
+      })
+      .catch(e => {
+        alert(e.message);
+      });
+  };
+
   const [data, setData] = useState({
     email: '',
     password: '',
@@ -84,8 +95,6 @@ const SignInScreen = ({navigation}) => {
         <View style={{flexDirection: 'row'}}>
           <View style={{flexDirection: 'column'}}>
             <Text style={styles.text_header}>Welcome to Montra!</Text>
-            {/* <Text style={styles.text_header}>Welcome to</Text>
-            <Text style={styles.text_header}>Montra!</Text> */}
           </View>
           <Image
             source={require('../assets/images/LogoMontra.png')}
@@ -100,7 +109,6 @@ const SignInScreen = ({navigation}) => {
         <Text style={styles.text_userPassword}>E-mail</Text>
 
         <View style={styles.action}>
-          {/* <FontAwesome name="envelope-o" color={TITLE_COLOR} size={20} /> */}
           <FontAwesome name="envelope" color={TITLE_COLOR} size={20} />
           <TextInput
             placeholder="input your E-mail"
@@ -108,7 +116,6 @@ const SignInScreen = ({navigation}) => {
             autoCapitalize="none"
             value={email}
             onChangeText={text => setEmail(text)}
-            // onChangeText={a => textInputChange(a)}
           />
           {data.check_textInputChange ? (
             <Animatable.View animation="bounceIn">
@@ -120,7 +127,6 @@ const SignInScreen = ({navigation}) => {
         <Text style={styles.text_userPassword}>Password</Text>
         <View style={styles.action}>
           <FontAwesome name="lock" color={TITLE_COLOR} size={20} />
-          {/* <Feather name="lock" color={TITLE_COLOR} size={20} /> */}
           <TextInput
             placeholder="input your password"
             secureTextEntry={data.secureTextEntry ? true : false}
@@ -128,7 +134,6 @@ const SignInScreen = ({navigation}) => {
             autoCapitalize="none"
             value={password}
             onChangeText={text => setPassword(text)}
-            // onChangeText={a => passwordToggle(a)}
           />
           <TouchableOpacity onPress={updateSecurePasswordEntry}>
             {data.secureTextEntry ? (
@@ -141,7 +146,7 @@ const SignInScreen = ({navigation}) => {
 
         <View style={{alignItems: 'flex-end'}}>
           <TouchableOpacity
-            onPress={() => navigation.navigate('ForgetPasswordScreen')}>
+            onPress={forgetPassword}>
             <Text style={{color: 'red', fontFamily: PRIMARY_FONT}}>
               forget password?
             </Text>
@@ -149,7 +154,6 @@ const SignInScreen = ({navigation}) => {
         </View>
 
         <View style={styles.button}>
-          {/* <TouchableOpacity onPress={() => navigation.navigate('MainApp')}> */}
           <TouchableOpacity onPress={handleLogIn}>
             <LinearGradient
               colors={[PRIMARY_COLOR, SECONDARY_COLOR]}
@@ -183,7 +187,7 @@ const styles = StyleSheet.create({
     width: 120,
     height: 120,
     justifyContent: 'flex-end',
-    marginLeft: 60,
+    marginLeft: 20,
   },
   header: {
     flex: 1,

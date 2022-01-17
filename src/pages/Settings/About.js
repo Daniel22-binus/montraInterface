@@ -11,6 +11,7 @@ import {
   SECONDARY_COLOR,
   SOFT_COLOR,
   TITLE_COLOR,
+  TITLE_FONT,
   WHITE,
 } from '../../constant';
 
@@ -25,7 +26,7 @@ const About = ({navigation}) => {
           <View style={styles.innerBox}>
             <ScrollView>
               <Text style={styles.innerFont}>
-                Montra apps is a personal financial management application. The
+                Montra app is a personal financial management application. The
                 use of this Montra application is to help users manage their
                 finances every month. Users can control their spending based on
                 the budget that has been made by themself. Budget category can
@@ -70,8 +71,8 @@ const styles = StyleSheet.create({
     backgroundColor: BACKGROUND_COLOR,
   },
   title: {
-    marginTop: 15,
-    fontFamily: BOLD_FONT,
+    marginTop: 25,
+    fontFamily: TITLE_FONT,
     color: TITLE_COLOR,
     fontSize: 30,
     textAlign: 'center',
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
     backgroundColor: PRIMARY_COLOR,
     paddingVertical: 20, 
     paddingHorizontal: 20,
-    marginVertical: 12, 
+    marginVertical: 20, 
     margin: 20,
     borderRadius: 25,
   },
@@ -98,19 +99,24 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: WHITE,
     fontSize: 18,
+    fontFamily:BOLD_FONT
   },
 
   innerFont: {
     textAlign: 'justify',
+    color: TITLE_COLOR,
+    fontFamily: PRIMARY_FONT
   },
 
   contactFont: {
-    fontWeight: 'bold',
     color: TITLE_COLOR,
+    fontFamily:BOLD_FONT,
     fontSize: 15,
   },
 
   contactContains: {
-    // paddingBottom: 15,
+    textAlign: 'justify',
+    color: TITLE_COLOR,
+    fontFamily: PRIMARY_FONT
   },
 });

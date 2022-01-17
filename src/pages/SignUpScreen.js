@@ -44,7 +44,6 @@ const SignUpScreen = ({navigation}) => {
             .set({
               username,
               phone,
-              email,
             });
           console.log(result);
           navigation.navigate('SignInScreen');
