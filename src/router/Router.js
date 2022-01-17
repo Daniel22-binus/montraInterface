@@ -6,12 +6,9 @@ import Home from '../pages/HomePage/Home';
 import Notification from '../pages/Notification';
 import Splash from '../pages/Splash';
 import SignInScreen from '../pages/SignInScreen';
-import ForgetPasswordScreen from '../pages/ForgetPassword';
 import SignUpScreen from '../pages/SignUpScreen';
-
 import Planning from '../pages/PlanningPage/Planning';
 import PlanningAdd from '../pages/PlanningPage/PlanningAdd';
-
 import DrawerContent from '../components/DrawerNavigation/DrawerContent';
 import MonthlyPayment from '../pages/MonthlyPayment/MonthlyPayment';
 import MonthlyAddEdit from '../pages/MonthlyPayment/MonthlyAddEdit';
@@ -19,11 +16,10 @@ import WaitingPage from '../pages/WaitingPage';
 import Budget from '../pages/Budget/Budget';
 import BudgetAddEdit from '../pages/Budget/BudgetAddEdit';
 import HistoryTransactionPage from '../pages/HistoryTransactionPage';
-import MonthlyPayment from '../pages/MonthlyPayment/MonthlyPayment';
 import Profile from '../pages/Profile/Profile';
 import profileEdit from '../pages/Profile/profileEdit';
 import AddExpense from '../pages/AddExpense';
-
+import changePassword from '../pages/Settings/changePassword';
 import Settings from '../pages/Settings/settingsMain';
 import About from '../pages/Settings/About';
 
@@ -40,7 +36,6 @@ const MainApp = () => {
       <Drawer.Screen name="Notifications" component={Notification} />
       <Drawer.Screen name="Budget" component={Budget} />
       <Drawer.Screen name="Monthly Payment" component={MonthlyPayment} />
-
       <Drawer.Screen name="Planning" component={Planning} />
       <Drawer.Screen
         name="History Transaction"
@@ -68,11 +63,6 @@ const Router = () => {
       <Stack.Screen
         name="SignUpScreen"
         component={SignUpScreen}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="ForgetPasswordScreen"
-        component={ForgetPasswordScreen}
         options={{headerShown: false}}
       />
       <Stack.Screen
@@ -107,6 +97,12 @@ const Router = () => {
       <Stack.Screen
         name="About"
         component={About}
+        options={{headerShown: false}}
+      />
+
+      <Stack.Screen
+        name="Change Password"
+        component={changePassword}
         options={{headerShown: false}}
       />
 

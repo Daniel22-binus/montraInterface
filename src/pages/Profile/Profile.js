@@ -125,7 +125,7 @@ const EditProfileScreen = ({navigation}) => {
     <View style={{flex: 1}}>
       <HeaderBack navigation={navigation} title="Profile" />
       <View style={styles.container}>
-        <BottomSheet
+        {/* <BottomSheet
           ref={bs}
           snapPoints={[330, 0]}
           renderContent={renderInner}
@@ -133,7 +133,7 @@ const EditProfileScreen = ({navigation}) => {
           initialSnap={1}
           callbackNode={fall}
           enabledGestureInteraction={true}
-        />
+        /> */}
 
         <View style={styles.title}>
           <Text style={styles.titleFont}>Profile</Text>
