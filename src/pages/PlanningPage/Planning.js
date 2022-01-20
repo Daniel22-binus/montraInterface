@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import {
   View,
   Text,
@@ -14,7 +14,7 @@ import {Add1Icon} from '../../assets/icons';
 import planningHook from '../../hooks/planningHook';
 import {objectToList} from '../../logic/firebaseFunction';
 import {useFocusEffect} from '@react-navigation/native';
-import firebase from '../../../firebase';
+import firebase from 'firebase';
 
 const Planning = ({navigation}) => {
   const [
@@ -32,12 +32,21 @@ const Planning = ({navigation}) => {
     }, []),
   );
 
+
+  const [username, setUsername] = useState('');
+  firebase
+    .database()
+    .ref(`users/${firebase.auth().currentUser.uid}`)
+    .once('value', function (snapshot) {
+      setUsername(snapshot.val().username);
+    });
+
   return (
     <View style={styles.container}>
       <HeaderBack navigation={navigation} title="Planning" />
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Hai, </Text>
-        <Text style={styles.userTitle}>User &#128400;</Text>
+        <Text style={styles.userTitle}>{username} &#128400;</Text>
       </View>
       <Text style={styles.title2}>here’s your ongoing planning</Text>
 
@@ -80,20 +89,6 @@ const Planning = ({navigation}) => {
           </TouchableOpacity>
         </ScrollView>
       </View>
-
-      <TouchableOpacity
-        onPress={() => {
-          firebase
-            .firestore()
-            .collection('users')
-            .doc(firebase.auth().currentUser.uid)
-            .get()
-            .then(doc => {
-              console.log(doc);
-            });
-        }}>
-        <Text>Print</Text>
-      </TouchableOpacity>
     </View>
   );
 };

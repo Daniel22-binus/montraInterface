@@ -5,23 +5,28 @@ import {
   View,
   TouchableOpacity,
   Dimensions,
+  ScrollView,
 } from 'react-native';
 import PieChartReact from '../../components/HomeComponent/PieChartReact';
 import HistoryItem from '../../components/HistoryItem';
 import {AddIcon} from '../../assets/icons';
 import {BOLD_FONT, PRIMARY_COLOR, PRIMARY_FONT} from '../../constant';
 import expenseHook from '../../hooks/expenseHook';
+import {PrintPrice} from '../../logic/printPrice';
 
-const HomeHeader = ({navigation}) => {
+const HomeHeader = ({navigation, sisa}) => {
   return (
     <View style={{flexDirection: 'row', marginLeft: 10, marginVertical: 12}}>
       <View style={textTop.budgetContainer}>
         <Text style={textTop.budget}>your budget left:</Text>
-        <Text style={textTop.rp}>Rp. 6.700.000</Text>
+        <Text style={textTop.rp}>{PrintPrice(sisa)}</Text>
       </View>
       <View style={textTop.textcontainer}>
-        <TouchableOpacity style={{flexDirection: 'row'}}
-        onPress={() => {navigation.navigate("AddExpense")}}>
+        <TouchableOpacity
+          style={{flexDirection: 'row'}}
+          onPress={() => {
+            navigation.navigate('AddExpense');
+          }}>
           <Text style={textTop.textexpense}>Add Expense</Text>
           <AddIcon />
         </TouchableOpacity>
@@ -43,28 +48,44 @@ const HomeAll = ({navigation}) => {
 
   return (
     <View style={{backgroundColor: 'white', flex: 1}}>
-      <HomeHeader navigation={navigation} />
+      <HomeHeader navigation={navigation} sisa={1261000} />
       <PieChartReact />
+
       <View>
+        <View style={stylePie.superContainer}>
+          <View style={stylePie.container}>
+            <View style={colorPie('#c61aff')} />
+            <Text> Konsumsi</Text>
+          </View>
+          <View style={stylePie.container}>
+            <View style={colorPie('#0f420a')} />
+            <Text> Edukasi</Text>
+          </View>
+          <View style={stylePie.container}>
+            <View style={colorPie('#7cd9b4')} />
+            <Text> Transport</Text>
+          </View>
+        </View>
         <Text style={styles.textTitle}>Expenses</Text>
 
-        {historyListShort.reverse().map(history => (
-          <HistoryItem
-            key={history.id}
-            title={history.expensesDescription}
-            date={history.date}
-            rp={history.amount}
-          />
-        ))}
-
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('History Transaction');
-          }}>
-          <View>
-            <Text style={styles.textDetails}>see details.</Text>
-          </View>
-        </TouchableOpacity>
+        <ScrollView>
+          {historyListShort.reverse().map(history => (
+            <HistoryItem
+              key={history.id}
+              title={history.expensesDescription}
+              date={history.date}
+              rp={history.amount}
+            />
+          ))}
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('History Transaction');
+            }}>
+            <View>
+              <Text style={styles.textDetails}>see details.</Text>
+            </View>
+          </TouchableOpacity>
+        </ScrollView>
       </View>
     </View>
   );
@@ -115,5 +136,26 @@ const textTop = StyleSheet.create({
     fontStyle: 'italic',
     marginRight: 7,
   },
-  addBtn: {},
 });
+
+const stylePie = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  superContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly'
+  },
+});
+
+const colorPie = color => {
+  return {
+    borderRadius: 40,
+    borderColor: color,
+    borderStyle: 'solid',
+    borderWidth: 5,
+    width: windowWidth * 0.01,
+    height: windowWidth * 0.01,
+  };
+};

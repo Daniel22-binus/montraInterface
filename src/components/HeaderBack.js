@@ -12,7 +12,6 @@ const HeaderBack = ({navigation, title}) => {
         }}>
         <View style={styles.icon}>
           <BackIcon />
-          {/* <Text> &#11013; </Text> */}
         </View>
       </TouchableOpacity>
       <Text style={styles.title}>{title}</Text>

@@ -6,7 +6,7 @@ const expenseHook = () => {
     //untuk budgetID
     //1 = konsumsi
     //2 = edukasi
-    //3 = lain lain
+    //3 = Transportasi
     {
       id: 0,
       budgetId: 2,
@@ -24,7 +24,7 @@ const expenseHook = () => {
     {
       id: 2,
       budgetId: 3,
-      expensesDescription: 'PLN',
+      expensesDescription: 'isi flazz card',
       date: new Date('10 January 2021'),
       amount: 500000,
     },
@@ -41,6 +41,20 @@ const expenseHook = () => {
       expensesDescription: 'Beli mcflurry rainbow',
       date: new Date('15 January 2021'),
       amount: 50000,
+    },
+    {
+      id: 5,
+      budgetId: 3,
+      expensesDescription: 'Gojek ke Binus',
+      date: new Date('17 January 2021'),
+      amount: 2000,
+    },
+    {
+      id: 6,
+      budgetId: 3,
+      expensesDescription: 'Grab ke Binus',
+      date: new Date('18 January 2021'),
+      amount: 2000,
     },
   ]);
 

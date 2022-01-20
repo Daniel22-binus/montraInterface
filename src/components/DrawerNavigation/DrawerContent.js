@@ -18,11 +18,8 @@ const DrawerContent = ({navigation}) => {
     .database()
     .ref(`users/${firebase.auth().currentUser.uid}`)
     .once('value', function (snapshot) {
-      // console.log(snapshot.val().username);
       setUsername(snapshot.val().username);
     });
-
-  // console.log('get Username: ',username);
 
   return (
     <View style={styles.container}>

@@ -5,6 +5,7 @@ import {
   View,
   Dimensions,
   TouchableOpacity,
+  ScrollView
 } from 'react-native';
 import Header from '../components/Header';
 import HistoryItem from '../components/HistoryItem';
@@ -36,19 +37,14 @@ const Notification = ({navigation}) => {
           </TouchableOpacity>
         </View>
 
-        <View>
-          {/* <HistoryItem title="Your ‘Food & Beverage’ Budget almost exceeds the limit " />
-          <HistoryItem title="Successfully added new Budget ‘Transportation’" />
-          <HistoryItem title="Successfully added new Budget ‘Education’" />
-          <HistoryItem title="Don’t forget to pay your PLN’s fee and check in Monthly Payment!" /> */}
-
+        <ScrollView>
           {objectToList(notifList.results).map(Notif => (
             <HistoryItem
               key={Notif}
               title={notifList.results[Notif].description}
             />
           ))}
-        </View>
+        </ScrollView>
       </View>
     </View>
   );

@@ -40,13 +40,6 @@ const DrawerItemContent = ({title, navigation}) => {
   };
 
   return (
-    // <DrawerItem
-    //     label={title}
-    //     onPress={() => {
-    //       navigation.navigate(title);
-    //     }}
-    //   />
-
     <TouchableHighlight
       activeOpacity={1}
       underlayColor="#DDDDDD"
@@ -54,7 +47,6 @@ const DrawerItemContent = ({title, navigation}) => {
         navigation.navigate(title);
       }}>
       <View style={styles.container}>
-        {/* <Image style={styles.icon} source={Icon()} /> */}
         <Icon />
         <Text style={styles.item}>{title}</Text>
       </View>

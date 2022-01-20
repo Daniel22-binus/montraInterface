@@ -55,7 +55,6 @@ const HistoryTransactionPage = ({navigation}) => {
 
       <ScrollView>
         {objectToList(expenseList.results)
-          // .filter((expense) => {expenseList.results[expense].budgetId == pick })
           .reverse()
           .map(expense => {
             if (pick == -1 || expenseList.results[expense].budgetId == pick) {

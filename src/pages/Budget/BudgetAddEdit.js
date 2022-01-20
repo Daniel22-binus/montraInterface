@@ -79,10 +79,6 @@ const BudgetAdd = ({navigation, route}) => {
         </View>
 
         <View style={styles.button}>
-          {/* <View style={styles.budgetDetail}>
-            <Text style={styles.font1}>Current Total Budget in November </Text>
-            <Text style={styles.font2}>RP 17.000.000</Text>
-          </View> */}
           <TouchableOpacity
             onPress={() => {
               let BudgetFirebase = {
