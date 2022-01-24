@@ -1,13 +1,22 @@
-import React ,{useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import {View, Text, Dimensions, StyleSheet, TextInput} from 'react-native';
 import HeaderBack from '../../components/HeaderBack';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import {BOLD_FONT, TITLE_COLOR, PRIMARY_FONT, WHITE} from '../../constant';
+import notificationHook from '../../hooks/notificationHook';
+import {useFocusEffect} from '@react-navigation/native';
+import { getStrDate } from '../../logic/printDate';
 
 const MonthlyPaymentAdd = ({route, navigation}) => {
-  const {getMonthly, Header,FormAction, TitleBtn, keyFirebase} = route.params;
+  const {getMonthly, Header, FormAction, TitleBtn, keyFirebase} = route.params;
   const [Monthly, setMonthly] = useState(getMonthly);
+  const [notifList, getNotif, addNotif] = notificationHook();
 
+  useFocusEffect(
+    useCallback(() => {
+      getNotif();
+    }, []),
+  );
 
   const paymentTitleInputChange = text => {
     setMonthly({
@@ -32,7 +41,7 @@ const MonthlyPaymentAdd = ({route, navigation}) => {
 
   return (
     <View style={{flex: 1}}>
-      <HeaderBack navigation={navigation} title={Header}/>
+      <HeaderBack navigation={navigation} title={Header} />
 
       <ScrollView>
         <View style={styles.input}>
@@ -64,17 +73,22 @@ const MonthlyPaymentAdd = ({route, navigation}) => {
         </View>
 
         <View style={styles.button}>
-              <TouchableOpacity
-              onPress={() => {
-                
-                let MonthlyFirebase = {
-                  keyFirebase: keyFirebase,
-                  Monthly: Monthly,
-                }
+          <TouchableOpacity
+            onPress={() => {
+              let MonthlyFirebase = {
+                keyFirebase: keyFirebase,
+                Monthly: Monthly,
+              };
 
-                FormAction(MonthlyFirebase);
-                navigation.goBack();
-              }}>
+              FormAction(MonthlyFirebase);
+              addNotif(
+                "Don't forget to pay your " +
+                  Monthly.paymentName +
+                  "'s fee and check in Monthly Payment",
+                getStrDate(Monthly.paymentDeadline),
+              );
+              navigation.goBack();
+            }}>
             <View style={styles.buttonAdd}>
               <Text style={styles.buttonText}>{TitleBtn}</Text>
             </View>

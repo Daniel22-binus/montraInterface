@@ -29,5 +29,12 @@ const getMonthPick = getDate => {
   return result;
 };
 
-export {getMonthPick};
+const getStrDate = (StrDate) => {
+
+  let now = new Date();
+  let result = months[now.getMonth()] + " " + StrDate + " " + now.getFullYear() +" 09:30:00 GMT+0700 (+07)";
+  return result;
+}
+
+export {getMonthPick, getStrDate};
 export default printDate;

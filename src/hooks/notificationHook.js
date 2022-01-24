@@ -24,7 +24,7 @@ const notificationHook = () => {
       });
   };
 
-  const addNotif = str => {
+  const addNotif = (str, date) => {
     let tempId = 0;
 
     if (notifList.results) {
@@ -42,8 +42,14 @@ const notificationHook = () => {
       .then(() => {
         getNotif();
         notification.configure();
-        notification.createChannel("1");
-        notification.sendNotif("1", str);
+        notification.createChannel('1');
+
+        if (date) {
+          notification.sendNotifFiveLater('1', str);
+          // notification.sendNotifSchedule('1', date, str);
+        } else {
+          notification.sendNotif('1', str);
+        }
       })
       .catch(error => {
         alert(error);

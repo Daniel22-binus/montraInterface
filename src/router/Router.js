@@ -22,6 +22,7 @@ import AddExpense from '../pages/AddExpense';
 import changePassword from '../pages/Settings/changePassword';
 import Settings from '../pages/Settings/settingsMain';
 import About from '../pages/Settings/About';
+import HomeTemp from '../pages/HomePage/HomeTemp'
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -32,7 +33,7 @@ const MainApp = () => {
       initialRouteName="Home"
       drawerContent={props => <DrawerContent {...props} />}
       drawerStyle={styles.navigatorContainer}>
-      <Drawer.Screen name="Home" component={Home} />
+      <Drawer.Screen name="Home" component={HomeTemp} />
       <Drawer.Screen name="Notifications" component={Notification} />
       <Drawer.Screen name="Budget" component={Budget} />
       <Drawer.Screen name="Monthly Payment" component={MonthlyPayment} />

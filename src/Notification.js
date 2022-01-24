@@ -1,5 +1,5 @@
 import PushNotification, {Importance} from 'react-native-push-notification';
-import PushNotificationIOS from "@react-native-community/push-notification-ios";
+import PushNotificationIOS from '@react-native-community/push-notification-ios';
 
 class Notification {
   configure = () => {
@@ -80,14 +80,24 @@ class Notification {
   };
 
   sendNotifSchedule = (channel, date, description) => {
-    PushNotification.localNotificationSchedule ({
+    PushNotification.localNotificationSchedule({
       channelId: channel,
       title: 'Money Transaction',
       date: new Date(date),
       message: description,
-    })
-  }
+      repeatType: 'month',
+      repeatTime: 1,
+    });
+  };
 
+  sendNotifFiveLater = (channel, description) => {
+    PushNotification.localNotificationSchedule({
+      channelId: channel,
+      title: 'Money Transaction',
+      date: new Date(Date.now() + 5 * 1000),
+      message: description,
+    });
+  };
 }
 
 export const notification = new Notification();

@@ -5,6 +5,7 @@ import {
   View,
   Dimensions,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {BOLD_FONT, PRIMARY_FONT, TITLE_COLOR} from '../../constant';
@@ -52,7 +53,8 @@ const PlanningItem = props => {
             }}>
             <Edit2Icon />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => deletePlanItem(planningList[planning].id)}>
+          <TouchableOpacity
+            onPress={() => deletePlanItem(planningList[planning].id)}>
             <DeleteIcon />
           </TouchableOpacity>
         </View>
@@ -62,16 +64,16 @@ const PlanningItem = props => {
         <Text style={styles.price}> {PrintPrice(price)} </Text>
         <View style={styles.line} />
 
-        <View style={styles.needsContainer}>
+        <ScrollView style={styles.needsContainer}>
           {planningList[planning].needs.map(need => (
-            <PlanningNeeds 
+            <PlanningNeeds
               key={need.id}
               need={need}
               indexPlan={planning}
               setStateNeed={setStateNeed}
             />
           ))}
-        </View>
+        </ScrollView>
       </View>
     </LinearGradient>
   );
