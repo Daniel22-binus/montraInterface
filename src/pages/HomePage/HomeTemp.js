@@ -14,7 +14,7 @@ const HomeTemp = ({navigation}) => {
   const [expenseList, getExpense] = expenseHook();
   const [budgetList, getBudget] = budgetHook();
 
-  let JumlahBudget = 0;
+  let JumlahBudget = 1;
   let currentBudget = 0;
 
   useFocusEffect(
@@ -35,7 +35,7 @@ const HomeTemp = ({navigation}) => {
         currentBudget = currentBudget + parseInt(temp2, 10);
       }
     });
-    // JumlahBudget -= 1
+    JumlahBudget -= 1;
   };
   hitung();
 
@@ -49,7 +49,10 @@ const HomeTemp = ({navigation}) => {
 
   let flag = 0;
 
-  const persentase = persen => {
+  const persentase = () => {
+    if (currentBudget == 0) return '0%';
+
+    let persen = currentBudget / JumlahBudget;
     let result = parseInt(persen * 100);
 
     return result + '%';
@@ -64,9 +67,7 @@ const HomeTemp = ({navigation}) => {
         progress={currentBudget / JumlahBudget}
         progressColor={checkColor(currentBudget / JumlahBudget)}>
         <View style={circleStyle.containerText}>
-          <Text style={circleStyle.textTitle}>
-            {persentase(currentBudget / JumlahBudget)}
-          </Text>
+          <Text style={circleStyle.textTitle}>{persentase()}</Text>
         </View>
       </ProgressCircle>
       <View>
